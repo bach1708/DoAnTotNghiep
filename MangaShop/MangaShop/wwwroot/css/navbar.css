@@ -1,0 +1,91 @@
+﻿/* --- Header & Thanh Menu --- */
+.manga-header {
+    background-color: white; /* Nền trắng */
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%; /* Tùy chỉnh padding để căn chỉnh */
+    /* border-bottom: 1px solid #eee; */
+}
+
+.logo img {
+    height: 40px; /* Chiều cao logo Manga Shop */
+}
+
+/* Căn chỉnh các thành phần bên phải: Tài Khoản | Giỏ Hàng (0) */
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+    .user-actions a {
+        margin-left: 15px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+
+    .user-actions i {
+        margin-right: 5px;
+        font-size: 16px;
+    }
+
+
+/* Thanh tìm kiếm */
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 40px; /* Chiều cao bằng với logo */
+}
+
+    .search-bar input {
+        padding: 8px 15px;
+        border: none;
+        outline: none;
+        width: 350px; /* Chiều rộng thanh input */
+    }
+
+    .search-bar button {
+        background-color: #79a14c; /* Màu xanh của nút Tìm ngay */
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        cursor: pointer;
+        height: 100%;
+        font-weight: bold;
+    }
+
+/* Thanh điều hướng chính (Menu) */
+.main-nav {
+    background-color: #6d934c; /* Màu xanh đậm của thanh menu */
+}
+
+    .main-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center; /* Căn giữa menu */
+    }
+
+    .main-nav li a {
+        color: white;
+        text-decoration: none;
+        padding: 12px 20px;
+        display: block;
+        font-weight: bold;
+        font-size: 15px;
+        transition: background-color 0.2s;
+    }
+
+        .main-nav li a:hover {
+            background-color: #55793a;
+        }

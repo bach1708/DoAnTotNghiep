@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Thanh toán thành công";
+}
+
+<div class="container mt-5 text-center">
+    <div class="card shadow p-5">
+
+        <h2 class="text-success mb-3">🎉 THANH TOÁN THÀNH CÔNG</h2>
+
+        <p class="fs-5">
+            Cảm ơn bạn đã mua truyện tại <strong>MangaShop</strong> ❤️
+        </p>
+
+        <p>
+            Đơn hàng của bạn đã được ghi nhận và sẽ sớm được xử lý.
+        </p>
+
+        <div class="mt-4">
+            <a asp-controller="NVBHome"
+               asp-action="Home"
+               class="btn btn-primary me-2">
+                🏠 Về trang chủ
+            </a>
+
+            <a asp-controller="NVBHome"
+               asp-action="DanhMuc"
+               class="btn btn-outline-secondary">
+                📚 Tiếp tục mua sắm
+            </a>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,61 @@
+﻿@model List<MangaShop.Models.DonHang>
+
+@{
+    ViewData["Title"] = "Quản lý đơn hàng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-4">📦 QUẢN LÝ ĐƠN HÀNG</h2>
+
+<table class="table table-bordered text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>Ngày đặt</th>
+            <th>Tổng tiền</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>#@item.MaDonHang</td>
+                <td>@item.MaKhachHangNavigation.HoTen</td>
+                <td>@item.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
+                <td class="text-danger fw-bold">
+                    @item.TongTien.ToString("N0") ₫
+                </td>
+                <td>
+                    <form asp-action="UpdateStatus" method="post" class="d-flex">
+                        <input type="hidden" name="id" value="@item.MaDonHang" />
+                        <select name="trangThai" class="form-select form-select-sm">
+                            <option selected>@item.TrangThai</option>
+                            <option>Chờ xử lý</option>
+                            <option>Đang giao</option>
+                            <option>Hoàn thành</option>
+                            <option>Huỷ</option>
+                        </select>
+                        <button class="btn btn-sm btn-success ms-1">✔</button>
+                    </form>
+                </td>
+                <td>
+                    <a asp-action="BillDetailAdmin"
+                       asp-route-id="@item.MaDonHang"
+                       class="btn btn-sm btn-primary">
+                        Chi tiết
+                    </a>
+                </td>
+            </tr>
+            
+        }
+    </tbody>
+
+</table>
+<a asp-controller="NvbAdmin"
+   asp-action="Index"
+   class="btn btn-secondary">
+    ⬅️ Quay lại
+</a>

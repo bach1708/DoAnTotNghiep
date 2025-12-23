@@ -1,0 +1,98 @@
+﻿@model List<MangaShop.Models.Truyen>
+
+
+@{
+    ViewData["Title"] = "Danh mục truyện tranh";
+    var theLoai = ViewBag.TheLoai as List<TheLoai>;
+    int? maTheLoai = ViewBag.MaTheLoai as int?;
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">📚 DANH MỤC TRUYỆN TRANH</h2>
+
+    <div class="row">
+
+        <!-- CỘT TRÁI: THỂ LOẠI -->
+        <div class="col-md-3">
+            <h5>Thể loại</h5>
+            <ul class="list-group">
+                <li class="list-group-item @(maTheLoai == null ? "active" : "")">
+                    <a asp-action="DanhMuc"
+                       class="text-decoration-none text-dark d-block">
+                        Tất cả
+                    </a>
+                </li>
+
+                @foreach (var tl in theLoai)
+                {
+                    <li class="list-group-item @(maTheLoai == tl.MaTheLoai ? "active" : "")">
+                        <a asp-action="DanhMuc"
+                           asp-route-maTheLoai="@tl.MaTheLoai"
+                           class="text-decoration-none text-dark d-block">
+                            @tl.TenTheLoai
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- CỘT PHẢI: DANH SÁCH TRUYỆN -->
+        <div class="col-md-9">
+
+            <div class="row g-4">
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm">
+
+                            <img src="~/images/@item.AnhBia"
+                                 class="card-img-top"
+                                 style="height:260px; object-fit:cover" />
+
+                            <div class="card-body text-center">
+                                <h6 class="card-title">@item.TenTruyen</h6>
+
+                                <p class="text-danger fw-bold">
+                                    @item.Gia.ToString("N0") ₫
+                                </p>
+
+                                @if (item.SoLuongTon > 0)
+                                {
+                                    <a class="btn btn-success w-100"
+                                       asp-controller="Cart"
+                                       asp-action="Add"
+                                       asp-route-id="@item.MaTruyen">
+                                        🛒 Thêm vào giỏ hàng
+                                    </a>
+
+                                }
+                                else
+                                {
+                                    <button class="btn btn-secondary w-100" disabled>
+                                        Hết hàng
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (!Model.Any())
+                {
+                    <div class="col-12">
+                        <div class="alert alert-warning text-center">
+                            Không có truyện trong danh mục này
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/DanhMuc.css" asp-append-version="true" />
+}

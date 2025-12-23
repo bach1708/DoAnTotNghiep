@@ -1,0 +1,40 @@
+﻿@model List<MangaShop.Models.ChiTietDonHang>
+@{
+    var donHang = ViewBag.DonHang as MangaShop.Models.DonHang;
+    ViewData["Title"] = "Quản lý đơn hàng";
+    Layout = "_AdminLayout";
+}
+
+<h3>🧾 Chi tiết đơn hàng #@donHang.MaDonHang</h3>
+
+<p>
+    <strong>Khách hàng:</strong> @donHang.MaKhachHangNavigation.HoTen <br />
+    <strong>Ngày đặt:</strong> @donHang.NgayDat?.ToString("dd/MM/yyyy HH:mm") <br />
+    <strong>Trạng thái:</strong> @donHang.TrangThai
+</p>
+
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Truyện</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaTruyenNavigation.TenTruyen</td>
+                <td>@item.DonGia.ToString("N0") ₫</td>
+                <td>@item.SoLuong</td>
+                <td class="text-danger fw-bold">
+                    @(((double)donHang.TongTien).ToString("N0")) ₫
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="BillAdmin" class="btn btn-secondary">⬅ Quay lại</a>

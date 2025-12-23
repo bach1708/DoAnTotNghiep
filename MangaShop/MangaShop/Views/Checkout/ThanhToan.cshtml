@@ -1,0 +1,64 @@
+﻿@model List<MangaShop.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Thanh toán";
+    var tongTien = Model.Sum(x => x.ThanhTien);
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">🧾 XÁC NHẬN THANH TOÁN</h2>
+
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên truyện</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:120px">
+                        <img src="~/images/@item.AnhBia"
+                             style="width:80px; height:100px; object-fit:cover" />
+                    </td>
+                    <td>@item.TenTruyen</td>
+                    <td class="text-danger fw-bold">
+                        @item.Gia.ToString("N0") ₫
+                    </td>
+                    <td>@item.SoLuong</td>
+                    <td class="fw-bold">
+                        @item.ThanhTien.ToString("N0") ₫
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-end mt-4">
+        <h4>
+            Tổng tiền:
+            <span class="text-danger fw-bold">
+                @tongTien.ToString("N0") ₫
+            </span>
+        </h4>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a asp-controller="Cart"
+           asp-action="GioHang"
+           class="btn btn-secondary">
+            ← Quay lại giỏ hàng
+        </a>
+
+        <form asp-action="Confirm" method="post">
+            <button type="submit" class="btn btn-success px-4">
+                ✅ Xác nhận thanh toán
+            </button>
+        </form>
+    </div>
+</div>

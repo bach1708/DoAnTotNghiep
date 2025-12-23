@@ -1,0 +1,54 @@
+﻿/* Custom Styles for Guide Page */
+
+.guide-page {
+    max-width: 900px;
+}
+
+.guide-title {
+    color: #e53935; /* Màu đỏ thương hiệu */
+    font-weight: 700;
+}
+
+.accordion-button {
+    background-color: #f7f7f7;
+    color: #6d934c; /* Màu xanh của menu */
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px;
+}
+
+    .accordion-button:not(.collapsed) {
+        color: white;
+        background-color: #6d934c;
+        box-shadow: none;
+    }
+
+.accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.accordion-body {
+    padding: 20px;
+    line-height: 1.8;
+}
+
+    .accordion-body ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+        .accordion-body ul li {
+            margin-bottom: 10px;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+            .accordion-body ul li:before {
+                content: "📚";
+                position: absolute;
+                left: 0;
+                font-size: 1.2em;
+            }

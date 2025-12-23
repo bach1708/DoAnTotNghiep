@@ -1,0 +1,60 @@
+﻿@model List<MangaShop.Models.ChiTietDonHang>
+
+@{
+    var donHang = ViewBag.DonHang as MangaShop.Models.DonHang;
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<h2 class="mb-3">🧾 CHI TIẾT ĐƠN HÀNG #@donHang.MaDonHang</h2>
+
+<p>
+    <strong>Ngày đặt:</strong> @donHang.NgayDat?.ToString("dd/MM/yyyy HH:mm")
+</p>
+<p>
+    <strong>Trạng thái:</strong>
+    <span class="badge bg-primary">
+        @ViewBag.DonHang.TrangThai
+    </span>
+</p>
+
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Ảnh</th>
+            <th>Tên truyện</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width:120px">
+                    <img src="~/images/@item.MaTruyenNavigation.AnhBia"
+                         style="width:70px; height:90px; object-fit:cover" />
+                </td>
+                <td>@item.MaTruyenNavigation.TenTruyen</td>
+                <td>@item.DonGia.ToString("N0") ₫</td>
+                <td>@item.SoLuong</td>
+                <td class="text-danger fw-bold">
+                    @((item.DonGia* item.SoLuong).ToString("N0")) ₫
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-end mt-3">
+    <h4>
+        Tổng tiền:
+        <span class="text-danger fw-bold">
+            @donHang.TongTien.ToString("N0") ₫
+        </span>
+    </h4>
+</div>
+
+<a asp-action="BillUser" class="btn btn-secondary mt-3">
+    ← Quay lại danh sách
+</a>

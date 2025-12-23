@@ -1,0 +1,64 @@
+﻿@model List<MangaShop.Models.DonHang>
+
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+}
+
+<h2 class="mb-4">📦 ĐƠN HÀNG CỦA TÔI</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        Bạn chưa có đơn hàng nào
+    </div>
+}
+else
+{
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Tổng tiền</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>#@item.MaDonHang</td>
+                    <td>@item.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td class="text-danger fw-bold">
+                        @(item.TongTien.ToString("N0")) ₫
+                    </td>
+                    <td>
+                        @if (item.TrangThai == "Chờ xử lý")
+                        {
+                            <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                        }
+                        else if (item.TrangThai == "Đang giao")
+                        {
+                            <span class="badge bg-info text-dark">Đang giao</span>
+                        }
+                        else if (item.TrangThai == "Hoàn thành")
+                        {
+                            <span class="badge bg-success">Hoàn thành</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Đã Hủy</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="BillDetail"
+                           asp-route-id="@item.MaDonHang"
+                           class="btn btn-sm btn-primary">
+                            Xem chi tiết
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

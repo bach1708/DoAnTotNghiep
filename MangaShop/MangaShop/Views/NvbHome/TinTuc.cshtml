@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Tin Tức";
+}
+
+<div class="container-fluid news-container">
+    <div class="news-header">
+        <p class="breadcrumb-nav">TRANG CHỦ > TIN TỨC</p>
+        <h1 class="page-title">TIN TỨC</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-9 main-content">
+
+            <div class="article-card row">
+                <div class="col-md-4 article-image-placeholder">
+                    <div class="image-box"></div>
+                </div>
+                <div class="col-md-8 article-info">
+                    <p class="article-date">13/01/2023</p>
+                    <p class="article-author">ĐĂNG BỞI: NGUYỄN HỒNG PHƯƠNG</p>
+                    <h2 class="article-title">onepunch</h2>
+                    <p class="article-summary">rgegegeh</p>
+                    <a href="#" class="read-more">Xem thêm...</a>
+                </div>
+            </div>
+
+            <div class="article-card row">
+                <div class="col-md-4 article-image-placeholder">
+                    <div class="image-box"></div>
+                </div>
+                <div class="col-md-8 article-info">
+                    <p class="article-date">12/12/2025</p>
+                    <p class="article-author">ĐĂNG BỞI: HIKARU SHOP</p>
+                    <h2 class="article-title">Top 5 Manga Shonen đáng đọc nhất cuối năm</h2>
+                    <p class="article-summary">Cùng khám phá những bộ truyện hành động, phiêu lưu đang làm mưa làm gió...</p>
+                    <a href="#" class="read-more">Xem thêm...</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3 sidebar">
+
+            <h4 class="sidebar-heading">BÀI ĐĂNG MỚI</h4>
+            <div class="new-posts">
+                <div class="post-item">
+                    <div class="post-info">
+                        <p class="post-title">onepunch</p>
+                        <p class="post-date">19/01/2023</p>
+                    </div>
+                    <div class="post-image-placeholder">
+                    </div>
+                </div>
+                <div class="post-item">
+                    <div class="post-info">
+                        <p class="post-title">Mùa Light Novel 2026</p>
+                        <p class="post-date">10/12/2025</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="sidebar-heading mt-4">TAGS</h4>
+            <div class="tags-list">
+                <span class="tag-item">Manga</span>
+                <span class="tag-item">Light Novel</span>
+                <span class="tag-item">Shonen</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/TinTuc.css" asp-append-version="true" />
+}

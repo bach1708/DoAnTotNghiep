@@ -1,0 +1,66 @@
+﻿/* Custom Styles for Member Page */
+
+.member-title {
+    color: #e53935; /* Màu đỏ thương hiệu */
+    font-weight: 700;
+}
+
+.member-tiers {
+    margin-top: 30px;
+}
+
+.member-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    min-height: 350px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+    .member-card:hover {
+        transform: translateY(-8px);
+    }
+
+.rewards-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 20px;
+}
+
+    .rewards-list li {
+        padding: 8px 0;
+        border-bottom: 1px dashed #eee;
+        font-size: 15px;
+    }
+
+/* Định dạng theo cấp độ */
+.bronze-tier {
+    background: #fcf8e3; /* Nền vàng nhạt */
+    border-top: 5px solid #cd7f32; /* Màu Đồng */
+}
+
+.silver-tier {
+    background: #f0f4f7; /* Nền xám nhạt */
+    border-top: 5px solid #c0c0c0; /* Màu Bạc */
+}
+
+.gold-tier {
+    background: #fff8e1; /* Nền vàng kem */
+    border-top: 5px solid #ffd700; /* Màu Vàng */
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.register-btn {
+    background-color: #6d934c; /* Màu xanh lá cây của menu */
+    border-color: #6d934c;
+    padding: 12px 30px;
+    font-weight: bold;
+}

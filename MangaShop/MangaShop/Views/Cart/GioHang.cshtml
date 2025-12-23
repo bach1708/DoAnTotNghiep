@@ -1,0 +1,81 @@
+﻿@model List<MangaShop.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<h2 class="mb-4">🛒 Giỏ hàng của bạn</h2>
+<a asp-controller="Bill"
+   asp-action="BillUser"
+   class="btn btn-secondary">
+    📦 Đơn hàng đã mua
+</a>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        Giỏ hàng đang trống
+    </div>
+}
+else
+{
+    <table class="table table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên truyện</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/images/@item.AnhBia" width="60" />
+                    </td>
+                    <td>@item.TenTruyen</td>
+                    <td>@item.Gia.ToString("N0") ₫</td>
+                    <!-- SỐ LƯỢNG + - -->
+                    <td>
+                        <a asp-action="Decrease" asp-route-id="@item.MaTruyen"
+                           class="btn btn-sm btn-outline-secondary">➖</a>
+
+                        <span class="mx-2 fw-bold">@item.SoLuong</span>
+
+                        <a asp-action="Increase" asp-route-id="@item.MaTruyen"
+                           class="btn btn-sm btn-outline-secondary">➕</a>
+                    </td>
+                    <td class="text-danger fw-bold">
+                        @item.ThanhTien.ToString("N0") ₫
+                    </td>
+                    <td>
+                        <a asp-action="Remove"
+                           asp-route-id="@item.MaTruyen"
+                           class="btn btn-sm btn-danger">
+                            X
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between">
+        <a asp-controller="NvbHome"
+           asp-action="DanhMuc"
+           class="btn btn-secondary">
+            ⬅ Tiếp tục mua
+        </a>
+
+        <a asp-controller="Checkout"
+           asp-action="ThanhToan"
+           class="btn btn-success">
+            💳 Thanh toán
+        </a>
+    </div>
+   
+}

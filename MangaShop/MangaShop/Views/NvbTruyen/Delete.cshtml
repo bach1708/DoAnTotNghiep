@@ -1,0 +1,14 @@
+﻿@model MangaShop.Models.Truyen
+
+<h2 class="text-danger">🗑 Xóa truyện</h2>
+
+<div class="alert alert-warning">
+    Bạn có chắc chắn muốn xóa truyện:
+    <strong>@Model.TenTruyen</strong> ?
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="MaTruyen" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

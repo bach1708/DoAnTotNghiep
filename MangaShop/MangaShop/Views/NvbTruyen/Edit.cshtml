@@ -1,0 +1,47 @@
+﻿@model MangaShop.Models.Truyen
+
+<h2>✏️ Sửa truyện</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaTruyen" />
+
+    <div class="mb-3">
+        <label>Tên truyện</label>
+        <input asp-for="TenTruyen" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tác giả</label>
+        <input asp-for="TacGia" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Giá</label>
+        <input asp-for="Gia" class="form-control" />
+    </div>
+
+    @* <div class="mb-3">
+        <label>Số lượng tồn</label>
+        <input asp-for="SoLuongTon" class="form-control" />
+    </div> *@
+
+    <div class="mb-3">
+        <label>Thể loại</label>
+        <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Tên ảnh bìa (vd: naruto.jpg)</label>
+        <input asp-for="AnhBia" class="form-control" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.AnhBia))
+    {
+        <div class="mb-3">
+            <img src="~/images/@Model.AnhBia"
+                 width="120"
+                 class="rounded shadow" />
+        </div>
+    }
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

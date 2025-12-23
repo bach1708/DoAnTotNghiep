@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Về Manga Shop";
+}
+
+<div class="container mt-5 mb-5 about-us-page">
+
+    <div class="text-center mb-5">
+        <h1 class="about-us-title">VỀ CHÚNG TÔI: MANGA SHOP</h1>
+        <p class="lead">Nơi kết nối đam mê Manga và Light Novel của cộng đồng Việt Nam.</p>
+    </div>
+
+    <div class="row feature-section">
+
+        <div class="col-md-6 text-center">
+            <div class="about-image-placeholder">
+                <span class="placeholder-text">Manga Shop - Cửa hàng sách manga, light novel.</span>
+            </div>
+        </div>
+
+        <div class="col-md-6 content-column">
+            <h2>Hành Trình của Manga Shop</h2>
+            <p><strong>Manga</strong>, trong tiếng Nhật có nghĩa là **"Truyện tranh"**, được thành lập với sứ mệnh mang ánh sáng tri thức và giải trí của văn hóa Nhật Bản đến gần hơn với độc giả Việt Nam.</p>
+            <p>Chúng tôi không chỉ bán sách; chúng tôi bán những câu chuyện, những cuộc phiêu lưu, và những cảm xúc mà chỉ thế giới Manga và Light Novel mới có thể mang lại. Từ những tác phẩm kinh điển cho đến các ấn phẩm mới nhất, Manga Shop cam kết mang đến kho tàng truyện tranh và tiểu thuyết phong phú, chất lượng cao nhất.</p>
+
+            <h2 class="mt-4">Tầm nhìn và Sứ mệnh</h2>
+            <div class="mission-list">
+                <p>💡 **Tầm nhìn:** Trở thành nhà cung cấp Manga và Light Novel hàng đầu Việt Nam, là điểm đến tin cậy cho mọi otaku.</p>
+                <p>🤝 **Sứ mệnh:** Xây dựng một cộng đồng đọc sách văn minh, nơi mọi người có thể chia sẻ và tìm thấy niềm vui trong từng trang truyện.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 contact-link">
+        <p>Tìm hiểu thêm về các sản phẩm và chương trình của chúng tôi!</p>
+        <a asp-controller="NvbHome" asp-action="DanhMuc" class="btn btn-lg btn-danger">KHÁM PHÁ CỬA HÀNG NGAY</a>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/VeChungToi.css" asp-append-version="true" />
+}

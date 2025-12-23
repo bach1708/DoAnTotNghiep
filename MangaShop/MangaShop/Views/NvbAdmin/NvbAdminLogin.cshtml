@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập Admin";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h3 class="text-center mb-4">Đăng nhập Admin</h3>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Error</div>
+                }
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label>Tài khoản</label>
+                        <!-- ⚠️ BẮT BUỘC name="TaiKhoan" -->
+                        <input name="TaiKhoan" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Mật khẩu</label>
+                        <!-- ⚠️ BẮT BUỘC name="MatKhau" -->
+                        <input name="MatKhau" type="password" class="form-control" required />
+                    </div>
+
+                    <button class="btn btn-danger w-100">Đăng nhập Admin</button>
+                    <a asp-controller="NvbHome" asp-action="Home" class="btn btn-secondary">⬅️ Quay lại trang chủ</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

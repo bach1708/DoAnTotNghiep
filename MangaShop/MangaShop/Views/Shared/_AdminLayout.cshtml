@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark px-4">
+        <span class="navbar-brand">
+            Admin Panel
+        </span>
+
+        <div class="text-white">
+            Xin chào, @Context.Session.GetString("AdminLogin")
+
+            <form asp-controller="NvbAdmin"
+                  asp-action="Logout"
+                  method="post"
+                  class="d-inline ms-3">
+
+                <button class="btn btn-sm btn-outline-light">
+                    Đăng xuất
+                </button>
+
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

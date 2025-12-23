@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-header text-center fw-bold">
+                    Đăng nhập tài khoản
+                </div>
+
+                <div class="card-body">
+
+                    <!-- FORM LOGIN USER -->
+                    <form asp-controller="NvbAccount" asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <input name="Email"
+                                   type="email"
+                                   class="form-control"
+                                   placeholder="Nhập email"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Mật khẩu</label>
+                            <input name="MatKhau"
+                                   type="password"
+                                   class="form-control"
+                                   placeholder="Nhập mật khẩu"
+                                   required />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            Đăng nhập
+                        </button>
+                        <div class="text-center mt-2">
+                                <a asp-controller="NvbAccount" asp-action="Register" class="btn btn-success w-100">
+                                    Đăng ký ngay
+                                </a>
+                                
+                        </div>
+                    </form>
+
+                    <!-- LINK LOGIN ADMIN -->
+                    <div class="text-center mt-3">
+                        <small>
+                            Bạn là quản trị viên?
+                            <a asp-controller="NvbAdmin" asp-action="Login">
+                                Đăng nhập Admin
+                            </a>
+                        </small>
+                    </div>
+
+                    <!-- HIỂN THỊ LỖI -->
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger mt-3 text-center">
+                            @ViewBag.Error
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

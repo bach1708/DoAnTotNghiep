@@ -1,0 +1,74 @@
+﻿@model List<MangaShop.Models.ViewModels.NhapKhoVM>
+@{
+    ViewData["Title"] = "Nhập kho";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-4">📦 Nhập thêm số lượng truyện</h2>
+
+<form asp-action="NhapKho" method="post">
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm text-center">
+                    <img src="~/images/@Model[i].AnhBia"
+                         class="card-img-top"
+                         style="height:180px; object-fit:cover;" />
+
+                    <div class="card-body">
+                        <h6 class="card-title">@Model[i].TenTruyen</h6>
+
+                        <p class="mb-1">
+                            Tồn kho:
+                            <strong class="text-success">@Model[i].SoLuongTon</strong>
+                        </p>
+
+                        <input type="hidden" asp-for="@Model[i].MaTruyen" />
+
+                        <div class="input-group justify-content-center">
+                            <button type="button" class="btn btn-outline-secondary"
+                                    onclick="changeQty(@i, -1)">
+                                −
+                            </button>
+
+                            <input asp-for="@Model[i].SoLuongNhap"
+                                   class="form-control text-center"
+                                   style="max-width:70px"
+                                   min="0"
+                                   id="qty_@i" />
+
+
+                            <button type="button" class="btn btn-outline-secondary"
+                                    onclick="changeQty(@i, 1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success btn-lg">
+            💾 Lưu nhập kho
+        </button>
+        <a asp-action="Index" class="btn btn-secondary btn-lg ms-2">
+            Quay lại
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function changeQty(index, value) {
+            let input = document.getElementById("qty_" + index);
+            let current = parseInt(input.value || 0);
+            let newVal = current + value;
+            if (newVal < 0) newVal = 0;
+            input.value = newVal;
+        }
+    </script>
+}
+

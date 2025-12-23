@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MangaShop.Models.Truyen>
+
+@{
+    ViewData["Title"] = "Quản lý truyện";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-4">📚 Truyện Đang Bán</h2>
+
+<a asp-action="Create" class="btn btn-primary mb-0">
+    ➕ Trưng bày truyện mới
+</a>
+<a asp-action="NhapKho" class="btn btn-success">
+    ➕ Nhập thêm hàng
+</a>
+<a asp-controller="NvbAdmin"
+   asp-action="Index"
+   class="btn btn-secondary">
+    ⬅️ Quay lại
+</a>
+<table class="table table-bordered table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Ảnh</th>
+            <th>Tên truyện</th>
+            <th>Tác giả</th>
+            <th>Giá</th>
+            <th>Thể loại</th>
+            <th>Số lượng truyện còn lại</th>
+            <th width="180">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@item.AnhBia"
+                         width="70"
+                         class="rounded shadow" />
+                </td>
+                <td>@item.TenTruyen</td>
+                <td>@item.TacGia</td>
+                <td>@item.Gia.ToString("N0") đ</td>
+                <td>@item.MaTheLoaiNavigation?.TenTheLoai</td>
+                <!-- ✅ HIỂN THỊ TỒN KHO -->
+                <td>
+                    @if (item.SoLuongTon <= 0)
+                    {
+                        <span class="badge bg-danger">Hết hàng</span>
+                    }
+                    else if (item.SoLuongTon <= 5)
+                    {
+                        <span class="badge bg-warning text-dark">
+                            Còn @item.SoLuongTon
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">
+                            @item.SoLuongTon
+                        </span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.MaTruyen"
+                       class="btn btn-sm btn-warning">✏️</a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.MaTruyen"
+                       class="btn btn-sm btn-danger">🗑</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout"; // 👉 dùng layout riêng cho Admin
+}
+
+<h2 class="mb-4">Trang quản trị Manga Shop</h2>
+
+<div class="row g-4">
+
+    <!-- QUẢN LÝ TRUYỆN -->
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quản lý truyện</h5>
+                <a asp-controller="NvbTruyen"
+                   asp-action="Index"
+                   class="btn btn-outline-primary btn-sm mt-2">
+                    Xem
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUẢN LÝ THỂ LOẠI -->
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quản lý thể loại</h5>
+                <a href="#" class="btn btn-outline-success btn-sm mt-2">
+                    Xem
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ĐƠN HÀNG -->
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">Đơn hàng</h5>
+                <a asp-controller="BillAdmin"
+                   asp-action="BillAdmin"
+                   class="btn btn-outline-warning btn-sm mt-2">
+                    Xem
+                </a>
+                    
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ĐĂNG XUẤT -->
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100 border-danger">
+            <div class="card-body">
+                <h5 class="card-title text-danger">Đăng xuất</h5>
+
+                <form asp-controller="NvbAdmin"
+                      asp-action="Logout"
+                      method="post">
+
+                    <button type="submit"
+                            class="btn btn-outline-danger btn-sm mt-2">
+                        Thoát
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

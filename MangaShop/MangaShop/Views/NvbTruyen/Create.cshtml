@@ -1,0 +1,33 @@
+﻿@model MangaShop.Models.Truyen
+
+<h2>Thêm truyện</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Tên truyện</label>
+        <input asp-for="TenTruyen" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Tác giả</label>
+        <input asp-for="TacGia" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Giá</label>
+        <input asp-for="Gia" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Số lượng tồn</label>
+        <input asp-for="SoLuongTon" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Thể loại</label>
+        <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select"></select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
