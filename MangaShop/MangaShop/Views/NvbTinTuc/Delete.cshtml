@@ -1,0 +1,19 @@
+﻿@model MangaShop.Models.BaiViet
+@{
+    ViewData["Title"] = "Xóa bài đăng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">🗑️ XÓA BÀI ĐĂNG</h2>
+
+<div class="alert alert-danger">
+    Bạn chắc chắn muốn xóa bài: <b>@Model.TieuDe</b> ?
+</div>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.MaBaiViet" />
+
+    <button class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

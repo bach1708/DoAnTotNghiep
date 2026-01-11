@@ -1,0 +1,30 @@
+﻿@model MangaShop.Models.BaiViet
+@{
+    ViewData["Title"] = "Chi tiết bài đăng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">📄 CHI TIẾT BÀI ĐĂNG</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        <p><b>Mã:</b> #@Model.MaBaiViet</p>
+        <p><b>Tiêu đề:</b> @Model.TieuDe</p>
+        <p><b>Loại:</b> @Model.Loai</p>
+        <p><b>Ngày đăng:</b> @Model.NgayDang.ToString("dd/MM/yyyy HH:mm")</p>
+        <p><b>Hiển thị:</b> @(Model.TrangThai ? "ON" : "OFF")</p>
+
+        @if (!string.IsNullOrWhiteSpace(Model.AnhDaiDien))
+        {
+            <img src="~/images/@Model.AnhDaiDien" style="max-width:420px; height:auto" class="border mb-3" />
+        }
+
+        <p><b>Tóm tắt:</b> @Model.TomTat</p>
+        <hr />
+        <div style="white-space:pre-line;">
+            @Model.NoiDung
+        </div>
+
+        <a asp-action="Index" class="btn btn-secondary mt-3">⬅️ Quay lại</a>
+    </div>
+</div>

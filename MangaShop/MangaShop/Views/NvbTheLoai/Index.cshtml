@@ -1,0 +1,43 @@
+﻿@model List<MangaShop.Models.TheLoai>
+
+@{
+    ViewData["Title"] = "Quản lý thể loại";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">📚 Quản lý thể loại</h2>
+
+<a asp-action="Create" class="btn btn-success mb-3">
+    ➕ Thêm thể loại
+</a>
+<a asp-controller="NvbAdmin"
+   asp-action="Index"
+   class="btn btn-secondary">
+    ⬅️ Quay lại
+</a>
+
+<table class="table table-bordered text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã</th>
+            <th>Tên thể loại</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaTheLoai</td>
+                <td>@item.TenTheLoai</td>
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.MaTheLoai"
+                       class="btn btn-warning btn-sm">
+                        ✏️ Sửa
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

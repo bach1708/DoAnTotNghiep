@@ -19,11 +19,14 @@ namespace MangaShop.Controllers
         public IActionResult Index()
         {
             var truyen = _context.Truyens
+                .Where(t => !t.IsDeleted)
                 .Include(t => t.MaTheLoaiNavigation)
+                .Include(t => t.TruyenTaps) // ✅ thêm để hiển thị số tập & tồn theo tập
                 .ToList();
 
             return View(truyen);
         }
+
 
         // ================== CREATE ==================
         [HttpGet]
@@ -91,13 +94,37 @@ namespace MangaShop.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var truyen = _context.Truyens.Find(id);
-            if (truyen != null)
-            {
-                _context.Truyens.Remove(truyen);
-                _context.SaveChanges();
-            }
+            if (truyen == null) return NotFound();
+
+            // ✅ XÓA MỀM
+            truyen.IsDeleted = true;
+
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+        public IActionResult Trash()
+        {
+            var truyenDaAn = _context.Truyens
+                .Where(t => t.IsDeleted)
+                .Include(t => t.MaTheLoaiNavigation)
+                .ToList();
+
+            return View(truyenDaAn);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Restore(int id)
+        {
+            var truyen = _context.Truyens.Find(id);
+            if (truyen == null) return NotFound();
+
+            truyen.IsDeleted = false;  // ✅ khôi phục
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Trash)); // hoặc Index tùy bạn
+        }
+
 
         // ================== NHAPKHO ==================
         public IActionResult NhapKho()
@@ -134,6 +161,63 @@ namespace MangaShop.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        // ================== NHAPKHO THEO TẬP ==================
+        [HttpGet]
+        public IActionResult NhapKhoTap()
+        {
+            var data = _context.Truyens
+                .Include(t => t.TruyenTaps)
+                .Select(t => new NhapKhoTapTruyenVM
+                {
+                    MaTruyen = t.MaTruyen,
+                    TenTruyen = t.TenTruyen,
+                    AnhBia = t.AnhBia,
+                    Taps = t.TruyenTaps
+                        .OrderBy(x => x.SoTap)
+                        .Select(x => new NhapKhoTapItemVM
+                        {
+                            MaTap = x.MaTap,
+                            SoTap = x.SoTap,
+                            SoLuongTon = x.SoLuongTon,
+                            SoLuongNhap = 0
+                        }).ToList()
+                })
+                .ToList();
+
+            return View(data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult NhapKhoTap(List<NhapKhoTapTruyenVM> model)
+        {
+            if (model == null || model.Count == 0)
+                return RedirectToAction("NhapKhoTap");
+
+            foreach (var tr in model)
+            {
+                // ✅ Truyện không có tập => bỏ qua, không lỗi
+                if (tr.Taps == null || tr.Taps.Count == 0)
+                    continue;
+
+                foreach (var tapVm in tr.Taps)
+                {
+                    if (tapVm.SoLuongNhap <= 0)
+                        continue;
+
+                    var tap = _context.TruyenTaps.FirstOrDefault(x => x.MaTap == tapVm.MaTap);
+                    if (tap != null)
+                    {
+                        tap.SoLuongTon += tapVm.SoLuongNhap;
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

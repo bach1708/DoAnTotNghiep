@@ -1,0 +1,82 @@
+﻿@model List<MangaShop.Models.DanhGia>
+
+@{
+    ViewData["Title"] = "Quản lý đánh giá";
+    Layout = "_AdminLayout";
+    var truyens = ViewBag.Truyens as dynamic;
+}
+
+<h2 class="mb-3">⭐ QUẢN LÝ ĐÁNH GIÁ</h2>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-6">
+        <select name="maTruyen" class="form-select">
+            <option value="">-- Lọc theo truyện --</option>
+            @foreach (var t in truyens)
+            {
+                <option value="@t.MaTruyen" selected="@(ViewBag.MaTruyen != null && (int)ViewBag.MaTruyen == (int)t.MaTruyen)">
+                    @t.TenTruyen
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="soSao" class="form-select">
+            <option value="">-- Lọc theo sao --</option>
+            @for (int i = 5; i >= 1; i--)
+            {
+                <option value="@i" selected="@(ViewBag.SoSao != null && (int)ViewBag.SoSao == i)">
+                    @i sao
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-3 d-flex gap-2">
+        <button class="btn btn-primary w-100">Lọc</button>
+        <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
+    </div>
+</form>
+
+<table class="table table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Truyện</th>
+            <th>Khách hàng</th>
+            <th>Sao</th>
+            <th>Nội dung</th>
+            <th>Ngày</th>
+            <th style="width:120px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">Chưa có đánh giá.</td></tr>
+        }
+        else
+        {
+            @foreach (var dg in Model)
+            {
+                <tr>
+                    <td>@dg.MaTruyenNavigation?.TenTruyen</td>
+                    <td>@dg.MaKhachHangNavigation?.HoTen</td>
+                    <td>⭐ @dg.SoSao</td>
+                    <td>@dg.NoiDung</td>
+                    <td>@dg.NgayDanhGia?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td class="text-center">
+                        <form asp-action="Delete" method="post" onsubmit="return confirm('Xóa đánh giá này?');">
+                            <input type="hidden" name="id" value="@dg.MaDanhGia" />
+                            <button class="btn btn-sm btn-danger">Xóa</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">
+    ⬅️ Quay lại
+</a>

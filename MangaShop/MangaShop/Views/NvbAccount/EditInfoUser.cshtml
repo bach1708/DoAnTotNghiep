@@ -1,0 +1,46 @@
+﻿@model MangaShop.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Sửa thông tin cá nhân";
+}
+
+<h2 class="mb-4">✏️ Sửa thông tin cá nhân</h2>
+
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success">@ViewBag.Success</div>
+}
+
+<form asp-action="EditInfoUser" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label>Họ tên</label>
+        <input asp-for="HoTen" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Số điện thoại</label>
+        <input asp-for="SoDienThoai" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Địa chỉ</label>
+        <input asp-for="DiaChi" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        💾 Lưu thay đổi
+    </button>
+
+    <a asp-controller="NvbHome"
+       asp-action="ThanhVienCuaToi"
+       class="btn btn-secondary">
+        ⬅ Quay lại
+    </a>
+</form>

@@ -37,6 +37,14 @@ public partial class MangaShopContext : DbContext
 
     public virtual DbSet<Truyen> Truyens { get; set; }
 
+    public virtual DbSet<TruyenTap> TruyenTaps { get; set; }
+
+    public virtual DbSet<BaiViet> BaiViets { get; set; }
+
+    public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
+    public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; } = null!;
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-38V1G0B\\SQLEXPRESS;Database=MangaShop;Trusted_Connection=True;TrustServerCertificate=True");
@@ -49,15 +57,23 @@ public partial class MangaShopContext : DbContext
 
             entity.ToTable("ChiTietDonHang");
 
-            entity.HasOne(d => d.MaDonHangNavigation).WithMany(p => p.ChiTietDonHangs)
+            entity.HasOne(d => d.MaDonHangNavigation)
+                .WithMany(p => p.ChiTietDonHangs)
                 .HasForeignKey(d => d.MaDonHang)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ChiTietDo__MaDon__628FA481");
 
-            entity.HasOne(d => d.MaTruyenNavigation).WithMany(p => p.ChiTietDonHangs)
+            entity.HasOne(d => d.MaTruyenNavigation)
+                .WithMany(p => p.ChiTietDonHangs)
                 .HasForeignKey(d => d.MaTruyen)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__ChiTietDo__MaTru__6383C8BA");
+
+            // ✅ DÒNG QUYẾT ĐỊNH – FIX LỖI MaTapNavigationMaTap
+            entity.HasOne(d => d.MaTapNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaTap)
+                .HasConstraintName("FK_ChiTietDonHang_TruyenTap");
         });
 
         modelBuilder.Entity<ChiTietGioHang>(entity =>
@@ -83,6 +99,9 @@ public partial class MangaShopContext : DbContext
         {
             entity.HasKey(e => e.MaDanhGia).HasName("PK__DanhGia__AA9515BF0B42C5FC");
 
+            // ✅ QUAN TRỌNG: map đúng tên bảng trong SQL
+            entity.ToTable("DanhGia");
+
             entity.Property(e => e.NgayDanhGia)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -107,15 +126,20 @@ public partial class MangaShopContext : DbContext
             entity.Property(e => e.NgayDat)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+
             entity.Property(e => e.TrangThai)
                 .HasMaxLength(50)
                 .HasDefaultValue("Chờ xử lý");
+
+            entity.Property(e => e.PhuongThucThanhToan)   // ✅ thêm
+                .HasMaxLength(50);
 
             entity.HasOne(d => d.MaKhachHangNavigation).WithMany(p => p.DonHangs)
                 .HasForeignKey(d => d.MaKhachHang)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__DonHang__MaKhach__5FB337D6");
         });
+
 
         modelBuilder.Entity<GioHang>(entity =>
         {
@@ -215,9 +239,114 @@ public partial class MangaShopContext : DbContext
                 .HasForeignKey(d => d.MaTheLoai)
                 .HasConstraintName("FK__Truyen__MaTheLoa__52593CB8");
         });
+        modelBuilder.Entity<TruyenTap>(entity =>
+        {
+            entity.HasKey(e => e.MaTap);
+
+            entity.ToTable("TruyenTap");
+
+            entity.HasOne(d => d.MaTruyenNavigation)
+                .WithMany(p => p.TruyenTaps)
+                .HasForeignKey(d => d.MaTruyen)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TruyenTap_Truyen");
+        });
 
         OnModelCreatingPartial(modelBuilder);
+        modelBuilder.Entity<BaiViet>(entity =>
+        {
+            entity.HasKey(e => e.MaBaiViet);
+
+            entity.ToTable("BaiViet");
+
+            entity.Property(e => e.TieuDe).HasMaxLength(200);
+            entity.Property(e => e.TomTat).HasMaxLength(500);
+            entity.Property(e => e.AnhDaiDien).HasMaxLength(300);
+            entity.Property(e => e.Loai).HasMaxLength(50).HasDefaultValue("Thông báo");
+
+            entity.Property(e => e.NgayDang)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
+
+            entity.Property(e => e.TrangThai)
+                .HasDefaultValue(true);
+        });
+        modelBuilder.Entity<DanhGia>(entity =>
+        {
+            entity.HasOne(d => d.MaTapNavigation)
+                  .WithMany()
+                  .HasForeignKey(d => d.MaTap)
+                  .HasConstraintName("FK_DanhGia_TruyenTap");
+        });
+        modelBuilder.Entity<PhieuNhap>(entity =>
+        {
+            entity.HasKey(e => e.MaPhieuNhap);
+
+            entity.ToTable("PhieuNhap");
+
+            entity.Property(e => e.NgayNhap)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
+
+            entity.Property(e => e.GhiChu)
+                .HasMaxLength(255);
+
+            entity.Property(e => e.TrangThai)
+                .HasMaxLength(50)
+                .HasDefaultValue("Đã nhập");
+
+            entity.Property(e => e.TongTienNhap)
+                .HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.MaAdminNavigation)
+                .WithMany(p => p.PhieuNhaps)   // cần thêm ICollection<PhieuNhap> trong QuanTri
+                .HasForeignKey(d => d.MaAdmin)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_PhieuNhap_QuanTri");
+        });
+        modelBuilder.Entity<ChiTietPhieuNhap>(entity =>
+        {
+            entity.HasKey(e => e.MaChiTietPhieuNhap);
+
+            entity.ToTable("ChiTietPhieuNhap");
+
+            entity.Property(e => e.DonGiaNhap)
+                .HasColumnType("decimal(18, 2)");
+
+            // Nếu DB bạn có computed column ThanhTien:
+            // entity.Property(e => e.ThanhTien)
+            //     .HasColumnType("decimal(18, 2)")
+            //     .ValueGeneratedOnAddOrUpdate()
+            //     .Metadata.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Ignore);
+
+            // Unique (MaPhieuNhap, MaTap)
+            entity.HasIndex(e => new { e.MaPhieuNhap, e.MaTap })
+                .IsUnique()
+                .HasDatabaseName("UQ_CTPN_PhieuNhap_Tap");
+
+            entity.HasOne(d => d.MaPhieuNhapNavigation)
+                .WithMany(p => p.ChiTietPhieuNhaps)
+                .HasForeignKey(d => d.MaPhieuNhap)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_CTPN_PhieuNhap");
+
+            entity.HasOne(d => d.MaTruyenNavigation)
+                .WithMany(p => p.ChiTietPhieuNhaps) // cần thêm ICollection<ChiTietPhieuNhap> trong Truyen
+                .HasForeignKey(d => d.MaTruyen)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_CTPN_Truyen");
+
+            entity.HasOne(d => d.MaTapNavigation)
+                .WithMany(p => p.ChiTietPhieuNhaps) // cần thêm ICollection<ChiTietPhieuNhap> trong TruyenTap
+                .HasForeignKey(d => d.MaTap)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_CTPN_TruyenTap");
+        });
+
+
+
     }
+
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

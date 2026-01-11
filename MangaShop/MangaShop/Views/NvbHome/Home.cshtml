@@ -1,8 +1,12 @@
-﻿@{
+﻿@model List<MangaShop.Models.Truyen>
+
+@{
     ViewData["Title"] = "Trang chủ";
 }
 
-<link rel="stylesheet" href="~/css/home.css" />
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
 
 <div id="homeBanner"
      class="carousel slide"
@@ -40,4 +44,62 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+</div>
+
+<!-- PHẦN MỚI NHẤT TRONG TUẦN -->
+<div class="home-wrap">
+    <section class="weekly-new container">
+        <div class="weekly-title text-center">
+            <h2 class="weekly-heading">MỚI NHẤT TRONG TUẦN</h2>
+            <div class="weekly-line">
+                <span></span><i class="fa-solid fa-pen-nib"></i><span></span>
+            </div>
+            <p class="weekly-sub">Cùng khám phá các truyện mới nhất của MangaShop</p>
+        </div>
+
+        <div class="weekly-grid">
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-warning text-center w-100">
+                    Chưa có dữ liệu truyện mới.
+                </div>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    var img = string.IsNullOrWhiteSpace(item.AnhBia) ? "noimage.jpg" : item.AnhBia;
+
+                    <div class="weekly-item">
+                        <div class="weekly-card">
+
+                            <div class="weekly-name">
+                                @item.TenTruyen
+                            </div>
+
+                            <div class="weekly-price">
+                                <span class="price-new">@item.Gia.ToString("N0")đ</span>
+                            </div>
+
+                            <div class="weekly-img">
+                                <img src="~/images/@img" alt="@item.TenTruyen" />
+                            </div>
+
+                            <!-- Bạn muốn giữ thêm giỏ hàng ở trang ChiTiet,
+                                 nên Home chỉ để "Truyện này có gì" -->
+                            <a asp-controller="NvbHome"
+                               asp-action="ChiTiet"
+                               asp-route-id="@item.MaTruyen"
+                               asp-route-returnUrl="@Url.Action("Home", "NvbHome")"
+                               class="weekly-btn">
+                                Xem truyện
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+    </section>
 </div>

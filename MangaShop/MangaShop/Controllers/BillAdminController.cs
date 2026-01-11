@@ -13,7 +13,6 @@ namespace MangaShop.Controllers
             _context = context;
         }
 
-        // ===== DANH SÁCH ĐƠN HÀNG (ADMIN) =====
         public IActionResult BillAdmin()
         {
             var bills = _context.DonHangs
@@ -24,7 +23,6 @@ namespace MangaShop.Controllers
             return View(bills);
         }
 
-        // ===== CHI TIẾT ĐƠN HÀNG =====
         public IActionResult BillDetailAdmin(int id)
         {
             var donHang = _context.DonHangs
@@ -37,13 +35,13 @@ namespace MangaShop.Controllers
             var chiTiet = _context.ChiTietDonHangs
                 .Where(c => c.MaDonHang == id)
                 .Include(c => c.MaTruyenNavigation)
+                .Include(c => c.MaTapNavigation) // ✅ thêm
                 .ToList();
 
             ViewBag.DonHang = donHang;
             return View(chiTiet);
         }
 
-        // ===== DUYỆT / CẬP NHẬT TRẠNG THÁI =====
         [HttpPost]
         public IActionResult UpdateStatus(int id, string trangThai)
         {

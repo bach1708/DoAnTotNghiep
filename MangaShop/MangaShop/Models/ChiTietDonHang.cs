@@ -14,6 +14,9 @@ public partial class ChiTietDonHang
     public int SoLuong { get; set; }
 
     public double DonGia { get; set; }
+    public int? MaTap { get; set; }
+    public virtual TruyenTap? MaTapNavigation { get; set; }
+
 
     public virtual DonHang MaDonHangNavigation { get; set; } = null!;
 

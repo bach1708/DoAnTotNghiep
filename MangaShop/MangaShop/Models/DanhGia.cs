@@ -16,6 +16,8 @@ public partial class DanhGia
     public string? NoiDung { get; set; }
 
     public DateTime? NgayDanhGia { get; set; }
+    public int? MaTap { get; set; }
+    public virtual TruyenTap? MaTapNavigation { get; set; }
 
     public virtual KhachHang? MaKhachHangNavigation { get; set; } = null!;
 

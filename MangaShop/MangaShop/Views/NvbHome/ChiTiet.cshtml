@@ -1,0 +1,162 @@
+﻿@using MangaShop.Models
+@model MangaShop.Models.Truyen
+
+@{
+    ViewData["Title"] = Model.TenTruyen;
+
+    var returnUrl = ViewBag.ReturnUrl as string;
+
+    // ✅ Danh sách tập (bán theo tập)
+    var taps = (Model.TruyenTaps ?? new List<TruyenTap>())
+        .OrderBy(x => x.SoTap)
+        .ToList();
+
+    int tongTon = taps.Sum(x => x.SoLuongTon);
+    bool coTap = taps.Any();
+    bool hetHang = !coTap || tongTon <= 0;
+}
+
+<div class="container mt-4">
+
+    <!-- Nút quay lại -->
+    <div class="d-flex justify-content-end mb-3">
+        @if (!string.IsNullOrEmpty(returnUrl))
+        {
+            <a href="@returnUrl" class="btn btn-secondary">← Quay lại</a>
+        }
+        else
+        {
+            <a asp-controller="NvbHome" asp-action="Home" class="btn btn-secondary">← Quay lại trang chủ</a>
+        }
+    </div>
+
+    <div class="row g-4">
+        <!-- Ảnh bìa -->
+        <div class="col-md-4">
+            <img src="~/images/@Model.AnhBia"
+                 class="img-fluid rounded shadow"
+                 alt="@Model.TenTruyen" />
+        </div>
+
+        <!-- Thông tin truyện -->
+        <div class="col-md-8">
+            <h2 class="mb-2">@Model.TenTruyen</h2>
+
+            <div class="mb-2">
+                <strong>Thể loại:</strong>
+                <span>@Model.MaTheLoaiNavigation?.TenTheLoai</span>
+            </div>
+
+            <div class="fs-4 text-danger fw-bold mb-3">
+                @Model.Gia.ToString("N0") ₫
+            </div>
+
+            <div class="mb-3">
+                <strong>Mô tả:</strong><br />
+                <span>@Model.MoTa</span>
+            </div>
+
+            <!-- ✅ TRẠNG THÁI & NÚT MUA (BÁN THEO TẬP) -->
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+                @if (!coTap)
+                {
+                    <span class="badge bg-warning text-dark p-2">Chưa có tập để bán</span>
+                }
+                else if (!hetHang)
+                {
+                    <span class="badge bg-success p-2">Còn hàng: @tongTon</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary p-2">Hết hàng</span>
+                }
+            </div>
+
+            @if (coTap && !hetHang)
+            {
+                <a asp-controller="Cart"
+                   asp-action="ChonTap"
+                   asp-route-id="@Model.MaTruyen"
+                   class="btn btn-success btn-lg">
+                    🛒 Chọn tập để mua
+                </a>
+            }
+            else
+            {
+                <button class="btn btn-secondary btn-lg" disabled>
+                    Không thể mua
+                </button>
+            }
+
+            <!-- ✅ (Tuỳ chọn) Hiển thị nhanh danh sách tập -->
+            @if (coTap)
+            {
+                <div class="mt-4">
+                    <h5 class="mb-2">Danh sách tập</h5>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle text-center mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width:110px">Tập</th>
+                                    <th style="width:180px">Giá</th>
+                                    <th style="width:140px">Tồn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var t in taps)
+                                {
+                                    <tr>
+                                        <td>Tập @t.SoTap</td>
+                                        <td class="text-danger fw-bold">
+                                            @t.Gia.ToString("N0") ₫
+                                        </td>
+                                        <td>
+                                            @if (t.SoLuongTon > 0)
+                                            {
+                                                <span class="fw-bold text-success">@t.SoLuongTon</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-muted">0</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="small text-muted mt-2">
+                        * Bấm “Chọn tập để mua” để thêm vào giỏ.
+                    </div>
+                </div>
+            }
+
+            <hr class="my-4" />
+
+            <!-- Đánh giá -->
+            <h4 class="mt-2">Đánh giá khách hàng</h4>
+
+            @if (Model.DanhGias == null || !Model.DanhGias.Any())
+            {
+                <div class="text-muted">Chưa có đánh giá.</div>
+            }
+            else
+            {
+                @foreach (var dg in Model.DanhGias.OrderByDescending(x => x.NgayDanhGia))
+                {
+                    <div class="border rounded p-2 mb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong>@dg.MaKhachHangNavigation?.HoTen</strong>
+                            <small class="text-muted">@dg.NgayDanhGia?.ToString("dd/MM/yyyy HH:mm")</small>
+                        </div>
+
+                        <div>⭐ @dg.SoSao / 5</div>
+                        <div>@dg.NoiDung</div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

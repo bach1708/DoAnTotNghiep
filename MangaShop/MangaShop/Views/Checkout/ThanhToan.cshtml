@@ -1,13 +1,13 @@
-﻿@model List<MangaShop.Models.CartItem>
-
+﻿@model MangaShop.Models.ViewModels.CheckoutVM
 @{
     ViewData["Title"] = "Thanh toán";
-    var tongTien = Model.Sum(x => x.ThanhTien);
+    var tongTien = Model.Cart.Sum(x => x.Gia * x.SoLuong);
 }
 
 <div class="container mt-5">
     <h2 class="mb-4">🧾 XÁC NHẬN THANH TOÁN</h2>
 
+    <!-- 1) BẢNG TRUYỆN -->
     <table class="table table-bordered text-center align-middle">
         <thead class="table-dark">
             <tr>
@@ -19,46 +19,119 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Cart)
             {
                 <tr>
                     <td style="width:120px">
                         <img src="~/images/@item.AnhBia"
                              style="width:80px; height:100px; object-fit:cover" />
                     </td>
-                    <td>@item.TenTruyen</td>
-                    <td class="text-danger fw-bold">
-                        @item.Gia.ToString("N0") ₫
+                    <td class="text-start">
+                        @item.TenTruyen
+                        <span class="text-muted">(Tập @item.SoTap)</span>
                     </td>
+                    <td class="text-danger fw-bold">@item.Gia.ToString("N0") ₫</td>
                     <td>@item.SoLuong</td>
-                    <td class="fw-bold">
-                        @item.ThanhTien.ToString("N0") ₫
-                    </td>
+                    <td class="fw-bold">@((item.Gia * item.SoLuong).ToString("N0")) ₫</td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <div class="text-end mt-4">
-        <h4>
-            Tổng tiền:
-            <span class="text-danger fw-bold">
-                @tongTien.ToString("N0") ₫
-            </span>
-        </h4>
-    </div>
+    <!-- 2) FORM XÁC NHẬN + THÔNG TIN NGƯỜI MUA + PHƯƠNG THỨC -->
+    <form asp-action="Confirm" method="post">
+        @Html.AntiForgeryToken()
 
-    <div class="d-flex justify-content-between mt-4">
-        <a asp-controller="Cart"
-           asp-action="GioHang"
-           class="btn btn-secondary">
-            ← Quay lại giỏ hàng
-        </a>
+        <div class="row g-3 mt-3">
+            <!-- Thông tin người mua -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header fw-bold">👤 Thông tin người mua</div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Họ tên</label>
+                            <input asp-for="HoTen" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input asp-for="SoDienThoai" class="form-control" required />
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label">Địa chỉ</label>
+                            <input asp-for="DiaChi" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <form asp-action="Confirm" method="post">
+            <!-- Phương thức thanh toán -->
+            <div class="col-lg-6">
+                <div class="card shadow-sm">
+                    <div class="card-header fw-bold">💳 Phương thức thanh toán</div>
+                    <div class="card-body">
+                        <input type="hidden" asp-for="PaymentMethod" id="paymentMethod" />
+
+                        <div class="d-flex flex-column gap-2">
+                            <button type="button" class="btn btn-outline-primary text-start"
+                                    onclick="setPay('QR')">
+                                📷 Thanh toán bằng QR
+                            </button>
+
+                            <button type="button" class="btn btn-outline-primary text-start"
+                                    onclick="setPay('BANK')">
+                                🏦 Chuyển khoản ngân hàng
+                            </button>
+
+                            <button type="button" class="btn btn-outline-primary text-start"
+                                    onclick="setPay('COD')">
+                                🚚 Thanh toán khi nhận hàng (COD)
+                            </button>
+
+                            <div class="text-muted mt-2">
+                                Đã chọn: <b id="payLabel">COD</b>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <div class="text-end">
+                            <h4>
+                                Tổng tiền:
+                                <span class="text-danger fw-bold">@tongTien.ToString("N0") ₫</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4) Nút xác nhận thanh toán (dưới cùng) -->
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-controller="Cart" asp-action="GioHang" class="btn btn-secondary">
+                ← Quay lại giỏ hàng
+            </a>
+
             <button type="submit" class="btn btn-success px-4">
                 ✅ Xác nhận thanh toán
             </button>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
+
+@section Scripts {
+    <script>
+        function setPay(method) {
+            // ✅ set vào input hidden để gửi lên Confirm()
+            document.getElementById("paymentMethod").value = method;
+
+            // (tuỳ chọn) đổi chữ "Đã chọn"
+            document.getElementById("payLabel").innerText =
+                (method === "QR") ? "QR" :
+                (method === "BANK") ? "Chuyển khoản" : "COD";
+        }
+
+        // ✅ mặc định khi load trang
+        setPay("COD");
+    </script>
+}
+

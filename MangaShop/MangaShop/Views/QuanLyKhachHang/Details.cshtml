@@ -1,0 +1,23 @@
+﻿@model MangaShop.Models.KhachHang
+
+@{
+    ViewData["Title"] = "Chi tiết khách hàng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">👤 CHI TIẾT KHÁCH HÀNG</h2>
+
+<div class="card shadow">
+    <div class="card-body">
+        <p><b>Mã:</b> #@Model.MaKhachHang</p>
+        <p><b>Họ tên:</b> @Model.HoTen</p>
+        <p><b>Email:</b> @Model.Email</p>
+        <p><b>SĐT:</b> @Model.SoDienThoai</p>
+        <p><b>Địa chỉ:</b> @Model.DiaChi</p>
+        <p><b>Ngày tạo:</b> @Model.NgayTao?.ToString("dd/MM/yyyy HH:mm")</p>
+
+        <p><b>Số đơn đã mua:</b> @(Model.DonHangs?.Count ?? 0)</p>
+
+        <a asp-action="Index" class="btn btn-secondary mt-2">⬅ Quay lại</a>
+    </div>
+</div>

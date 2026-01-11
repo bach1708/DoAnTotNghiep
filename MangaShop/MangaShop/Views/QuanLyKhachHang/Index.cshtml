@@ -1,0 +1,113 @@
+﻿@model List<MangaShop.Models.KhachHang>
+
+@{
+    ViewData["Title"] = "Quản lý khách hàng";
+    Layout = "_AdminLayout";
+
+    var chiTieuDict = ViewBag.ChiTieuDict as Dictionary<int, double> ?? new Dictionary<int, double>();
+    var hangDict = ViewBag.HangDict as Dictionary<int, string> ?? new Dictionary<int, string>();
+}
+
+<h2 class="mb-3">👤 QUẢN LÝ KHÁCH HÀNG</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-warning">@TempData["Error"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-9">
+        <input name="keyword" value="@ViewBag.Keyword" class="form-control"
+               placeholder="Tìm theo họ tên / email / số điện thoại..." />
+    </div>
+    <div class="col-md-3 d-flex gap-2">
+        <button class="btn btn-primary w-100">Tìm</button>
+        <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
+    </div>
+</form>
+
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Ngày tạo</th>
+            <th>Chi tiêu</th>
+            <th>Hạng</th>
+            <th style="width:200px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="8" class="text-muted">Chưa có khách hàng.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var u in Model)
+            {
+                var tongChiTieu = chiTieuDict.ContainsKey(u.MaKhachHang) ? chiTieuDict[u.MaKhachHang] : 0;
+                var hang = hangDict.ContainsKey(u.MaKhachHang) ? hangDict[u.MaKhachHang] : "Thường";
+
+                <tr>
+                    <td>#@u.MaKhachHang</td>
+                    <td>@u.HoTen</td>
+                    <td>@u.Email</td>
+                    <td>@u.SoDienThoai</td>
+                    <td>@u.NgayTao?.ToString("dd/MM/yyyy HH:mm")</td>
+
+                    <td class="text-danger fw-bold">
+                        @tongChiTieu.ToString("N0") ₫
+                    </td>
+
+                    <td>
+                        @if (hang == "Vàng")
+                        {
+                            <span class="badge bg-warning text-dark">🥇 Vàng</span>
+                        }
+                        else if (hang == "Bạc")
+                        {
+                            <span class="badge bg-secondary">🥈 Bạc</span>
+                        }
+                        else if (hang == "Đồng")
+                        {
+                            <span class="badge bg-danger">🥉 Đồng</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-light text-dark">Thường</span>
+                        }
+                    </td>
+
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-action="Details" asp-route-id="@u.MaKhachHang"
+                               class="btn btn-sm btn-primary">
+                                Chi tiết
+                            </a>
+
+                            <form asp-action="Delete" method="post"
+                                  onsubmit="return confirm('Xóa khách hàng này?');" class="m-0">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@u.MaKhachHang" />
+                                <button class="btn btn-sm btn-danger">Xóa</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">
+    ⬅️ Quay lại
+</a>

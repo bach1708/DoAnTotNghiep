@@ -1,33 +1,71 @@
 ﻿@model MangaShop.Models.Truyen
 
-<h2>Thêm truyện</h2>
+@{
+    ViewData["Title"] = "Thêm truyện";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">➕ Thêm truyện</h2>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+
     <div class="mb-3">
-        <label>Tên truyện</label>
+        <label class="form-label">Tên truyện</label>
         <input asp-for="TenTruyen" class="form-control" />
+        <span asp-validation-for="TenTruyen" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label>Tác giả</label>
+        <label class="form-label">Tác giả</label>
         <input asp-for="TacGia" class="form-control" />
+        <span asp-validation-for="TacGia" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
-        <label>Giá</label>
+        <label class="form-label">Giá (gợi ý / mặc định)</label>
         <input asp-for="Gia" class="form-control" />
+        <div class="form-text">
+            Nếu bạn bán theo tập: giá thực tế có thể nằm ở từng tập (TruyenTap).
+        </div>
+        <span asp-validation-for="Gia" class="text-danger"></span>
     </div>
 
+    <!-- ✅ BỎ SỐ LƯỢNG TỒN (vì tồn kho quản lý theo tập) -->
+    @*
     <div class="mb-3">
-        <label>Số lượng tồn</label>
+        <label class="form-label">Số lượng tồn</label>
         <input asp-for="SoLuongTon" class="form-control" />
     </div>
+    *@
 
     <div class="mb-3">
-        <label>Thể loại</label>
+        <label class="form-label">Thể loại</label>
         <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select"></select>
+        <span asp-validation-for="MaTheLoai" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-success">Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+    <div class="mb-3">
+        <label class="form-label">Mô tả truyện</label>
+        <textarea asp-for="MoTa"
+                  class="form-control"
+                  rows="6"
+                  placeholder="Nhập mô tả chi tiết nội dung truyện..."></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tên ảnh bìa (vd: naruto.jpg)</label>
+        <input asp-for="AnhBia" class="form-control" />
+        <span asp-validation-for="AnhBia" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">✅ Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

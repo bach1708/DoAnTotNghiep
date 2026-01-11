@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MangaShop.Models.Truyen>
+
+@{
+    ViewData["Title"] = "Thùng rác truyện";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">🗑 Thùng rác (Truyện đã ẩn)</h2>
+
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã</th>
+            <th>Tên truyện</th>
+            <th>Thể loại</th>
+            <th width="180">Khôi phục</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>#@item.MaTruyen</td>
+                <td class="text-start">@item.TenTruyen</td>
+                <td>@item.MaTheLoaiNavigation?.TenTheLoai</td>
+                <td>
+                    <form asp-action="Restore" method="post"
+                          onsubmit="return confirm('Khôi phục truyện này?');">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.MaTruyen" />
+                        <button class="btn btn-sm btn-success">♻ Khôi phục</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>

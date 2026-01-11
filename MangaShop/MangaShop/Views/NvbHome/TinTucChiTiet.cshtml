@@ -1,0 +1,24 @@
+﻿@model MangaShop.Models.BaiViet
+
+@{
+    ViewData["Title"] = Model.TieuDe;
+}
+
+<a asp-action="TinTuc" class="btn btn-secondary btn-sm mb-3">⬅ Quay lại</a>
+
+<div class="card shadow">
+    @if (!string.IsNullOrWhiteSpace(Model.AnhDaiDien))
+    {
+        <img src="~/images/@Model.AnhDaiDien" class="card-img-top" style="max-height:350px; object-fit:cover;" />
+    }
+    <div class="card-body">
+        <span class="badge @(Model.Loai == "Ưu đãi" ? "bg-success" : "bg-primary")">@Model.Loai</span>
+        <h2 class="mt-2">@Model.TieuDe</h2>
+        <p class="text-muted">@Model.NgayDang.ToString("dd/MM/yyyy HH:mm")</p>
+
+        <hr />
+        <div style="white-space:pre-line;">
+            @Model.NoiDung
+        </div>
+    </div>
+</div>

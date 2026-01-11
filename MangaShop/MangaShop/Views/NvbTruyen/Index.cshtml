@@ -5,64 +5,101 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-4">📚 Truyện Đang Bán</h2>
+<h2 class="mb-4">📚 Quản lý truyện</h2>
 
-<a asp-action="Create" class="btn btn-primary mb-0">
-    ➕ Trưng bày truyện mới
-</a>
-<a asp-action="NhapKho" class="btn btn-success">
-    ➕ Nhập thêm hàng
-</a>
-<a asp-controller="NvbAdmin"
-   asp-action="Index"
-   class="btn btn-secondary">
-    ⬅️ Quay lại
-</a>
+<div class="d-flex flex-wrap gap-2 mb-3">
+    <a asp-action="Create" class="btn btn-primary">
+        ➕ Trưng bày truyện mới
+    </a>
+
+    <!-- ✅ Nhập kho theo tập (đúng với tồn kho theo tập) -->
+    <a asp-action="NhapKhoTap"
+       class="btn btn-success">
+        ➕ Nhập truyện mới
+    </a>
+
+    <!-- ✅ Thùng rác (truyện đã ẩn/xóa mềm) -->
+    <a asp-action="Trash" class="btn btn-outline-danger">
+        🗑 Thùng rác
+    </a>
+
+    <a asp-controller="NvbAdmin"
+       asp-action="Index"
+       class="btn btn-secondary">
+        ⬅️ Quay lại
+    </a>
+</div>
+
 <table class="table table-bordered table-hover align-middle">
     <thead class="table-dark">
         <tr>
             <th>Ảnh</th>
             <th>Tên truyện</th>
             <th>Tác giả</th>
-            <th>Giá</th>
             <th>Thể loại</th>
-            <th>Số lượng truyện còn lại</th>
-            <th width="180">Thao tác</th>
+            <th style="width:160px">Số tập</th>
+            <th style="width:180px">Tồn kho (theo tập)</th>
+            <th width="260">Thao tác</th>
         </tr>
     </thead>
+
     <tbody>
         @foreach (var item in Model)
         {
+            var soTap = item.TruyenTaps?.Count ?? 0;
+            var tongTon = item.TruyenTaps?.Sum(x => x.SoLuongTon) ?? 0;
+
             <tr>
-                <td>
+                <td style="width:90px">
                     <img src="~/images/@item.AnhBia"
                          width="70"
                          class="rounded shadow" />
                 </td>
-                <td>@item.TenTruyen</td>
-                <td>@item.TacGia</td>
-                <td>@item.Gia.ToString("N0") đ</td>
-                <td>@item.MaTheLoaiNavigation?.TenTheLoai</td>
-                <!-- ✅ HIỂN THỊ TỒN KHO -->
+
                 <td>
-                    @if (item.SoLuongTon <= 0)
+                    @item.TenTruyen
+
+                    @* (Tuỳ chọn) nếu vô tình truyền truyện bị ẩn *@
+                    @if (item.IsDeleted)
                     {
-                        <span class="badge bg-danger">Hết hàng</span>
+                        <span class="badge bg-secondary ms-2">Đang ẩn</span>
                     }
-                    else if (item.SoLuongTon <= 5)
+                </td>
+
+                <td>@item.TacGia</td>
+                <td>@item.MaTheLoaiNavigation?.TenTheLoai</td>
+
+                <td>
+                    @if (soTap == 0)
                     {
-                        <span class="badge bg-warning text-dark">
-                            Còn @item.SoLuongTon
-                        </span>
+                        <span class="badge bg-secondary">Chưa có tập</span>
                     }
                     else
                     {
-                        <span class="badge bg-success">
-                            @item.SoLuongTon
-                        </span>
+                        <span class="badge bg-info text-dark">@soTap tập</span>
                     }
                 </td>
+
                 <td>
+                    @if (soTap == 0)
+                    {
+                        <span class="text-muted">-</span>
+                    }
+                    else if (tongTon <= 0)
+                    {
+                        <span class="badge bg-danger">Hết hàng</span>
+                    }
+                    else if (tongTon <= 10)
+                    {
+                        <span class="badge bg-warning text-dark">Còn @tongTon</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">@tongTon</span>
+                    }
+                </td>
+
+                <td class="d-flex gap-2">
                     <a asp-action="Edit"
                        asp-route-id="@item.MaTruyen"
                        class="btn btn-sm btn-warning">✏️</a>

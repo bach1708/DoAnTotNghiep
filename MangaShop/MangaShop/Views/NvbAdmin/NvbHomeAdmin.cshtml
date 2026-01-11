@@ -11,7 +11,7 @@
     <div class="col-md-3">
         <div class="card text-center shadow h-100">
             <div class="card-body">
-                <h5 class="card-title">Quản lý truyện</h5>
+                <h5 class="card-title">Quản Lý Truyện</h5>
                 <a asp-controller="NvbTruyen"
                    asp-action="Index"
                    class="btn btn-outline-primary btn-sm mt-2">
@@ -25,9 +25,12 @@
     <div class="col-md-3">
         <div class="card text-center shadow h-100">
             <div class="card-body">
-                <h5 class="card-title">Quản lý thể loại</h5>
-                <a href="#" class="btn btn-outline-success btn-sm mt-2">
-                    Xem
+                <h5 class="card-title">Quản Lý Thể Loại</h5>
+
+                <a asp-controller="NvbTheLoai"
+                   asp-action="Index"
+                   class="btn btn-outline-success btn-sm mt-2">
+                   Xem
                 </a>
             </div>
         </div>
@@ -37,7 +40,7 @@
     <div class="col-md-3">
         <div class="card text-center shadow h-100">
             <div class="card-body">
-                <h5 class="card-title">Đơn hàng</h5>
+                <h5 class="card-title">Quản Lý Đơn Hàng</h5>
                 <a asp-controller="BillAdmin"
                    asp-action="BillAdmin"
                    class="btn btn-outline-warning btn-sm mt-2">
@@ -53,18 +56,48 @@
     <div class="col-md-3">
         <div class="card text-center shadow h-100 border-danger">
             <div class="card-body">
-                <h5 class="card-title text-danger">Đăng xuất</h5>
+                <h5 class="card-title text-danger">Quản Lý Đánh Giá</h5>
 
-                <form asp-controller="NvbAdmin"
-                      asp-action="Logout"
-                      method="post">
+                <a asp-controller="NvbDanhGiaAdmin"
+                   asp-action="Index"
+                   class="btn btn-outline-danger btn-sm mt-2">
+                    Xem đánh giá
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100 border-primary">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Quản lý khách hàng</h5>
 
-                    <button type="submit"
-                            class="btn btn-outline-danger btn-sm mt-2">
-                        Thoát
-                    </button>
-
-                </form>
+                <a asp-controller="QuanLyKhachHang"
+                   asp-action="Index"
+                   class="btn btn-outline-primary btn-sm mt-2">
+                    Vào quản lý
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100 border-dark">
+            <div class="card-body">
+                <h5 class="card-title">Thống kê doanh thu</h5>
+                <a asp-controller="NvbThongKe" asp-action="Index"
+                   class="btn btn-outline-dark btn-sm mt-2">
+                    Xem thống kê
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center shadow h-100 border-primary">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Quản lý bài đăng</h5>
+                <a asp-controller="NvbTinTuc" asp-action="Index"
+                   class="btn btn-outline-primary btn-sm mt-2">
+                    Vào quản lý
+                </a>
             </div>
         </div>
     </div>

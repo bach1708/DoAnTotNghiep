@@ -1,0 +1,184 @@
+﻿@model MangaShop.Models.ViewModels.ThongKeVM
+
+@{
+    ViewData["Title"] = "Thống kê doanh thu";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">📊 THỐNG KÊ DOANH THU</h2>
+
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <label class="form-label">Từ ngày</label>
+        <input type="date" name="tuNgay" class="form-control"
+               value="@Model.TuNgay.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Đến ngày</label>
+        <input type="date" name="denNgay" class="form-control"
+               value="@Model.DenNgay.ToString("yyyy-MM-dd")" />
+    </div>
+    <div class="col-md-4 d-flex align-items-end gap-2">
+        <button class="btn btn-primary w-100">Lọc</button>
+        <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
+    </div>
+</form>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <div class="text-muted">Tổng doanh thu (Hoàn thành)</div>
+                <h4 class="text-danger fw-bold">@Model.TongDoanhThu.ToString("N0") ₫</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <div class="text-muted">Tổng đơn</div>
+                <h4 class="fw-bold">@Model.TongDon</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <div class="text-muted">Đơn hoàn thành</div>
+                <h4 class="text-success fw-bold">@Model.DonHoanThanh</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card shadow">
+            <div class="card-body text-center">
+                <div class="text-muted">Đơn huỷ</div>
+                <h4 class="text-secondary fw-bold">@Model.DonHuy</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-7">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Doanh thu theo ngày</h5>
+                <canvas id="revenueChart"></canvas>
+
+                <hr />
+
+                <table class="table table-bordered text-center align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Số đơn</th>
+                            <th>Doanh thu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.DoanhThuTheoNgay.Any())
+                        {
+                            <tr><td colspan="3" class="text-muted">Không có dữ liệu.</td></tr>
+                        }
+                        else
+                        {
+                            foreach (var r in Model.DoanhThuTheoNgay)
+                            {
+                                <tr>
+                                    <td>@r.Ngay.ToString("dd/MM/yyyy")</td>
+                                    <td>@r.SoDon</td>
+                                    <td class="text-danger fw-bold">@r.DoanhThu.ToString("N0") ₫</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5>Top truyện bán chạy (Hoàn thành)</h5>
+
+                <table class="table table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Truyện</th>
+                            <th>SL</th>
+                            <th>Doanh thu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.TopTruyen.Any())
+                        {
+                            <tr><td colspan="3" class="text-muted text-center">Không có dữ liệu.</td></tr>
+                        }
+                        else
+                        {
+                            foreach (var t in Model.TopTruyen)
+                            {
+                                <tr>
+                                    <td>@t.TenTruyen</td>
+                                    <td class="text-center">@t.TongSoLuong</td>
+                                    <td class="text-danger fw-bold">@t.DoanhThu.ToString("N0") ₫</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <canvas id="topChart" class="mt-3"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary mt-3">
+    ⬅️ Quay lại
+</a>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                    Model.DoanhThuTheoNgay.Select(x => x.Ngay.ToString("dd/MM")).ToList()
+            ));
+    const values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                Model.DoanhThuTheoNgay.Select(x => x.DoanhThu).ToList()
+        ));
+
+    new Chart(document.getElementById('revenueChart'), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Doanh thu',
+                data: values,
+                tension: 0.3
+            }]
+        }
+    });
+
+        const topLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                Model.TopTruyen.Select(x => x.TenTruyen).ToList()
+        ));
+    const topValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+                Model.TopTruyen.Select(x => x.DoanhThu).ToList()
+        ));
+
+    new Chart(document.getElementById('topChart'), {
+        type: 'bar',
+        data: {
+            labels: topLabels,
+            datasets: [{
+                label: 'Doanh thu',
+                data: topValues
+            }]
+        }
+    });
+</script>
+}

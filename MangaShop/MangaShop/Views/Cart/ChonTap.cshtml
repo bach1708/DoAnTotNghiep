@@ -1,0 +1,68 @@
+﻿@model MangaShop.Models.Truyen
+@{
+    ViewData["Title"] = "Chọn tập";
+}
+
+<h3 class="mb-3">📚 Chọn tập - @Model.TenTruyen</h3>
+
+@if (TempData["Err"] != null)
+{
+    <div class="alert alert-warning">@TempData["Err"]</div>
+}
+
+@if (Model.TruyenTaps == null || !Model.TruyenTaps.Any())
+{
+    <div class="alert alert-warning">Chưa có dữ liệu tập cho truyện này.</div>
+    <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
+        Quay lại
+    </a>
+}
+else
+{
+    var conHang = Model.TruyenTaps
+        .OrderBy(x => x.SoTap)
+        .Where(x => x.SoLuongTon > 0)
+        .ToList();
+
+    if (!conHang.Any())
+    {
+        <div class="alert alert-secondary">
+            Tất cả các tập hiện đang hết hàng.
+        </div>
+        <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
+            Quay lại
+        </a>
+    }
+    else
+    {
+        <form asp-controller="Cart" asp-action="AddTap" method="post" class="card p-3 shadow">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label class="form-label">Chọn tập</label>
+                <select class="form-select" name="maTap" required>
+                    @foreach (var tap in conHang)
+                    {
+                        <option value="@tap.MaTap">
+                            Tập @tap.SoTap - @tap.Gia.ToString("N0") ₫ (Còn: @tap.SoLuongTon)
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Số lượng</label>
+                <!-- ✅ Giữ đúng tên quantity khớp controller -->
+                <input type="number" name="quantity" value="1" min="1"
+                       class="form-control" style="width:110px" />
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-success" type="submit">Thêm vào giỏ</button>
+                <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
+                    Quay lại
+                </a>
+            </div>
+        </form>
+    }
+}

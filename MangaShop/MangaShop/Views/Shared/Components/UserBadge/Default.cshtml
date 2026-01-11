@@ -1,0 +1,21 @@
+﻿@model MangaShop.ViewComponents.UserBadgeVM
+
+@{
+    var userId = Context.Session.GetInt32("UserId");
+}
+
+@if (userId != null)
+{
+    if (Model.Tier == "Vàng")
+    {
+        <span class="badge bg-warning text-dark ms-2">🥇 Vàng</span>
+    }
+    else if (Model.Tier == "Bạc")
+    {
+        <span class="badge bg-secondary ms-2">🥈 Bạc</span>
+    }
+    else if (Model.Tier == "Đồng")
+    {
+        <span class="badge bg-danger ms-2">🥉 Đồng</span>
+    }
+}

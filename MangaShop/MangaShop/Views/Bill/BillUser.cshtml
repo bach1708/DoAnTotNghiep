@@ -21,17 +21,23 @@ else
                 <th>Ngày đặt</th>
                 <th>Tổng tiền</th>
                 <th>Trạng thái</th>
+                <th>Chi tiết</th>
+                <th>Hủy</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>#@item.MaDonHang</td>
+
                     <td>@item.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
+
                     <td class="text-danger fw-bold">
-                        @(item.TongTien.ToString("N0")) ₫
+                        @item.TongTien.ToString("N0") ₫
                     </td>
+
                     <td>
                         @if (item.TrangThai == "Chờ xử lý")
                         {
@@ -45,17 +51,45 @@ else
                         {
                             <span class="badge bg-success">Hoàn thành</span>
                         }
+                        else if (item.TrangThai == "Huỷ" || item.TrangThai == "Hủy")
+                        {
+                            <span class="badge bg-secondary">Đã hủy</span>
+                        }
                         else
                         {
-                            <span class="badge bg-secondary">Đã Hủy</span>
+                            <span class="badge bg-secondary">@item.TrangThai</span>
                         }
                     </td>
+
                     <td>
                         <a asp-action="BillDetail"
                            asp-route-id="@item.MaDonHang"
                            class="btn btn-sm btn-primary">
                             Xem chi tiết
                         </a>
+                    </td>
+
+                    <td>
+                        @if (item.TrangThai == "Chờ xử lý")
+                        {
+                            <form asp-controller="Bill"
+                                  asp-action="Cancel"
+                                  method="post"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Bạn chắc chắn muốn hủy đơn #@item.MaDonHang ?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@item.MaDonHang" />
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Hủy đơn
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-outline-secondary" disabled>
+                                Không thể hủy
+                            </button>
+                        }
                     </td>
                 </tr>
             }

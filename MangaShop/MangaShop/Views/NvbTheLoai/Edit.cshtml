@@ -1,0 +1,21 @@
+﻿@model MangaShop.Models.TheLoai
+
+@{
+    ViewData["Title"] = "Sửa thể loại";
+    Layout = "_AdminLayout";
+}
+
+<h2>✏️ Sửa thể loại</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="MaTheLoai" />
+
+    <div class="mb-3">
+        <label class="form-label">Tên thể loại</label>
+        <input asp-for="TenTheLoai" class="form-control" />
+        <span asp-validation-for="TenTheLoai" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

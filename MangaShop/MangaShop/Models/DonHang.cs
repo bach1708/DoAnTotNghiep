@@ -15,6 +15,8 @@ public partial class DonHang
 
     public string? TrangThai { get; set; }
 
+    public string? PhuongThucThanhToan { get; set; }
+
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
 
     public virtual KhachHang MaKhachHangNavigation { get; set; } = null!;

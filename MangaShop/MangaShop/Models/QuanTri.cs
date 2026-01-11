@@ -14,4 +14,6 @@ public partial class QuanTri
     public string? HoTen { get; set; }
 
     public bool? TrangThai { get; set; }
+    public virtual ICollection<PhieuNhap> PhieuNhaps { get; set; } = new HashSet<PhieuNhap>();
+
 }

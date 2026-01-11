@@ -1,0 +1,59 @@
+﻿@model MangaShop.Models.ViewModels.BaiVietFormVM
+@{
+    ViewData["Title"] = "Thêm bài đăng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">➕ THÊM BÀI ĐĂNG</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="card shadow p-3">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label class="form-label">Tiêu đề</label>
+        <input asp-for="TieuDe" class="form-control" />
+        <span asp-validation-for="TieuDe" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tóm tắt</label>
+        <textarea asp-for="TomTat" class="form-control" rows="2"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nội dung</label>
+        <textarea asp-for="NoiDung" class="form-control" rows="8"></textarea>
+        <span asp-validation-for="NoiDung" class="text-danger"></span>
+    </div>
+
+    <div class="row g-2">
+        <div class="col-md-6">
+            <label class="form-label">Loại</label>
+            <select asp-for="Loai" class="form-select">
+                <option value="Thông báo">Thông báo</option>
+                <option value="Ưu đãi">Ưu đãi</option>
+            </select>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-end">
+            <div class="form-check">
+                <input asp-for="TrangThai" class="form-check-input" />
+                <label class="form-check-label">Hiển thị</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3 mt-3">
+        <label class="form-label">Ảnh đại diện</label>
+        <input asp-for="AnhUpload" type="file" class="form-control" />
+    </div>
+
+    <div class="d-flex gap-2">
+        <button class="btn btn-success">Lưu</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

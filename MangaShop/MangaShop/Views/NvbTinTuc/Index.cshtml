@@ -1,0 +1,95 @@
+﻿@model List<MangaShop.Models.BaiViet>
+@{
+    ViewData["Title"] = "Quản lý bài đăng";
+    Layout = "_AdminLayout";
+}
+
+<h2 class="mb-3">📰 QUẢN LÝ BÀI ĐĂNG</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="get" class="d-flex gap-2">
+        <input class="form-control" name="keyword" value="@ViewBag.Keyword" placeholder="Tìm tiêu đề / tóm tắt..." style="width:320px" />
+        <select class="form-select" name="loai" style="width:160px">
+            <option value="">-- Tất cả --</option>
+            <option value="Thông báo" selected="@(ViewBag.Loai == "Thông báo")">Thông báo</option>
+            <option value="Ưu đãi" selected="@(ViewBag.Loai == "Ưu đãi")">Ưu đãi</option>
+        </select>
+        <button class="btn btn-primary">Lọc</button>
+        <a asp-action="Index" class="btn btn-secondary">Reset</a>
+    </form>
+
+    <a asp-action="Create" class="btn btn-success">➕ Thêm bài</a>
+</div>
+
+<table class="table table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th style="width:90px">Ảnh</th>
+            <th>Tiêu đề</th>
+            <th style="width:120px">Loại</th>
+            <th style="width:170px">Ngày đăng</th>
+            <th style="width:100px">Hiển thị</th>
+            <th style="width:260px">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-muted">Chưa có bài viết.</td></tr>
+        }
+        else
+        {
+            foreach (var b in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
+                        {
+                            <img src="~/images/@b.AnhDaiDien" style="width:70px; height:50px; object-fit:cover" />
+                        }
+                        else
+                        {
+                            <span class="text-muted">No img</span>
+                        }
+                    </td>
+                    <td class="text-start">
+                        <b>@b.TieuDe</b>
+                        <div class="text-muted" style="font-size:13px">
+                            @(string.IsNullOrWhiteSpace(b.TomTat) ? "" : b.TomTat)
+                        </div>
+                    </td>
+                    <td>
+                        @if (b.Loai == "Ưu đãi")
+                        {
+                            <span class="badge bg-success">Ưu đãi</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-primary">Thông báo</span>
+                        }
+                    </td>
+                    <td>@b.NgayDang.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        @if (b.TrangThai)
+                        {
+                            <span class="badge bg-success">ON</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">OFF</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a asp-action="Details" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-info">Xem</a>
+                            <a asp-action="Edit" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-warning">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-danger">Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">⬅️ Quay lại</a>

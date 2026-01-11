@@ -1,0 +1,158 @@
+﻿@model MangaShop.Models.ViewModels.ThanhVienCuaToiVM
+
+@{
+    ViewData["Title"] = "Thành viên của tôi";
+    double mucTieu = Model.MucTieuTiepTheo;
+    double conThieu = mucTieu - Model.TongChiTieu;
+    if (conThieu < 0) conThieu = 0;
+}
+
+<div class="container mt-4 mb-5">
+    <h2 class="mb-1">👑 Thành viên của tôi</h2>
+    <p class="text-muted mb-4">Theo dõi chi tiêu, cấp bậc và lịch sử đơn hàng.</p>
+
+    <div class="row g-4">
+        <!-- LEFT: Progress -->
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h5 class="mb-1">@Model.HoTen</h5>
+                            <div class="text-muted small">@Model.Email</div>
+                        </div>
+                        <span class="badge bg-dark px-3 py-2">
+                            Hạng: @Model.HangThanhVien
+                        </span>
+                        <div>
+                            <a class="dropdown-item"
+                               asp-controller="NvbAccount"
+                               asp-action="EditInfoUser">
+                                <i class="fa-solid fa-pen-to-square"></i> Sửa thông tin
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex align-items-center gap-4">
+                        <!-- vòng tròn -->
+                        <div class="progress-ring" style="--p:@Model.PhanTramTienDo;">
+                            <div class="ring-inner">
+                                <div class="fw-bold fs-4">@Model.PhanTramTienDo%</div>
+                                <div class="small text-muted">Tiến độ</div>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow-1">
+                            <div class="mb-2">
+                                <div class="text-muted">Tổng chi tiêu</div>
+                                <div class="fs-5 fw-bold text-danger">@Model.TongChiTieu.ToString("N0") ₫</div>
+                            </div>
+
+                            <div class="mb-2">
+                                <div class="text-muted">Mục tiêu lên hạng @Model.HangTiepTheo</div>
+                                <div class="fw-semibold">@Model.MucTieuTiepTheo.ToString("N0") ₫</div>
+                            </div>
+
+                            <div class="text-muted">
+                                Còn thiếu: <b class="text-success">@conThieu.ToString("N0") ₫</b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-muted small">Số đơn hàng</div>
+                                <div class="fs-4 fw-bold">@Model.SoDonHang</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-muted small">SĐT</div>
+                                <div class="fw-semibold">@(!string.IsNullOrWhiteSpace(Model.SoDienThoai) ? Model.SoDienThoai : "Chưa cập nhật")</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-3 bg-light rounded">
+                                <div class="text-muted small">Địa chỉ</div>
+                                <div class="fw-semibold">@(!string.IsNullOrWhiteSpace(Model.DiaChi) ? Model.DiaChi : "Chưa cập nhật")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Orders lite -->
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3">🧾 Đơn hàng gần đây</h5>
+
+                    @if (Model.DonHangGanDay == null || !Model.DonHangGanDay.Any())
+                    {
+                        <div class="alert alert-warning mb-0">
+                            Chưa có đơn hàng nào.
+                        </div>
+                    }
+                    else
+                    {
+                        <table class="table table-bordered align-middle text-center mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Tên</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thời gian đặt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var d in Model.DonHangGanDay)
+                                {
+                                    <tr>
+                                        <td class="text-start">
+                                            Đơn hàng #@d.MaDonHang
+                                        </td>
+                                        <td class="text-danger fw-bold">
+                                            @d.TongTien.ToString("N0") ₫
+                                        </td>
+                                        <td>
+                                            @d.NgayDat?.ToString("dd/MM/yyyy HH:mm")
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .progress-ring {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: conic-gradient(#198754 calc(var(--p) * 1%), #e9ecef 0);
+        display: grid;
+        place-items: center;
+        position: relative;
+        box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
+
+    .ring-inner {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        text-align: center;
+    }
+</style>

@@ -1,33 +1,5 @@
-wwwroot\css\DanhMuc.css
 wwwroot\css\home.css
-wwwroot\css\HuongDan.css
-wwwroot\css\navbar.css
-wwwroot\css\site.css
-wwwroot\css\ThanhVien.css
-wwwroot\css\TinTuc.css
-wwwroot\css\VeChungToi.css
 wwwroot\favicon.ico
-wwwroot\images\attackontitan.jpg
-wwwroot\images\biapage1.jpg
-wwwroot\images\biapage2.jpg
-wwwroot\images\biapage3.jpg
-wwwroot\images\conan-page.jpg
-wwwroot\images\conan.jpg
-wwwroot\images\doraemon.jpg
-wwwroot\images\dragonball.jpg
-wwwroot\images\jujutsu.jpg
-wwwroot\images\kimetsu.jpg
-wwwroot\images\lichphathanh.jpg
-wwwroot\images\logo.png
-wwwroot\images\onepiece.jpg
-wwwroot\images\onepunchman.jpg
-wwwroot\images\parasyte.jpg
-wwwroot\images\quiz1.jpg
-wwwroot\images\quiz2.jpg
-wwwroot\images\quiz3.jpg
-wwwroot\images\quiz4.jpg
-wwwroot\images\rezero.jpg
-wwwroot\images\totoro.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -89,7 +61,55 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\home.css
+wwwroot\css\site.css
+wwwroot\css\DanhMuc.css
+wwwroot\images\lichphathanh.jpg
+wwwroot\css\ThanhVien.css
+wwwroot\css\TinTuc.css
+wwwroot\css\HuongDan.css
+wwwroot\css\VeChungToi.css
+wwwroot\images\attackontitan.jpg
+wwwroot\images\conan-page.jpg
+wwwroot\images\conan.jpg
+wwwroot\images\doraemon.jpg
+wwwroot\images\dragonball.jpg
+wwwroot\images\jujutsu.jpg
+wwwroot\images\kimetsu.jpg
+wwwroot\images\logo.png
+wwwroot\images\onepiece.jpg
+wwwroot\images\onepunchman.jpg
+wwwroot\images\parasyte.jpg
+wwwroot\images\quiz1.jpg
+wwwroot\images\quiz2.jpg
+wwwroot\images\quiz3.jpg
+wwwroot\images\quiz4.jpg
+wwwroot\images\rezero.jpg
+wwwroot\images\totoro.jpg
+wwwroot\images\biapage1.jpg
+wwwroot\images\biapage2.jpg
+wwwroot\images\biapage3.jpg
+wwwroot\css\navbar.css
+wwwroot\images\baiviet\35fa04dd489a46519952dfa3b84e3fb7.jpg
+wwwroot\images\collection_image.jpg
+wwwroot\images\Ascendance of a Bookworm Part 4.jpg
+wwwroot\images\Attack on Titan Final Season Part 3.jpg
+wwwroot\images\Blue Exorcist The Second Coming.jpg
+wwwroot\images\Dr. Stone New World Part 2.jpg
+wwwroot\images\Jigokuraku Season 2.jpg
+wwwroot\images\Jujutsu Kaisen Season 2.jpg
+wwwroot\images\Kimetsu no Yaiba arc.jpg
+wwwroot\images\Magic and Muscles Season 2.jpg
+wwwroot\images\My Hero Academia Season 7.jpg
+wwwroot\images\One Punch Man Season 4.jpg
+wwwroot\images\Record of Ragnarok Final Season.jpg
+wwwroot\images\Solo Leveling.jpg
+wwwroot\images\Spy × Family Season 2.jpg
+wwwroot\images\The Apothecary Diaries Season 2.jpg
+wwwroot\images\The Rising of the Shield Hero Season 3.jpg
+wwwroot\images\Thousand-Year Blood War Part 3.jpg
+wwwroot\images\Undead Unluck Season 2.jpg
+wwwroot\images\baiviet\2a9a16d2a2f64056ade1357f7df6b060.jpg
+wwwroot\images\baiviet\cd1da45ecaca4fc4913b9641430c792b.jpg
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\favicon.ico
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\js\site.js
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -151,6 +171,7 @@ C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.s
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\home.css
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\navbar.css
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\DanhMuc.css
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\ThanhVien.css

@@ -15,7 +15,7 @@
             <th>Ngày đặt</th>
             <th>Tổng tiền</th>
             <th>Trạng thái</th>
-            <th></th>
+            <th>Phương thức thanh toán</th>
         </tr>
     </thead>
     <tbody>
@@ -28,18 +28,21 @@
                 <td class="text-danger fw-bold">
                     @item.TongTien.ToString("N0") ₫
                 </td>
+                <td>@item.PhuongThucThanhToan</td>
                 <td>
                     <form asp-action="UpdateStatus" method="post" class="d-flex">
                         <input type="hidden" name="id" value="@item.MaDonHang" />
+
                         <select name="trangThai" class="form-select form-select-sm">
-                            <option selected>@item.TrangThai</option>
-                            <option>Chờ xử lý</option>
-                            <option>Đang giao</option>
-                            <option>Hoàn thành</option>
-                            <option>Huỷ</option>
+                            <option value="Chờ xử lý" selected="@(item.TrangThai == "Chờ xử lý")">Chờ xử lý</option>
+                            <option value="Đang giao" selected="@(item.TrangThai == "Đang giao")">Đang giao</option>
+                            <option value="Hoàn thành" selected="@(item.TrangThai == "Hoàn thành")">Hoàn thành</option>
+                            <option value="Huỷ" selected="@(item.TrangThai == "Huỷ")">Huỷ</option>
                         </select>
+
                         <button class="btn btn-sm btn-success ms-1">✔</button>
                     </form>
+
                 </td>
                 <td>
                     <a asp-action="BillDetailAdmin"

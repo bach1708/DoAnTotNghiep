@@ -37,24 +37,50 @@ else
                     <td>
                         <img src="~/images/@item.AnhBia" width="60" />
                     </td>
-                    <td>@item.TenTruyen</td>
+
+                    <td>
+                        @item.TenTruyen
+                        <span class="text-muted">(Tập @item.SoTap)</span>
+                    </td>
+
                     <td>@item.Gia.ToString("N0") ₫</td>
+
                     <!-- SỐ LƯỢNG + - -->
                     <td>
-                        <a asp-action="Decrease" asp-route-id="@item.MaTruyen"
-                           class="btn btn-sm btn-outline-secondary">➖</a>
+                        <div class="d-flex align-items-center justify-content-center gap-1">
+                            <a asp-controller="Cart"
+                               asp-action="Decrease"
+                               asp-route-id="@item.MaTap"
+                               class="btn btn-sm btn-outline-secondary px-2">➖</a>
 
-                        <span class="mx-2 fw-bold">@item.SoLuong</span>
+                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="m-0">
+                                <input type="hidden" name="id" value="@item.MaTap" />
+                                <input type="number"
+                                       name="quantity"
+                                       value="@item.SoLuong"
+                                       min="1"
+                                       class="form-control form-control-sm text-center"
+                                       style="width:42px; height:28px; padding:0;"
+                                       onchange="this.form.submit()" />
+                            </form>
 
-                        <a asp-action="Increase" asp-route-id="@item.MaTruyen"
-                           class="btn btn-sm btn-outline-secondary">➕</a>
+                            <a asp-controller="Cart"
+                               asp-action="Increase"
+                               asp-route-id="@item.MaTap"
+                               class="btn btn-sm btn-outline-secondary px-2">➕</a>
+                        </div>
                     </td>
+
+                    <!-- ✅ THÀNH TIỀN -->
                     <td class="text-danger fw-bold">
-                        @item.ThanhTien.ToString("N0") ₫
+                        @((item.Gia * item.SoLuong).ToString("N0")) ₫
                     </td>
+
+                    <!-- ✅ XÓA -->
                     <td>
-                        <a asp-action="Remove"
-                           asp-route-id="@item.MaTruyen"
+                        <a asp-controller="Cart"
+                           asp-action="Remove"
+                           asp-route-id="@item.MaTap"
                            class="btn btn-sm btn-danger">
                             X
                         </a>
@@ -62,6 +88,7 @@ else
                 </tr>
             }
         </tbody>
+
     </table>
 
     <div class="d-flex justify-content-between">
@@ -78,4 +105,13 @@ else
         </a>
     </div>
    
+}
+@section Scripts {
+    <script>
+        let qtyTimer;
+        function queueQtySubmit(form) {
+            clearTimeout(qtyTimer);
+            qtyTimer = setTimeout(() => form.submit(), 400); // đợi 0.4s rồi submit
+        }
+    </script>
 }

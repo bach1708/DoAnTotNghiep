@@ -67,6 +67,47 @@ namespace MangaShop.Controllers
             return RedirectToAction("Login");
         }
 
+        // Sửa thông tin user
+        [HttpGet]
+        public IActionResult EditInfoUser()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login");
+
+            var user = _context.KhachHangs.Find(userId);
+            if (user == null)
+                return NotFound();
+
+            return View(user);
+        }
+
+        //Post sau khi sửa
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditInfoUser(KhachHang model)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+                return RedirectToAction("Login");
+
+            var user = _context.KhachHangs.Find(userId);
+            if (user == null)
+                return NotFound();
+
+            user.HoTen = model.HoTen;
+            user.Email = model.Email;
+            user.SoDienThoai = model.SoDienThoai;
+            user.DiaChi = model.DiaChi;
+
+            _context.SaveChanges();
+
+            // cập nhật lại tên hiển thị trên navbar
+            HttpContext.Session.SetString("UserName", user.HoTen);
+
+            ViewBag.Success = "Cập nhật thông tin thành công";
+            return View(user);
+        }
 
         // ===== Đăng xuất USER =====
         public IActionResult Logout()

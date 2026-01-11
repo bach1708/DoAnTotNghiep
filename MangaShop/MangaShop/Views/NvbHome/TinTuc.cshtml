@@ -1,76 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Tin Tức";
+﻿@model List<MangaShop.Models.BaiViet>
+
+@{
+    ViewData["Title"] = "Tin tức";
+    var loai = ViewBag.Loai as string;
 }
 
-<div class="container-fluid news-container">
-    <div class="news-header">
-        <p class="breadcrumb-nav">TRANG CHỦ > TIN TỨC</p>
-        <h1 class="page-title">TIN TỨC</h1>
-    </div>
+<h2 class="mb-3">📰 Tin tức & Ưu đãi</h2>
 
-    <div class="row">
-
-        <div class="col-md-9 main-content">
-
-            <div class="article-card row">
-                <div class="col-md-4 article-image-placeholder">
-                    <div class="image-box"></div>
-                </div>
-                <div class="col-md-8 article-info">
-                    <p class="article-date">13/01/2023</p>
-                    <p class="article-author">ĐĂNG BỞI: NGUYỄN HỒNG PHƯƠNG</p>
-                    <h2 class="article-title">onepunch</h2>
-                    <p class="article-summary">rgegegeh</p>
-                    <a href="#" class="read-more">Xem thêm...</a>
-                </div>
-            </div>
-
-            <div class="article-card row">
-                <div class="col-md-4 article-image-placeholder">
-                    <div class="image-box"></div>
-                </div>
-                <div class="col-md-8 article-info">
-                    <p class="article-date">12/12/2025</p>
-                    <p class="article-author">ĐĂNG BỞI: HIKARU SHOP</p>
-                    <h2 class="article-title">Top 5 Manga Shonen đáng đọc nhất cuối năm</h2>
-                    <p class="article-summary">Cùng khám phá những bộ truyện hành động, phiêu lưu đang làm mưa làm gió...</p>
-                    <a href="#" class="read-more">Xem thêm...</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-3 sidebar">
-
-            <h4 class="sidebar-heading">BÀI ĐĂNG MỚI</h4>
-            <div class="new-posts">
-                <div class="post-item">
-                    <div class="post-info">
-                        <p class="post-title">onepunch</p>
-                        <p class="post-date">19/01/2023</p>
-                    </div>
-                    <div class="post-image-placeholder">
-                    </div>
-                </div>
-                <div class="post-item">
-                    <div class="post-info">
-                        <p class="post-title">Mùa Light Novel 2026</p>
-                        <p class="post-date">10/12/2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="sidebar-heading mt-4">TAGS</h4>
-            <div class="tags-list">
-                <span class="tag-item">Manga</span>
-                <span class="tag-item">Light Novel</span>
-                <span class="tag-item">Shonen</span>
-            </div>
-
-        </div>
-    </div>
+<div class="d-flex gap-2 mb-3">
+    <a asp-action="TinTuc" class="btn btn-outline-dark btn-sm @(string.IsNullOrEmpty(loai) ? "active" : "")">Tất cả</a>
+    <a asp-action="TinTuc" asp-route-loai="Thông báo" class="btn btn-outline-primary btn-sm @(loai == "Thông báo" ? "active" : "")">Thông báo</a>
+    <a asp-action="TinTuc" asp-route-loai="Ưu đãi" class="btn btn-outline-success btn-sm @(loai == "Ưu đãi" ? "active" : "")">Ưu đãi</a>
 </div>
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/TinTuc.css" asp-append-version="true" />
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Chưa có bài đăng nào.</div>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var b in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow h-100">
+                    @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
+                    {
+                        <img src="~/images/@b.AnhDaiDien" class="card-img-top" style="height:180px; object-fit:cover;" />
+                    }
+                    <div class="card-body">
+                        <span class="badge @(b.Loai == "Ưu đãi" ? "bg-success" : "bg-primary")">
+                            @b.Loai
+                        </span>
+
+                        <h5 class="card-title mt-2">@b.TieuDe</h5>
+                        <p class="text-muted mb-2">@b.NgayDang.ToString("dd/MM/yyyy HH:mm")</p>
+
+                        <p class="card-text">
+                            @(string.IsNullOrWhiteSpace(b.TomTat) ? (b.NoiDung.Length > 120 ? b.NoiDung.Substring(0, 120) + "..." : b.NoiDung) : b.TomTat)
+                        </p>
+
+                        <a asp-action="TinTucChiTiet" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-dark">
+                            Xem chi tiết
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

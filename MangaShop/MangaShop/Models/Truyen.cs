@@ -23,6 +23,10 @@ public partial class Truyen
 
     public int? MaNxb { get; set; }
     public int SoLuongTon { get; set; }
+    public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; } = new HashSet<ChiTietPhieuNhap>();
+
+
+    public virtual ICollection<TruyenTap> TruyenTaps { get; set; } = new List<TruyenTap>();
 
     public virtual ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
 
@@ -35,4 +39,6 @@ public partial class Truyen
     public virtual TacGia? MaTacGiaNavigation { get; set; }
 
     public virtual TheLoai? MaTheLoaiNavigation { get; set; }
+    public bool IsDeleted { get; set; }
+
 }
