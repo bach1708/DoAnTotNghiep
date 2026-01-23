@@ -3,136 +3,140 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\mangashopcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\mangashopcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\nvbhome-tintucchitiet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\nvbhome-tintucchitiet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\chitietphieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\chitietphieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\tintucchitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\tintucchitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\quantri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\quantri.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\nvbhome-tintuc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\nvbhome-tintuc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\truyen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\truyen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\truyentap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\truyentap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\phieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\phieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\billusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\billusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbtruyencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbtruyencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\billadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\billadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\bill\\billdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\bill\\billdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\bill\\billuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\bill\\billuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\danhgia\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\danhgia\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\tintuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\tintuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\danhgiacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\danhgiacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\chitietdonhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\chitietdonhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\danhgia\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\danhgia\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\donhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\donhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\quanlykhachhangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\quanlykhachhangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\cart\\chontap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\cart\\chontap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\billusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\billusercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\cartcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbdanhgiaadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbdanhgiaadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\bill\\billdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\bill\\billdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbtruyen\\nhapkhotap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbtruyen\\nhapkhotap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\danhgia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\danhgia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\viewmodels\\nhapkhotaptruyenvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\viewmodels\\nhapkhotaptruyenvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbtruyencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbtruyencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbhomecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\checkoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbaccountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbadmincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbthongkecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbthongkecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\controllers\\nvbtheloaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\controllers\\nvbtheloaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\phieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\phieunhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\viewmodels\\nhapkhotapitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\viewmodels\\nhapkhotapitemvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\cart\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\cart\\giohang.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\nhapkhovm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\nhapkhovm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\home.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\mangashopcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\mangashopcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\danhmuc.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\danhmuc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\danhmuc.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\navbar.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\navbar.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\shared\\_layout.cshtml.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\nvbhome\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\nvbhome\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\bill\\billuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\bill\\billuser.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\views\\bill\\billcancer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\views\\bill\\billcancer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\models\\donhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\models\\donhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|c:\\users\\admin\\desktop\\datn\\mangashop\\mangashop\\wwwroot\\css\\billuser.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{31EE9182-C31E-7143-FAF6-099955E5687D}|MangaShop\\MangaShop.csproj|solutionrelative:mangashop\\wwwroot\\css\\billuser.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -142,316 +146,275 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TinTucChiTiet.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\TinTucChiTiet.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\TinTucChiTiet.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\TinTucChiTiet.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\TinTucChiTiet.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAQwD0AAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T06:08:32.778Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NvbHome-TinTucChiTiet.css",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\NvbHome-TinTucChiTiet.css",
+              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\NvbHome-TinTucChiTiet.css",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\NvbHome-TinTucChiTiet.css",
+              "RelativeToolTip": "MangaShop\\wwwroot\\css\\NvbHome-TinTucChiTiet.css",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAwIwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-23T06:08:12.866Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NvbHome-TinTuc.css",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\NvbHome-TinTuc.css",
+              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\NvbHome-TinTuc.css",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\NvbHome-TinTuc.css",
+              "RelativeToolTip": "MangaShop\\wwwroot\\css\\NvbHome-TinTuc.css",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAAwKoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-23T06:00:05.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TinTuc.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\TinTuc.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\TinTuc.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\TinTuc.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\TinTuc.cshtml",
+              "ViewState": "AgIAACMAAAAAAAAAAAAQwEgAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T05:59:36.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "QuanLyKhachHangController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\QuanLyKhachHangController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\QuanLyKhachHangController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\QuanLyKhachHangController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\QuanLyKhachHangController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:35:49.65Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TruyenTap.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\TruyenTap.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\TruyenTap.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\TruyenTap.cs",
-              "RelativeToolTip": "MangaShop\\Models\\TruyenTap.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T15:27:00.484Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Truyen.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\Truyen.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\Truyen.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\Truyen.cs",
-              "RelativeToolTip": "MangaShop\\Models\\Truyen.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAADwvxoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T15:26:39.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "QuanTri.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\QuanTri.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\QuanTri.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\QuanTri.cs",
-              "RelativeToolTip": "MangaShop\\Models\\QuanTri.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T15:25:17.757Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChiTietPhieuNhap.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ChiTietPhieuNhap.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\ChiTietPhieuNhap.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ChiTietPhieuNhap.cs",
-              "RelativeToolTip": "MangaShop\\Models\\ChiTietPhieuNhap.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T15:19:45.018Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PhieuNhap.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\PhieuNhap.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\PhieuNhap.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\PhieuNhap.cs",
-              "RelativeToolTip": "MangaShop\\Models\\PhieuNhap.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T15:19:23.7Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "DonHang.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DonHang.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\DonHang.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DonHang.cs",
-              "RelativeToolTip": "MangaShop\\Models\\DonHang.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:27:50.054Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "CartController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CartController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\CartController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CartController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\CartController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T05:54:17.91Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MangaShopContext.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\MangaShopContext.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\MangaShopContext.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\MangaShopContext.cs",
-              "RelativeToolTip": "MangaShop\\Models\\MangaShopContext.cs",
-              "ViewState": "AgIAAD0BAAAAAAAAAAAUwFgBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:10:30.876Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "CheckoutController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CheckoutController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\CheckoutController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CheckoutController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\CheckoutController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAAJQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:58:04.753Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "NvbTruyenController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTruyenController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbTruyenController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTruyenController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\NvbTruyenController.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAAAQwN8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T05:18:19.531Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "NvbAccountController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAccountController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbAccountController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAccountController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\NvbAccountController.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-10T09:46:15.636Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "NvbHomeController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbHomeController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbHomeController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbHomeController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\NvbHomeController.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAAAHAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T03:41:41.24Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "BillUserController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillUserController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\BillUserController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillUserController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\BillUserController.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAUwFwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:53:02.486Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
               "Title": "BillDetail.cshtml",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillDetail.cshtml",
               "RelativeDocumentMoniker": "MangaShop\\Views\\Bill\\BillDetail.cshtml",
               "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillDetail.cshtml",
               "RelativeToolTip": "MangaShop\\Views\\Bill\\BillDetail.cshtml",
-              "ViewState": "AgIAAFUAAAAAAAAAAAAQwHAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAQwKwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T06:49:47.105Z"
+              "WhenOpened": "2026-01-22T14:42:24.066Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "BillUser.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillUser.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\Bill\\BillUser.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillUser.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\Bill\\BillUser.cshtml",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAQwGIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T06:49:57.218Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "BillAdminController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillAdminController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\BillAdminController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillAdminController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\BillAdminController.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAADoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 7,
+              "Title": "BillUserController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillUserController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\BillUserController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\BillUserController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\BillUserController.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAAwIAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:53:16.428Z"
+              "WhenOpened": "2026-01-22T14:46:17.849Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "DanhGiaController.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\DanhGiaController.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Controllers\\DanhGiaController.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\DanhGiaController.cs",
-              "RelativeToolTip": "MangaShop\\Controllers\\DanhGiaController.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAQwHsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "NvbDanhGiaAdminController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbDanhGiaAdminController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbDanhGiaAdminController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbDanhGiaAdminController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbDanhGiaAdminController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:20:03.097Z"
+              "WhenOpened": "2026-01-23T05:09:33.918Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ChiTietDonHang.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ChiTietDonHang.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\ChiTietDonHang.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ChiTietDonHang.cs",
-              "RelativeToolTip": "MangaShop\\Models\\ChiTietDonHang.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAywBIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "CartController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CartController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\CartController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CartController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\CartController.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T06:16:46.733Z"
+              "WhenOpened": "2026-01-23T05:09:58.503Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 5,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\DanhGia\\Create.cshtml",
               "RelativeDocumentMoniker": "MangaShop\\Views\\DanhGia\\Create.cshtml",
               "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\DanhGia\\Create.cshtml",
               "RelativeToolTip": "MangaShop\\Views\\DanhGia\\Create.cshtml",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAQwF8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAQwFMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T06:14:11.351Z"
+              "WhenOpened": "2026-01-23T05:35:06.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DanhGiaController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\DanhGiaController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\DanhGiaController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\DanhGiaController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\DanhGiaController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAAC0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:57.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DanhGia.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DanhGia.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Models\\DanhGia.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DanhGia.cs",
+              "RelativeToolTip": "MangaShop\\Models\\DanhGia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:35:35.214Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "NvbTruyenController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTruyenController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbTruyenController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTruyenController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbTruyenController.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAuwA0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T04:10:15.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CheckoutController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CheckoutController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\CheckoutController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\CheckoutController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\CheckoutController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:57.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "NvbAccountController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAccountController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbAccountController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAccountController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbAccountController.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:43.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "NvbAdminController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAdminController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbAdminController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbAdminController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbAdminController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:35.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "NvbHomeController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbHomeController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbHomeController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbHomeController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbHomeController.cs",
+              "ViewState": "AgIAABkBAAAAAAAAAAAuwDwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T14:45:45.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "NvbThongKeController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbThongKeController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbThongKeController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbThongKeController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbThongKeController.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:30.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "NvbTheLoaiController.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTheLoaiController.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Controllers\\NvbTheLoaiController.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Controllers\\NvbTheLoaiController.cs",
+              "RelativeToolTip": "MangaShop\\Controllers\\NvbTheLoaiController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T05:09:27.43Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
-              "Title": "ChonTap.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Cart\\ChonTap.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\Cart\\ChonTap.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Cart\\ChonTap.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\Cart\\ChonTap.cshtml",
-              "ViewState": "AgIAACkAAAAAAAAAAAAQwEQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T05:54:55.345Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Program.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Program.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Program.cs",
-              "RelativeToolTip": "MangaShop\\Program.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAQwDUAAAAAAAAAAAAAAA==",
+              "Title": "PhieuNhap.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\PhieuNhap.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Models\\PhieuNhap.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\PhieuNhap.cs",
+              "RelativeToolTip": "MangaShop\\Models\\PhieuNhap.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T05:29:34.208Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "NhapKhoTapTruyenVM.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ViewModels\\NhapKhoTapTruyenVM.cs",
-              "RelativeDocumentMoniker": "MangaShop\\Models\\ViewModels\\NhapKhoTapTruyenVM.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ViewModels\\NhapKhoTapTruyenVM.cs",
-              "RelativeToolTip": "MangaShop\\Models\\ViewModels\\NhapKhoTapTruyenVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T05:18:56.399Z"
+              "WhenOpened": "2026-01-23T04:08:49.879Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 20,
-              "Title": "ChiTiet.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
-              "ViewState": "AgIAAIUAAAAAAAAAAAAAAKIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T03:47:39.886Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "NhapKhoTap.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbTruyen\\NhapKhoTap.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbTruyen\\NhapKhoTap.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbTruyen\\NhapKhoTap.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\NvbTruyen\\NhapKhoTap.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-08T10:44:33.148Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "DanhMuc.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
-              "ViewState": "AgIAADsAAAAAAAAAAAAAAEMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-08T07:23:26.725Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
               "Title": "NhapKhoTapItemVM.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\ViewModels\\NhapKhoTapItemVM.cs",
               "RelativeDocumentMoniker": "MangaShop\\Models\\ViewModels\\NhapKhoTapItemVM.cs",
@@ -459,91 +422,173 @@
               "RelativeToolTip": "MangaShop\\Models\\ViewModels\\NhapKhoTapItemVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-09T05:19:00.877Z"
+              "WhenOpened": "2026-01-23T04:08:29.297Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "GioHang.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Cart\\GioHang.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\Cart\\GioHang.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Cart\\GioHang.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\Cart\\GioHang.cshtml",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAQwHUAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 21,
+              "Title": "NhapKhoVM.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\NhapKhoVM.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Models\\NhapKhoVM.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\NhapKhoVM.cs",
+              "RelativeToolTip": "MangaShop\\Models\\NhapKhoVM.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T04:08:20.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "MangaShopContext.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\MangaShopContext.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Models\\MangaShopContext.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\MangaShopContext.cs",
+              "RelativeToolTip": "MangaShop\\Models\\MangaShopContext.cs",
+              "ViewState": "AgIAAFABAAAAAAAAAAAAwHQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-23T03:50:05.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DanhMuc.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\DanhMuc.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-09T04:26:59.111Z"
+              "WhenOpened": "2026-01-23T03:28:29.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "_AdminLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\Shared\\_AdminLayout.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_AdminLayout.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\Shared\\_AdminLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T03:23:48.482Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 27,
-              "Title": "Home.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\Home.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\Home.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\Home.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\Home.cshtml",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAQwGkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-08T07:41:41.343Z"
+              "Title": "navbar.css",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\navbar.css",
+              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\navbar.css",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\navbar.css",
+              "RelativeToolTip": "MangaShop\\wwwroot\\css\\navbar.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-23T03:20:35.5Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 28,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "MangaShop\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAG4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-08T07:35:26.64Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "_Layout.cshtml.css",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml.css",
-              "RelativeDocumentMoniker": "MangaShop\\Views\\Shared\\_Layout.cshtml.css",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml.css",
-              "RelativeToolTip": "MangaShop\\Views\\Shared\\_Layout.cshtml.css",
-              "ViewState": "AgIAACcAAAAAAAAAAAAmwDIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-08T07:35:24.164Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "home.css",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\home.css",
-              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\home.css",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\home.css",
-              "RelativeToolTip": "MangaShop\\wwwroot\\css\\home.css",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAqwKwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-08T07:42:35.042Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\site.css",
               "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\site.css",
               "RelativeToolTip": "MangaShop\\wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-08T07:43:41.484Z"
+              "WhenOpened": "2026-01-23T03:20:06.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAADMAAAAAAAAAAAAQwEwAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T03:17:41.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "_Layout.cshtml.css",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\Shared\\_Layout.cshtml.css",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Shared\\_Layout.cshtml.css",
+              "RelativeToolTip": "MangaShop\\Views\\Shared\\_Layout.cshtml.css",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAswHgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-23T03:17:11.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ChiTiet.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\NvbHome\\ChiTiet.cshtml",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAAACYAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-22T16:09:34.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "BillCancer.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillCancer.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\Bill\\BillCancer.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillCancer.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\Bill\\BillCancer.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAQwDoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-22T14:56:49.676Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "DonHang.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DonHang.cs",
+              "RelativeDocumentMoniker": "MangaShop\\Models\\DonHang.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Models\\DonHang.cs",
+              "RelativeToolTip": "MangaShop\\Models\\DonHang.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAcwBUAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-22T14:52:58.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BillUser.css",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\BillUser.css",
+              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\BillUser.css",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\BillUser.css",
+              "RelativeToolTip": "MangaShop\\wwwroot\\css\\BillUser.css",
+              "ViewState": "AgIAABgAAAAAAAAAAAAqwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-22T14:42:59.432Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 30,
-              "Title": "DanhMuc.css",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\DanhMuc.css",
-              "RelativeDocumentMoniker": "MangaShop\\wwwroot\\css\\DanhMuc.css",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\wwwroot\\css\\DanhMuc.css",
-              "RelativeToolTip": "MangaShop\\wwwroot\\css\\DanhMuc.css",
-              "ViewState": "AgIAACMAAAAAAAAAAAAmwD0AAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-01-08T07:14:58.009Z"
+              "Title": "BillUser.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillUser.cshtml",
+              "RelativeDocumentMoniker": "MangaShop\\Views\\Bill\\BillUser.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\DATN\\MangaShop\\MangaShop\\Views\\Bill\\BillUser.cshtml",
+              "RelativeToolTip": "MangaShop\\Views\\Bill\\BillUser.cshtml",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAAEIAAACHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-22T14:42:31.09Z"
             }
           ]
         }

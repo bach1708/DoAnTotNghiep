@@ -1,0 +1,170 @@
+﻿/* --- TỔNG THỂ --- */
+.news-home-wrapper {
+    background-color: transparent;
+}
+
+/* --- HEADER & FILTER --- */
+.news-main-title {
+    font-weight: 900;
+    color: #111827;
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+}
+
+.title-accent {
+    width: 80px;
+    height: 5px;
+    background: #10b981; /* Đổi sang màu xanh lá cho đồng bộ viền */
+    border-radius: 10px;
+}
+
+.news-filter-link {
+    padding: 10px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: #4b5563;
+    background: #f3f4f6;
+    font-weight: 700;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+    .news-filter-link.active {
+        background: #111827;
+        color: white;
+    }
+
+/* --- CLICKABLE CARD LOGIC --- */
+.news-main-card-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block;
+    height: 100%;
+}
+
+.news-custom-card {
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f1f5f9;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* --- HIỆU ỨNG HOVER (ĐÃ SỬA) --- */
+.news-main-card-link:hover .news-custom-card {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.08);
+    border-color: #bbf7d0; /* Viền màu xanh lá nhạt */
+}
+
+.news-main-card-link:hover .news-card-title,
+.news-main-card-link:hover .news-btn-text {
+    color: #059669; /* Chữ chuyển sang màu xanh lá đậm hơn khi hover */
+}
+
+.news-main-card-link:hover .news-card-img {
+    transform: scale(1.05); /* Zoom nhẹ lại (từ 1.1 xuống 1.05) */
+}
+
+/* --- CARD MEDIA --- */
+.news-card-img-wrapper {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+.news-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.news-card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+    z-index: 5;
+}
+
+.is-offer {
+    background: #ef4444;
+}
+
+.is-info {
+    background: #3b82f6;
+}
+
+/* --- CARD CONTENT --- */
+.news-card-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.news-card-date {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.news-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: #1e293b;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s ease;
+}
+
+.news-card-text {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.news-card-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.news-btn-text {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1e293b;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .news-main-title {
+        font-size: 1.8rem;
+    }
+
+    .news-card-img-wrapper {
+        height: 180px;
+    }
+}

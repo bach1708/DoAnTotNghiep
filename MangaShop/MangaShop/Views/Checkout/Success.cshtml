@@ -1,33 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Thanh toán thành công";
+    ViewData["Title"] = "Đặt hàng thành công";
+
+    // ✅ BƯỚC QUAN TRỌNG: Ép kiểu ngay tại đây để tránh lỗi Binder trong HTML
+    string rawData = ViewBag.TotalAmount?.ToString() ?? "0";
+    double displayAmount = 0;
+    double.TryParse(rawData, out displayAmount);
 }
 
-<div class="container mt-5 text-center">
-    <div class="card shadow p-5">
-
-        <h2 class="text-success mb-3">🎉 THANH TOÁN THÀNH CÔNG</h2>
-
-        <p class="fs-5">
-            Cảm ơn bạn đã mua truyện tại <strong>MangaShop</strong> ❤️
-        </p>
-
-        <p>
-            Đơn hàng của bạn đã được ghi nhận và sẽ sớm được xử lý.
-        </p>
-
-        <div class="mt-4">
-            <a asp-controller="NVBHome"
-               asp-action="Home"
-               class="btn btn-primary me-2">
-                🏠 Về trang chủ
-            </a>
-
-            <a asp-controller="NVBHome"
-               asp-action="DanhMuc"
-               class="btn btn-outline-secondary">
-                📚 Tiếp tục mua sắm
-            </a>
+<div class="container mt-5 mb-5 text-center">
+    <div class="card shadow-lg border-0 p-5 mx-auto" style="border-radius: 20px; max-width: 650px;">
+        <div class="mb-4">
+            <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
         </div>
 
+        <h2 class="text-success fw-bold mb-3">ĐẶT HÀNG THÀNH CÔNG!</h2>
+
+        <div class="mb-4">
+            <p class="fs-5 mb-1">Cảm ơn bạn đã mua truyện tại <strong>MangaShop</strong> ❤️</p>
+            <p class="text-muted">Đơn hàng của bạn đã được ghi nhận và đang chờ xử lý.</p>
+        </div>
+
+        <div class="payment-box p-4 mb-4 rounded-3" style="background-color: #f8fff9; border: 1px dashed #28a745;">
+            <p class="mb-1 text-uppercase small fw-bold text-secondary">Tổng tiền cần thanh toán:</p>
+            <h3 class="text-danger fw-bold mb-0">
+                @* ✅ Gọi biến đã ép kiểu ở trên, tuyệt đối không gọi trực tiếp từ ViewBag *@
+                @displayAmount.ToString("N0") <span class="fs-5">₫</span>
+            </h3>
+            <p class="small text-muted mt-2 mb-0" style="font-style: italic;">
+                * Vui lòng chuẩn bị trước số tiền này để nhận hàng thuận tiện hơn.
+            </p>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a asp-controller="NVBHome" asp-action="Home" class="btn btn-success px-4 py-2 shadow-sm">
+                <i class="fa-solid fa-house me-2"></i>Về trang chủ
+            </a>
+            <a asp-controller="Bill" asp-action="BillUser" class="btn btn-outline-dark px-4 py-2">
+                <i class="fa-solid fa-file-invoice me-2"></i>Xem đơn hàng
+            </a>
+        </div>
     </div>
 </div>

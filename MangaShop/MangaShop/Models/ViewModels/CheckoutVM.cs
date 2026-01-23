@@ -14,5 +14,6 @@ namespace MangaShop.Models.ViewModels
 
         // Phương thức thanh toán
         public string PaymentMethod { get; set; } = "COD"; // mặc định
+        public bool CoBaoHiem { get; set; } // bảo hiểm đơn hàng
     }
 }

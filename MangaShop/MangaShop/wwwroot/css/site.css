@@ -30,3 +30,57 @@ body {
   text-align: start;
 }
 
+/* KHUNG BAO BỌC CHÍNH */
+body {
+    background-color: #f0f2f5; /* Màu nền xám nhẹ bên ngoài wrapper */
+    margin: 0;
+    padding: 0;
+}
+
+.main-wrapper {
+    max-width: 1600px;
+    margin: 0 auto; /* Căn giữa */
+    background-color: #fff; /* Nền trắng cho nội dung */
+    box-shadow: 0 0 30px rgba(0,0,0,0.1); /* Tạo bóng đổ sang trọng */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* HEADER & NAV */
+.manga-header {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.main-nav {
+    background: #fff;
+    border-top: 1px solid #f5f5f5;
+    margin-top: 15px;
+}
+
+
+/* FOOTER */
+.footer-section {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-top: auto; /* Đẩy footer xuống cuối nếu trang ít nội dung */
+}
+
+.footer-heading {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 1600px) {
+    .main-wrapper {
+        width: 100%;
+        box-shadow: none;
+    }
+}

@@ -18,12 +18,37 @@ namespace MangaShop.Controllers
 
         public IActionResult Home()
         {
-            // Lấy truyện mới nhất (lấy theo MaTruyen mới nhất)
-            // Bạn có thể đổi Take(8) / Take(12) tùy muốn hiển thị bao nhiêu
-            var newest = _context.Truyens
+            // 1. Lọc danh sách gốc (Chỉ lấy truyện chưa xóa)
+            var tatCaTruyen = _context.Truyens.Where(t => !t.IsDeleted);
+
+            // 2. Danh sách 1: Sản phẩm khuyến mãi (Có hàng + Giá rẻ)
+            // Ưu tiên lấy những truyện này ra trước
+            var promo = tatCaTruyen
+                .Where(t => t.SoLuongTon > 0 && t.Gia < 50000)
                 .OrderByDescending(t => t.MaTruyen)
                 .Take(10)
                 .ToList();
+
+            // Lấy danh sách ID của promo để loại trừ ở phần Newest
+            var promoIds = promo.Select(p => p.MaTruyen).ToList();
+
+            // 3. Danh sách 2: Sắp phát hành (Không còn hàng/Chưa nhập hàng)
+            var upcoming = tatCaTruyen
+                .Where(t => t.SoLuongTon == 0)
+                .OrderByDescending(t => t.MaTruyen)
+                .Take(10)
+                .ToList();
+
+            // 4. Danh sách 3: Mới nhất trong tuần (Có hàng + KHÔNG nằm trong promo)
+            var newest = tatCaTruyen
+                .Where(t => t.SoLuongTon > 0 && !promoIds.Contains(t.MaTruyen))
+                .OrderByDescending(t => t.MaTruyen)
+                .Take(10)
+                .ToList();
+
+            // Gửi qua View
+            ViewBag.Upcoming = upcoming;
+            ViewBag.Promo = promo;
 
             return View(newest);
         }
@@ -33,51 +58,49 @@ namespace MangaShop.Controllers
             if (string.IsNullOrEmpty(keyword))
                 return RedirectToAction("DanhMuc");
 
-            // từ khoá chuẩn hoá (bỏ dấu + bỏ khoảng trắng)
+            // 1. Lấy danh sách truyện CHƯA XÓA MỀM (IsDeleted == false)
+            var query = _context.Truyens
+                .Include(t => t.MaTheLoaiNavigation)
+                .Where(t => !t.IsDeleted); // Lọc bỏ truyện đã ẩn ở đây
+
+            // 2. Chuẩn hóa từ khóa để so sánh (ví dụ: "Truyện Tranh" -> "truyen tranh")
+            var keyLow = keyword.ToLower();
             var keyNorm = TextHelper.NormalizeForSearch(keyword);
 
-            // lọc sơ bộ SQL (nhanh)
-            var candidates = _context.Truyens
-                .Include(t => t.MaTheLoaiNavigation)
-                .Where(t =>
+            // 3. Logic nhận diện Loại Truyện qua Keyword
+            if (keyLow.Contains("truyện tranh") || keyLow == "manga" || keyNorm == "truyen tranh")
+            {
+                query = query.Where(t => t.LoaiTruyen == 0);
+            }
+            else if (keyLow.Contains("truyện chữ") || keyLow == "light novel" || keyLow == "novel" || keyNorm == "truyen chu")
+            {
+                query = query.Where(t => t.LoaiTruyen == 1);
+            }
+            else
+            {
+                // 4. Nếu không phải từ khóa loại truyện, tìm theo tên/tác giả/thể loại
+                query = query.Where(t =>
                     t.TenTruyen.Contains(keyword) ||
                     (t.TacGia ?? "").Contains(keyword) ||
                     (t.MaTheLoaiNavigation != null && t.MaTheLoaiNavigation.TenTheLoai.Contains(keyword))
-                )
-                .ToList();
-
-            // nếu lọc sơ bộ không ra, lấy thêm một ít để lọc bằng normalize
-            // (tránh trường hợp "dragonball" không match "Dragon Ball")
-            if (!candidates.Any())
-            {
-                candidates = _context.Truyens
-                    .Include(t => t.MaTheLoaiNavigation)
-                    .ToList();
+                );
             }
 
-            // lọc bằng normalize (linh hoạt)
-            var result = candidates.Where(t =>
+            var result = query.OrderBy(t => t.TenTruyen).ToList();
+
+            // 5. Nếu tìm kiếm thông thường không ra, dùng thêm Normalize để tìm (Dragonball vs Dragon Ball)
+            if (!result.Any() && !string.IsNullOrEmpty(keyNorm))
             {
-                var tenNorm = TextHelper.NormalizeForSearch(t.TenTruyen);
-                var tacGiaNorm = TextHelper.NormalizeForSearch(t.TacGia);
-                var theLoaiNorm = TextHelper.NormalizeForSearch(t.MaTheLoaiNavigation?.TenTheLoai);
-
-                // match theo chuỗi liền nhau: dragonball
-                if (!string.IsNullOrEmpty(keyNorm) &&
-                    (tenNorm.Contains(keyNorm) || tacGiaNorm.Contains(keyNorm) || theLoaiNorm.Contains(keyNorm)))
-                    return true;
-
-                // match theo từng từ: "dragon ball"
-                var tokens = keyword.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                return tokens.All(tok =>
-                {
-                    var tokNorm = TextHelper.NormalizeForSearch(tok);
-                    return tenNorm.Contains(tokNorm) || tacGiaNorm.Contains(tokNorm) || theLoaiNorm.Contains(tokNorm);
-                });
-            })
-            .Distinct()
-            .OrderBy(t => t.TenTruyen)
-            .ToList();
+                result = _context.Truyens
+                    .Include(t => t.MaTheLoaiNavigation)
+                    .Where(t => !t.IsDeleted)
+                    .AsEnumerable() // Chuyển về bộ nhớ để dùng hàm TextHelper
+                    .Where(t =>
+                        TextHelper.NormalizeForSearch(t.TenTruyen).Contains(keyNorm) ||
+                        TextHelper.NormalizeForSearch(t.TacGia ?? "").Contains(keyNorm)
+                    )
+                    .ToList();
+            }
 
             ViewBag.Keyword = keyword;
             ViewBag.Count = result.Count;
@@ -86,18 +109,48 @@ namespace MangaShop.Controllers
         }
 
         // ================== DANH MỤC ==================
-        public IActionResult DanhMuc(int? maTheLoai)
+        public IActionResult DanhMuc(int? maTheLoai, int? format, int page = 1)
         {
+            int pageSize = 9; // Hiển thị 9 truyện mỗi trang
             var theLoai = _context.TheLoais.ToList();
 
-            var truyen = _context.Truyens
-                .Where(t => maTheLoai == null || t.MaTheLoai == maTheLoai)
+            // 1. Khởi tạo query gốc
+            var query = _context.Truyens.Where(t => !t.IsDeleted).AsQueryable();
+
+            // 2. Lọc theo Thể loại
+            if (maTheLoai.HasValue)
+            {
+                query = query.Where(t => t.MaTheLoai == maTheLoai);
+            }
+
+            // 3. Lọc theo Hình thức (DinhDang)
+            if (format.HasValue)
+            {
+                query = query.Where(t => t.DinhDang == format);
+            }
+
+            // 4. Tính toán phân trang
+            int totalItems = query.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            // Đảm bảo số trang luôn hợp lệ
+            if (page < 1) page = 1;
+
+            // 5. Lấy dữ liệu trang hiện tại
+            var result = query
+                .OrderByDescending(t => t.MaTruyen)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
 
+            // 6. Gửi dữ liệu qua ViewBag
             ViewBag.TheLoai = theLoai;
             ViewBag.MaTheLoai = maTheLoai;
+            ViewBag.Format = format;
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
 
-            return View(truyen);
+            return View(result);
         }
         // ================== CHI TIẾT TRUYỆN ==================
         public IActionResult ChiTiet(int id, string? returnUrl = null)
@@ -107,6 +160,8 @@ namespace MangaShop.Controllers
                 .Include(t => t.TruyenTaps) // ✅ bắt buộc để view đọc tập
                 .Include(t => t.DanhGias)
                     .ThenInclude(d => d.MaKhachHangNavigation)
+                .Include(t => t.DanhGias)
+                    .ThenInclude(d => d.MaTapNavigation)
                 .FirstOrDefault(t => t.MaTruyen == id);
 
             if (truyen == null) return NotFound();
@@ -118,7 +173,16 @@ namespace MangaShop.Controllers
 
         public IActionResult LichPhatHanh()
         {
-            return View();
+            var lichThangNay = new List<LichItem>
+            {
+                new LichItem { Ngay = "04/08", TenTruyen = "KINGDOM", Tap = "54", Gia = "45.000", GhiChu = "Tái bản", LinkChiTiet = "/NvbHome/ChiTiet/1" },
+                new LichItem { Ngay = "04/08", TenTruyen = "FIRE FORCE", Tap = "10", Gia = "43.000", GhiChu = "", LinkChiTiet = "/NvbHome/ChiTiet/2" },
+                new LichItem { Ngay = "18/08", TenTruyen = "THANH TRA AKECHI", Tap = "1", Gia = "50.000", GhiChu = "TRUYỆN MỚI", LinkChiTiet = "" },
+                new LichItem { Ngay = "25/08", TenTruyen = "NỤ HÔN TINH NGHỊCH", Tap = "1", Gia = "Chưa rõ", GhiChu = "Cực hot", LinkChiTiet = "" }
+            };
+
+            ViewBag.Thang = "08/2023"; // Gửi tiêu đề tháng ra View
+            return View(lichThangNay);
         }
 
         public IActionResult ThanhVien()
@@ -126,6 +190,7 @@ namespace MangaShop.Controllers
 
             return View();
         }
+        // ================== TRANG THÀNH VIÊN CỦA TÔI ==================
         public IActionResult ThanhVienCuaToi()
         {
             var userId = HttpContext.Session.GetInt32("UserId");
@@ -134,50 +199,54 @@ namespace MangaShop.Controllers
             var kh = _context.KhachHangs.FirstOrDefault(x => x.MaKhachHang == userId.Value);
             if (kh == null) return RedirectToAction("Login", "NvbAccount");
 
-            // ✅ chỉ tính đơn không bị hủy (bạn có thể đổi điều kiện theo dự án)
+            // 1. Chỉ tính các đơn đã "Hoàn thành" để đồng bộ với Admin
             var donQuery = _context.DonHangs
-                .Where(d => d.MaKhachHang == userId.Value)
-                .Where(d => d.TrangThai != "Huỷ" && d.TrangThai != "Đã Hủy");
+                .Where(d => d.MaKhachHang == userId.Value && d.TrangThai == "Hoàn thành");
 
             var donHangs = donQuery
                 .OrderByDescending(d => d.NgayDat)
                 .ToList();
 
-            var tongChiTieu = donHangs.Sum(x => x.TongTien);
-            var soDon = donHangs.Count;
+            // 2. Ép kiểu decimal từ DB sang double để gán vào ViewModel (Khớp với model bạn gửi)
+            double tongChiTieu = (double)donHangs.Sum(x => x.TongTien);
+            int soDon = donHangs.Count;
 
-            string hang, hangTiepTheo;
+            // 3. Dùng Helper để lấy tên hạng (Đồng bộ tuyệt đối với Admin)
+            string hang = MemberTierHelper.GetTier(tongChiTieu);
+
+            // 4. Cập nhật Session để Navbar thay đổi ngay lập tức
+            HttpContext.Session.SetString("UserRank", hang);
+
+            string hangTiepTheo;
             double mucTieu;
 
-            if (tongChiTieu >= 10_000_000)
+            // 5. Xác định mục tiêu thăng hạng (Khớp với logic hiển thị)
+            if (tongChiTieu >= 5000000)
             {
-                hang = "Vàng";
-                hangTiepTheo = "Vàng";
-                mucTieu = 10_000_000;
+                hangTiepTheo = "Kim cương";
+                mucTieu = 5000000;
             }
-            else if (tongChiTieu >= 5_000_000)
+            else if (tongChiTieu >= 2000000)
             {
-                hang = "Bạc";
-                hangTiepTheo = "Vàng";
-                mucTieu = 10_000_000;
+                hangTiepTheo = "Kim cương";
+                mucTieu = 5000000;
             }
-            else if (tongChiTieu >= 1_000_000)
+            else if (tongChiTieu >= 500000)
             {
-                hang = "Đồng";
-                hangTiepTheo = "Bạc";
-                mucTieu = 5_000_000;
+                hangTiepTheo = "Vàng";
+                mucTieu = 2000000;
             }
             else
             {
-                hang = "Chưa có";
-                hangTiepTheo = "Đồng";
-                mucTieu = 1_000_000;
+                hangTiepTheo = "Bạc";
+                mucTieu = 500000;
             }
 
+            // 6. Tính % tiến độ (Làm tròn số nguyên cho ProgressBar)
             var phanTram = mucTieu <= 0 ? 0 : (int)Math.Round((tongChiTieu / mucTieu) * 100.0);
             if (phanTram > 100) phanTram = 100;
-            if (phanTram < 0) phanTram = 0;
 
+            // 7. Gán dữ liệu vào ViewModel
             var vm = new ThanhVienCuaToiVM
             {
                 HoTen = kh.HoTen ?? "",
@@ -185,7 +254,7 @@ namespace MangaShop.Controllers
                 SoDienThoai = kh.SoDienThoai,
                 DiaChi = kh.DiaChi,
 
-                TongChiTieu = tongChiTieu,
+                TongChiTieu = tongChiTieu, // double
                 SoDonHang = soDon,
 
                 HangThanhVien = hang,
@@ -197,7 +266,7 @@ namespace MangaShop.Controllers
                 {
                     MaDonHang = d.MaDonHang,
                     NgayDat = d.NgayDat,
-                    TongTien = d.TongTien,
+                    TongTien = (double)d.TongTien, // Ép kiểu sang double ở đây
                     TrangThai = d.TrangThai
                 }).ToList()
             };

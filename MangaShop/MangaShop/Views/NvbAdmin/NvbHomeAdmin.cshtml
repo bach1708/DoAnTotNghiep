@@ -1,105 +1,132 @@
-﻿@{
-    ViewData["Title"] = "Admin Dashboard";
-    Layout = "_AdminLayout"; // 👉 dùng layout riêng cho Admin
+﻿@model MangaShop.Models.ViewModels.ThongKeVM
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thống kê doanh thu";
 }
 
-<h2 class="mb-4">Trang quản trị Manga Shop</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbHomeAdmin.css" />
+}
 
-<div class="row g-4">
-
-    <!-- QUẢN LÝ TRUYỆN -->
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100">
-            <div class="card-body">
-                <h5 class="card-title">Quản Lý Truyện</h5>
-                <a asp-controller="NvbTruyen"
-                   asp-action="Index"
-                   class="btn btn-outline-primary btn-sm mt-2">
-                    Xem
-                </a>
-            </div>
+<div class="row g-0">
+    <div class="col-md-2 admin-sidebar">
+        <div class="sidebar-header">
+            HỆ THỐNG QUẢN TRỊ
+        </div>
+        <div class="list-group">
+            <a asp-controller="NvbTruyen" asp-action="Index" class="list-group-item">Quản Lý Truyện</a>
+            <a asp-controller="NvbTheLoai" asp-action="Index" class="list-group-item">Quản Lý Thể Loại</a>
+            <a asp-controller="BillAdmin" asp-action="BillAdmin" class="list-group-item">Quản Lý Đơn Hàng</a>
+            <a asp-controller="QuanLyKhachHang" asp-action="Index" class="list-group-item">Quản Lý Khách Hàng</a>
+            <a asp-controller="NvbDanhGiaAdmin" asp-action="Index" class="list-group-item">Quản Lý Đánh Giá</a>
+            <a asp-controller="NvbTinTuc" asp-action="Index" class="list-group-item">Quản Lý Bài Đăng</a>
+            <a asp-controller="NvbAdmin" asp-action="Logout" class="list-group-item text-danger fw-bold">Đăng xuất</a>
         </div>
     </div>
 
-    <!-- QUẢN LÝ THỂ LOẠI -->
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100">
-            <div class="card-body">
-                <h5 class="card-title">Quản Lý Thể Loại</h5>
+    <div class="col-md-10 main-content">
+        <h2 class="mb-4 text-uppercase fw-bold text-dark">📊 Tổng quan hệ thống</h2>
 
-                <a asp-controller="NvbTheLoai"
-                   asp-action="Index"
-                   class="btn btn-outline-success btn-sm mt-2">
-                   Xem
-                </a>
+        <form method="get" class="row g-3 mb-5 p-4 bg-light rounded border">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Từ ngày</label>
+                <input type="date" name="tuNgay" class="form-control" value="@Model.TuNgay.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Đến ngày</label>
+                <input type="date" name="denNgay" class="form-control" value="@Model.DenNgay.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-dark px-4">Lọc dữ liệu</button>
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">Reset</a>
+            </div>
+        </form>
+
+        <div class="row g-3 mb-5">
+            <div class="col-md-3">
+                <div class="card stat-card h-100" style="border-top-color: #dc3545;">
+                    <div class="card-body text-center">
+                        <div class="text-muted small fw-bold">DOANH THU</div>
+                        <h3 class="text-danger fw-bold mt-2">@Model.TongDoanhThu.ToString("N0")₫</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100" style="border-top-color: #007bff;">
+                    <div class="card-body text-center">
+                        <div class="text-muted small fw-bold">TỔNG ĐƠN HÀNG</div>
+                        <h3 class="text-primary fw-bold mt-2">@Model.TongDon</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100" style="border-top-color: #28a745;">
+                    <div class="card-body text-center">
+                        <div class="text-muted small fw-bold">HOÀN THÀNH</div>
+                        <h3 class="text-success fw-bold mt-2">@Model.DonHoanThanh</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card h-100" style="border-top-color: #6c757d;">
+                    <div class="card-body text-center">
+                        <div class="text-muted small fw-bold">ĐƠN HỦY</div>
+                        <h3 class="text-secondary fw-bold mt-2">@Model.DonHuy</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-7">
+                <div class="chart-container shadow-sm bg-white">
+                    <h5 class="fw-bold mb-4">📉 Biểu đồ doanh thu theo thời gian</h5>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="chart-container shadow-sm bg-white">
+                    <h5 class="fw-bold mb-4">🏆 Top truyện bán chạy nhất</h5>
+                    <canvas id="topChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- ĐƠN HÀNG -->
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100">
-            <div class="card-body">
-                <h5 class="card-title">Quản Lý Đơn Hàng</h5>
-                <a asp-controller="BillAdmin"
-                   asp-action="BillAdmin"
-                   class="btn btn-outline-warning btn-sm mt-2">
-                    Xem
-                </a>
-                    
-
-            </div>
-        </div>
-    </div>
-
-    <!-- ĐĂNG XUẤT -->
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100 border-danger">
-            <div class="card-body">
-                <h5 class="card-title text-danger">Quản Lý Đánh Giá</h5>
-
-                <a asp-controller="NvbDanhGiaAdmin"
-                   asp-action="Index"
-                   class="btn btn-outline-danger btn-sm mt-2">
-                    Xem đánh giá
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100 border-primary">
-            <div class="card-body">
-                <h5 class="card-title text-primary">Quản lý khách hàng</h5>
-
-                <a asp-controller="QuanLyKhachHang"
-                   asp-action="Index"
-                   class="btn btn-outline-primary btn-sm mt-2">
-                    Vào quản lý
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100 border-dark">
-            <div class="card-body">
-                <h5 class="card-title">Thống kê doanh thu</h5>
-                <a asp-controller="NvbThongKe" asp-action="Index"
-                   class="btn btn-outline-dark btn-sm mt-2">
-                    Xem thống kê
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-center shadow h-100 border-primary">
-            <div class="card-body">
-                <h5 class="card-title text-primary">Quản lý bài đăng</h5>
-                <a asp-controller="NvbTinTuc" asp-action="Index"
-                   class="btn btn-outline-primary btn-sm mt-2">
-                    Vào quản lý
-                </a>
-            </div>
-        </div>
-    </div>
-
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThuTheoNgay.Select(x => x.Ngay.ToString("dd/MM")).ToList()));
+        const values = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThuTheoNgay.Select(x => x.DoanhThu).ToList()));
+        new Chart(document.getElementById('revenueChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: values,
+                    borderColor: '#222',
+                    backgroundColor: 'rgba(0,0,0,0.05)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            }
+        });
+        const topLabels = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TopTruyen.Select(x => x.TenTruyen).ToList()));
+        const topValues = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.TopTruyen.Select(x => x.DoanhThu).ToList()));
+        new Chart(document.getElementById('topChart'), {
+            type: 'bar',
+            data: {
+                labels: topLabels,
+                datasets: [{
+                    label: 'Doanh thu sản phẩm',
+                    data: topValues,
+                    backgroundColor: '#333'
+                }]
+            },
+            options: { indexAxis: 'y' }
+        });
+    </script>
+}

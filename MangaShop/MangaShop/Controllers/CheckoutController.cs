@@ -21,9 +21,31 @@ namespace MangaShop.Controllers
             if (userId == null)
                 return RedirectToAction("Login", "NvbAccount");
 
-            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
-            if (cart == null || !cart.Any())
+            var cart = _context.ChiTietGioHangs
+                .Include(ct => ct.MaTruyenNavigation)
+                .Include(ct => ct.MaTapNavigation)
+                .Where(ct => ct.MaGioHangNavigation.MaKhachHang == userId)
+                .Select(ct => new CartItem
+                {
+                    MaTruyen = ct.MaTruyen,
+                    MaTap = ct.MaTap ?? 0,
+                    TenTruyen = ct.MaTruyenNavigation.TenTruyen,
+                    SoTap = ct.MaTapNavigation != null ? ct.MaTapNavigation.SoTap : 0,
+                    Gia = (double)(ct.MaTapNavigation != null ? ct.MaTapNavigation.Gia : 0),
+                    SoLuong = ct.SoLuong,
+                    AnhBia = ct.MaTruyenNavigation.AnhBia
+                }).ToList();
+
+            if (!cart.Any())
+            {
+                cart = HttpContext.Session.GetObject<List<CartItem>>("CART") ?? new List<CartItem>();
+            }
+
+            if (!cart.Any())
+            {
+                TempData["Error"] = "Giỏ hàng của bạn đang trống.";
                 return RedirectToAction("GioHang", "Cart");
+            }
 
             var kh = _context.KhachHangs.FirstOrDefault(x => x.MaKhachHang == userId.Value);
 
@@ -36,6 +58,13 @@ namespace MangaShop.Controllers
                 PaymentMethod = "COD"
             };
 
+            double tongChiTieu = _context.DonHangs
+                .Where(d => d.MaKhachHang == userId.Value && d.TrangThai != "Huỷ" && d.TrangThai != "Đã Hủy")
+                .Select(d => (double?)d.TongTien).Sum() ?? 0;
+
+            int giamPhanTram = (tongChiTieu >= 10_000_000) ? 8 : (tongChiTieu >= 5_000_000) ? 5 : (tongChiTieu >= 1_000_000) ? 3 : 0;
+            ViewBag.GiamPhanTram = giamPhanTram;
+
             return View(vm);
         }
 
@@ -44,17 +73,18 @@ namespace MangaShop.Controllers
         public IActionResult Confirm(CheckoutVM model)
         {
             var maKH = HttpContext.Session.GetInt32("UserId");
-            if (maKH == null)
-                return RedirectToAction("Login", "NvbAccount");
+            if (maKH == null) return RedirectToAction("Login", "NvbAccount");
 
-            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
-            if (cart == null || !cart.Any())
-                return RedirectToAction("GioHang", "Cart");
+            var cart = _context.ChiTietGioHangs
+                .Include(ct => ct.MaTapNavigation)
+                .Where(ct => ct.MaGioHangNavigation.MaKhachHang == maKH.Value)
+                .ToList();
+
+            if (cart == null || !cart.Any()) return RedirectToAction("GioHang", "Cart");
 
             using var tran = _context.Database.BeginTransaction();
             try
             {
-                // cập nhật info KH
                 var kh = _context.KhachHangs.FirstOrDefault(x => x.MaKhachHang == maKH.Value);
                 if (kh != null)
                 {
@@ -63,86 +93,72 @@ namespace MangaShop.Controllers
                     kh.DiaChi = model.DiaChi?.Trim();
                 }
 
-                // TẠO ĐƠN HÀNG (tính tổng từ DB để an toàn)
-                // Load toàn bộ tập trong giỏ để tính đúng giá và kiểm kho
-                var tapIds = cart.Select(c => c.MaTap).Distinct().ToList();
+                double tongTienHang = cart.Sum(item => (double)(item.MaTapNavigation?.Gia ?? 0) * item.SoLuong);
+                double tongChiTieu = _context.DonHangs
+                    .Where(d => d.MaKhachHang == maKH.Value && d.TrangThai != "Huỷ" && d.TrangThai != "Đã Hủy")
+                    .Select(d => (double?)d.TongTien).Sum() ?? 0;
 
-                var tapsDb = _context.TruyenTaps
-                    .Where(t => tapIds.Contains(t.MaTap))
-                    .ToList();
-
-                // kiểm thiếu tập
-                if (tapsDb.Count != tapIds.Count)
-                {
-                    TempData["Error"] = "Có tập truyện không tồn tại. Vui lòng đặt lại!";
-                    return RedirectToAction("ThanhToan");
-                }
-
-                // kiểm kho trước
-                foreach (var item in cart)
-                {
-                    var tap = tapsDb.First(t => t.MaTap == item.MaTap);
-
-                    if (tap.SoLuongTon < item.SoLuong)
-                    {
-                        TempData["Error"] = $"Tập {tap.SoTap} không đủ hàng. Hiện còn {tap.SoLuongTon}.";
-                        return RedirectToAction("ThanhToan");
-                    }
-                }
-
-                // tính tổng tiền theo giá DB
-                double tongTien = 0;
-                foreach (var item in cart)
-                {
-                    var tap = tapsDb.First(t => t.MaTap == item.MaTap);
-                    tongTien += tap.Gia * item.SoLuong;
-                }
+                int giamPhanTram = (tongChiTieu >= 10_000_000) ? 8 : (tongChiTieu >= 5_000_000) ? 5 : (tongChiTieu >= 1_000_000) ? 3 : 0;
+                double tienGiam = Math.Round(tongTienHang * giamPhanTram / 100.0, 0);
+                double phiBaoHiem = model.CoBaoHiem ? Math.Round(tongTienHang * 0.01, 0) : 0;
+                double tongThanhToan = tongTienHang - tienGiam + phiBaoHiem;
 
                 var donHang = new DonHang
                 {
                     MaKhachHang = maKH.Value,
                     NgayDat = DateTime.Now,
-                    TongTien = tongTien,
+                    TongTien = tongTienHang,
+                    GiamGiaPhanTram = giamPhanTram,
+                    TienGiam = tienGiam,
+                    TongThanhToan = tongThanhToan,
                     TrangThai = "Chờ xử lý",
-                    PhuongThucThanhToan = model.PaymentMethod
+                    PhuongThucThanhToan = model.PaymentMethod,
+                    GhiChu = model.CoBaoHiem ? "Đã mua bảo hiểm sản phẩm (1%)" : ""
                 };
 
                 _context.DonHangs.Add(donHang);
-                _context.SaveChanges(); // để có MaDonHang
+                _context.SaveChanges();
 
-                // CHI TIẾT ĐƠN + TRỪ KHO
                 foreach (var item in cart)
                 {
-                    var tap = tapsDb.First(t => t.MaTap == item.MaTap);
-
-                    // trừ kho
-                    tap.SoLuongTon -= item.SoLuong;
-
-                    // ✅ lưu chi tiết đơn có MaTap
+                    item.MaTapNavigation.SoLuongTon -= item.SoLuong;
                     _context.ChiTietDonHangs.Add(new ChiTietDonHang
                     {
                         MaDonHang = donHang.MaDonHang,
-                        MaTruyen = tap.MaTruyen,     // lấy từ tap cho chắc
-                        MaTap = tap.MaTap,           // ✅ QUAN TRỌNG: lưu MaTap để đánh giá theo tập
+                        MaTruyen = item.MaTruyen,
+                        MaTap = item.MaTap,
                         SoLuong = item.SoLuong,
-                        DonGia = tap.Gia             // lấy giá từ DB
+                        DonGia = item.MaTapNavigation.Gia
                     });
                 }
 
+                _context.ChiTietGioHangs.RemoveRange(cart);
                 _context.SaveChanges();
                 tran.Commit();
 
+                // Chuyển sang string để TempData không bị lỗi Serialize Double
+                TempData["TotalAmount"] = tongThanhToan.ToString();
                 HttpContext.Session.Remove("CART");
+
                 return RedirectToAction("Success");
             }
-            catch
+            catch (Exception)
             {
                 tran.Rollback();
-                TempData["Error"] = "Có lỗi khi đặt hàng. Vui lòng thử lại!";
+                TempData["Error"] = "Lỗi hệ thống khi xử lý đơn hàng.";
                 return RedirectToAction("ThanhToan");
             }
         }
 
-        public IActionResult Success() => View();
+        public IActionResult Success()
+        {
+            // Lấy từ TempData ra một biến string
+            string total = TempData["TotalAmount"]?.ToString() ?? "0";
+
+            // Truyền sang View qua ViewBag nhưng dưới dạng chuỗi
+            ViewBag.TotalAmount = total;
+
+            return View();
+        }
     }
 }

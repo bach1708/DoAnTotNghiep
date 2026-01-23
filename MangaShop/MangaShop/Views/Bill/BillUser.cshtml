@@ -1,98 +1,95 @@
 ﻿@model List<MangaShop.Models.DonHang>
-
 @{
     ViewData["Title"] = "Đơn hàng của tôi";
 }
+<link rel="stylesheet" href="~/css/BillUser.css" />
 
-<h2 class="mb-4">📦 ĐƠN HÀNG CỦA TÔI</h2>
+<div class="bill-container mt-4 mb-5">
+    <h3 class="mb-4 text-center fw-bold">📦 ĐƠN HÀNG CỦA TÔI</h3>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-warning">
-        Bạn chưa có đơn hàng nào
-    </div>
-}
-else
-{
-    <table class="table table-bordered text-center align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Mã đơn</th>
-                <th>Ngày đặt</th>
-                <th>Tổng tiền</th>
-                <th>Trạng thái</th>
-                <th>Chi tiết</th>
-                <th>Hủy</th>
-            </tr>
-        </thead>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">Bạn chưa có đơn hàng nào</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-custom text-center border">
+                <thead>
+                    <tr>
+                        <th style="width: 10%">Mã đơn</th>
+                        <th style="width: 20%">Ngày đặt</th>
+                        <th style="width: 15%">Tổng tiền</th>
+                        <th style="width: 20%">Trạng thái</th>
+                        <th style="width: 35%" colspan="2">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">#@item.MaDonHang</td>
+                            <td>@item.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-danger fw-bold">
+                                @(item.TongThanhToan.HasValue? item.TongThanhToan.Value.ToString("N0") : "0") ₫
+                            </td>
+                            <td>
+                                @if (item.TrangThai == "Chờ xử lý")
+                                {
+                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                }
+                                else if (item.TrangThai == "Đang giao")
+                                {
 
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>#@item.MaDonHang</td>
+                                    <span class="badge bg-info text-dark">Đang giao</span>
+                                }
+                                else if (item.TrangThai == "Hoàn thành")
+                                {
 
-                    <td>@item.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <span class="badge bg-success">Hoàn thành</span>
+                                }
+                                else
+                                {
 
-                    <td class="text-danger fw-bold">
-                        @item.TongTien.ToString("N0") ₫
-                    </td>
+                                    <span class="badge bg-secondary">Đã hủy</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="BillDetail" asp-route-id="@item.MaDonHang" class="btn btn-sm btn-primary">
+                                    Chi tiết
+                                </a>
+                            </td>
+                            <td>
+                                @if (item.TrangThai == "Chờ xử lý")
+                                {
+                                    <form asp-controller="Bill" asp-action="Cancel" asp-route-id="@item.MaDonHang" method="post" onsubmit="return confirm('Hủy đơn #@item.MaDonHang?');">
+                                        @Html.AntiForgeryToken()
+                                        <a asp-action="Cancel" asp-route-id="@item.MaDonHang" class="btn btn-sm btn-danger">Hủy đơn</a>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">Không thể hủy</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-                    <td>
-                        @if (item.TrangThai == "Chờ xử lý")
-                        {
-                            <span class="badge bg-warning text-dark">Chờ xử lý</span>
-                        }
-                        else if (item.TrangThai == "Đang giao")
-                        {
-                            <span class="badge bg-info text-dark">Đang giao</span>
-                        }
-                        else if (item.TrangThai == "Hoàn thành")
-                        {
-                            <span class="badge bg-success">Hoàn thành</span>
-                        }
-                        else if (item.TrangThai == "Huỷ" || item.TrangThai == "Hủy")
-                        {
-                            <span class="badge bg-secondary">Đã hủy</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">@item.TrangThai</span>
-                        }
-                    </td>
-
-                    <td>
-                        <a asp-action="BillDetail"
-                           asp-route-id="@item.MaDonHang"
-                           class="btn btn-sm btn-primary">
-                            Xem chi tiết
-                        </a>
-                    </td>
-
-                    <td>
-                        @if (item.TrangThai == "Chờ xử lý")
-                        {
-                            <form asp-controller="Bill"
-                                  asp-action="Cancel"
-                                  method="post"
-                                  class="d-inline"
-                                  onsubmit="return confirm('Bạn chắc chắn muốn hủy đơn #@item.MaDonHang ?');">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="id" value="@item.MaDonHang" />
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    Hủy đơn
-                                </button>
-                            </form>
-                        }
-                        else
-                        {
-                            <button class="btn btn-sm btn-outline-secondary" disabled>
-                                Không thể hủy
-                            </button>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+        @if (ViewBag.TotalPages > 1)
+        {
+            <nav class="mt-4">
+                <ul class="pagination pagination-custom justify-content-center">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="BillUser" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    }
+</div>

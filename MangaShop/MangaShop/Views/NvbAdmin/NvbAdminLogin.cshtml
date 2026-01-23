@@ -1,43 +1,75 @@
 ﻿@{
-    ViewData["Title"] = "Đăng nhập Admin";
+    ViewData["Title"] = "Hệ thống quản trị - MangaShop";
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
-    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/NvbAdminLogin.css" asp-append-version="true" />
 </head>
-<body class="bg-light">
+<body>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                <h3 class="text-center mb-4">Đăng nhập Admin</h3>
+    <div class="admin-login-wrapper" style="background-image: url('/images/logo-admin-login.jpg');">
+        <div class="overlay"></div>
 
+        <div class="login-card shadow-2xl">
+            <div class="card-header-custom text-center">
+                <div class="admin-icon mb-2">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h4 class="fw-bold">HỆ THỐNG QUẢN TRỊ</h4>
+                <p class="small text-light-50">Vui lòng xác thực quyền truy cập</p>
+            </div>
+
+            <div class="card-body-custom p-4">
                 @if (ViewBag.Error != null)
                 {
-                    <div class="alert alert-danger">@ViewBag.Error</div>
+                    <div class="alert alert-custom-danger animate__animated animate__headShake">
+                        <i class="fa-solid fa-circle-exclamation me-2"></i> @ViewBag.Error
+                    </div>
                 }
 
                 <form method="post">
-                    <div class="mb-3">
-                        <label>Tài khoản</label>
-                        <!-- ⚠️ BẮT BUỘC name="TaiKhoan" -->
-                        <input name="TaiKhoan" class="form-control" required />
+                    <div class="mb-4">
+                        <label class="form-label text-white small fw-bold">TÀI KHOẢN ADMIN</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-success">
+                                <i class="fa-solid fa-terminal"></i>
+                            </span>
+                            <input name="TaiKhoan" class="form-control admin-input"
+                                   placeholder="root_admin..." required autofocus />
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label>Mật khẩu</label>
-                        <!-- ⚠️ BẮT BUỘC name="MatKhau" -->
-                        <input name="MatKhau" type="password" class="form-control" required />
+                    <div class="mb-4">
+                        <label class="form-label text-white small fw-bold">MẬT MÃ TRUY CẬP</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-success">
+                                <i class="fa-solid fa-key"></i>
+                            </span>
+                            <input name="MatKhau" type="password" class="form-control admin-input"
+                                   placeholder="••••••••" required />
+                        </div>
                     </div>
 
-                    <button class="btn btn-danger w-100">Đăng nhập Admin</button>
-                    <a asp-controller="NvbHome" asp-action="Home" class="btn btn-secondary">⬅️ Quay lại trang chủ</a>
+                    <button class="btn btn-admin-primary w-100 mb-3">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> KHỞI CHẠY HỆ THỐNG
+                    </button>
+
+                    <a asp-controller="NvbHome" asp-action="Home" class="btn btn-admin-outline w-100">
+                        <i class="fa-solid fa-arrow-left me-2"></i> QUAY LẠI TRANG CHỦ
+                    </a>
                 </form>
+            </div>
+
+            <div class="card-footer-custom text-center py-3">
+                <small>© 2026 MangaShop Security System</small>
             </div>
         </div>
     </div>

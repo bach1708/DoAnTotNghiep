@@ -6,77 +6,129 @@
     var truyens = ViewBag.Truyens as dynamic;
 }
 
-<h2 class="mb-3">⭐ QUẢN LÝ ĐÁNH GIÁ</h2>
+<link rel="stylesheet" href="~/css/NvbDanhGiaAdmin-Index.css" />
 
-<form method="get" class="row g-2 mb-3">
-    <div class="col-md-6">
-        <select name="maTruyen" class="form-select">
-            <option value="">-- Lọc theo truyện --</option>
-            @foreach (var t in truyens)
-            {
-                <option value="@t.MaTruyen" selected="@(ViewBag.MaTruyen != null && (int)ViewBag.MaTruyen == (int)t.MaTruyen)">
-                    @t.TenTruyen
-                </option>
-            }
-        </select>
+<div class="container-admin-1600">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+        <div>
+            <h2 class="page-title">⭐ QUẢN LÝ ĐÁNH GIÁ</h2>
+            <p class="text-muted small">Xem và quản lý các phản hồi từ khách hàng về từng tập truyện</p>
+        </div>
+        <a asp-controller="NvbAdmin" asp-action="Index" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
     </div>
 
-    <div class="col-md-3">
-        <select name="soSao" class="form-select">
-            <option value="">-- Lọc theo sao --</option>
-            @for (int i = 5; i >= 1; i--)
-            {
-                <option value="@i" selected="@(ViewBag.SoSao != null && (int)ViewBag.SoSao == i)">
-                    @i sao
-                </option>
-            }
-        </select>
+    <div class="filter-card shadow-sm mb-4">
+        <form method="get" class="row g-2">
+            <div class="col-md-5">
+                <select name="maTruyen" class="form-select status-select shadow-none">
+                    <option value="">-- Tất cả truyện --</option>
+                    @foreach (var t in truyens)
+                    {
+                        <option value="@t.MaTruyen" selected="@(ViewBag.MaTruyen != null && (int)ViewBag.MaTruyen == (int)t.MaTruyen)">
+                            @t.TenTruyen
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <select name="soSao" class="form-select status-select shadow-none">
+                    <option value="">-- Tất cả số sao --</option>
+                    @for (int i = 5; i >= 1; i--)
+                    {
+                        <option value="@i" selected="@(ViewBag.SoSao != null && (int)ViewBag.SoSao == i)">
+                            @i sao
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-save-status px-4 w-100">
+                    Lọc dữ liệu
+                </button>
+                <a asp-action="Index" class="btn btn-back w-100">Làm mới</a>
+            </div>
+        </form>
     </div>
 
-    <div class="col-md-3 d-flex gap-2">
-        <button class="btn btn-primary w-100">Lọc</button>
-        <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
-    </div>
-</form>
-
-<table class="table table-bordered align-middle">
-    <thead class="table-dark">
-        <tr>
-            <th>Truyện</th>
-            <th>Khách hàng</th>
-            <th>Sao</th>
-            <th>Nội dung</th>
-            <th>Ngày</th>
-            <th style="width:120px">Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (!Model.Any())
-        {
-            <tr><td colspan="6" class="text-center text-muted">Chưa có đánh giá.</td></tr>
-        }
-        else
-        {
-            @foreach (var dg in Model)
-            {
+    <div class="table-card shadow-sm">
+        <table class="table custom-table-order">
+            <thead>
                 <tr>
-                    <td>@dg.MaTruyenNavigation?.TenTruyen</td>
-                    <td>@dg.MaKhachHangNavigation?.HoTen</td>
-                    <td>⭐ @dg.SoSao</td>
-                    <td>@dg.NoiDung</td>
-                    <td>@dg.NgayDanhGia?.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td class="text-center">
-                        <form asp-action="Delete" method="post" onsubmit="return confirm('Xóa đánh giá này?');">
-                            <input type="hidden" name="id" value="@dg.MaDanhGia" />
-                            <button class="btn btn-sm btn-danger">Xóa</button>
-                        </form>
-                    </td>
+                    <th class="text-start ps-4">Truyện</th>
+                    <th>Tập đánh giá</th>
+                    <th>Khách hàng</th>
+                    <th>Chất lượng</th>
+                    <th style="width: 25%">Nội dung</th>
+                    <th>Ngày gửi</th>
+                    <th style="width: 100px">Thao tác</th>
                 </tr>
-            }
-        }
-    </tbody>
-</table>
-
-<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">
-    ⬅️ Quay lại
-</a>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="fa-regular fa-face-frown fs-2 mb-2 d-block"></i>
+                            Chưa có đánh giá nào phù hợp.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var dg in Model)
+                    {
+                        <tr>
+                            <td class="text-start ps-4">
+                                <span class="customer-link fw-bold">@dg.MaTruyenNavigation?.TenTruyen</span>
+                            </td>
+                            <td>
+                                @if (dg.MaTapNavigation != null)
+                                {
+                                    <span class="badge-chapter">
+                                        Tập @dg.MaTapNavigation.SoTap
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small italic">N/A</span>
+                                }
+                            </td>
+                            <td class="text-dark">@dg.MaKhachHangNavigation?.HoTen</td>
+                            <td class="text-warning">
+                                @for (int i = 0; i < dg.SoSao; i++)
+                                {
+                                    <i class="fa-solid fa-star small"></i>
+                                }
+                                @for (int i = 0; i < (5 - dg.SoSao); i++)
+                                {
+                                    <i class="fa-regular fa-star small text-muted opacity-50"></i>
+                                }
+                            </td>
+                            <td>
+                                <div class="text-truncate-2" title="@dg.NoiDung">
+                                    @dg.NoiDung
+                                </div>
+                            </td>
+                            <td class="text-muted small">
+                                @dg.NgayDanhGia?.ToString("dd/MM/yyyy")<br />
+                                <span class="opacity-75">@dg.NgayDanhGia?.ToString("HH:mm")</span>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?');">
+                                    <input type="hidden" name="id" value="@dg.MaDanhGia" />
+                                    <button type="submit" class="action-link border-0 bg-transparent text-danger p-0">
+                                        <i class="fa-solid fa-trash-can"></i> Xóa
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+﻿/* Container chính của giỏ hàng */
+.cart-page-container {
+    /* Đảm bảo chiều dài tối thiểu khoảng 1 màn hình (trừ đi header/footer) */
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+}
+
+/* Khi giỏ hàng trống */
+.empty-cart-wrapper {
+    flex: 1; /* Tự động giãn rộng để chiếm không gian trống */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+    align-items: center;
+    background-color: #fcfcfc;
+    border-radius: 15px;
+    border: 2px dashed #eee;
+    margin: 20px 0;
+}
+
+/* Bảng giỏ hàng */
+.cart-table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+    .cart-table thead {
+        background-color: transparent !important;
+        color: white;
+    }
+
+/* Tùy chỉnh ảnh trong giỏ hàng */
+.cart-img-preview {
+    width: 70px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Nút bấm số lượng */
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px !important;
+}
+
+.qty-input {
+    border: 1px solid #ddd !important;
+    font-weight: bold;
+}

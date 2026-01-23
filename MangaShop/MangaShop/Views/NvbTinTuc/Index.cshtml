@@ -4,92 +4,115 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-3">📰 QUẢN LÝ BÀI ĐĂNG</h2>
+<link rel="stylesheet" href="~/css/NvbTinTuc-Index.css" />
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <form method="get" class="d-flex gap-2">
-        <input class="form-control" name="keyword" value="@ViewBag.Keyword" placeholder="Tìm tiêu đề / tóm tắt..." style="width:320px" />
-        <select class="form-select" name="loai" style="width:160px">
-            <option value="">-- Tất cả --</option>
-            <option value="Thông báo" selected="@(ViewBag.Loai == "Thông báo")">Thông báo</option>
-            <option value="Ưu đãi" selected="@(ViewBag.Loai == "Ưu đãi")">Ưu đãi</option>
-        </select>
-        <button class="btn btn-primary">Lọc</button>
-        <a asp-action="Index" class="btn btn-secondary">Reset</a>
-    </form>
+<div class="manga-admin-wrapper">
+    <div class="manga-header">
+        <div class="header-info">
+            <h2 class="manga-title">📰 QUẢN LÝ BÀI ĐĂNG</h2>
+            <p class="manga-subtitle">Quản lý tin tức, thông báo và các chương trình ưu đãi</p>
+        </div>
+        <div class="header-actions">
+            <a asp-action="Create" class="manga-btn btn-dark">
+                <i class="fa-solid fa-plus"></i> Thêm bài viết mới
+            </a>
+            <a asp-controller="NvbAdmin" asp-action="Index" class="manga-btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
 
-    <a asp-action="Create" class="btn btn-success">➕ Thêm bài</a>
+    <div class="manga-toolbox shadow-sm">
+        <form method="get" class="d-flex gap-2">
+            <input class="form-control" name="keyword" value="@ViewBag.Keyword" placeholder="Tìm tiêu đề / tóm tắt..." style="width:320px" />
+            <select class="form-select" name="loai" style="width:160px">
+                <option value="">-- Tất cả loại --</option>
+                <option value="Thông báo" selected="@(ViewBag.Loai == "Thông báo")">Thông báo</option>
+                <option value="Ưu đãi" selected="@(ViewBag.Loai == "Ưu đãi")">Ưu đãi</option>
+            </select>
+            <button type="submit" class="manga-btn btn-light-border">Lọc</button>
+            <a asp-action="Index" class="manga-btn btn-light-border">Reset</a>
+        </form>
+    </div>
+
+    <div class="manga-card shadow-sm">
+        <div class="table-responsive">
+            <table class="manga-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width:100px">Ảnh</th>
+                        <th>Thông tin bài viết</th>
+                        <th class="text-center" style="width:120px">Loại</th>
+                        <th class="text-center" style="width:170px">Ngày đăng</th>
+                        <th class="text-center" style="width:100px">Hiển thị</th>
+                        <th class="text-center" style="width:150px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr><td colspan="6" class="text-center text-muted p-4">Chưa có bài viết nào được đăng.</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var b in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    <div class="news-thumbnail mx-auto">
+                                        @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
+                                        {
+                                            <img src="~/images/@b.AnhDaiDien" onerror="this.src='/images/no-image.png'" />
+                                        }
+                                        else
+                                        {
+                                            <div class="no-img-placeholder">N/A</div>
+                                        }
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="manga-name">@b.TieuDe</div>
+                                    <div class="manga-id text-truncate" style="max-width: 400px;">
+                                        @(string.IsNullOrWhiteSpace(b.TomTat) ? "Không có tóm tắt" : b.TomTat)
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge-type @(b.Loai == "Ưu đãi" ? "type-novel" : "type-comic")">
+                                        @b.Loai
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="meta-item"><i class="fa-regular fa-calendar"></i> @b.NgayDang.ToString("dd/MM/yyyy")</div>
+                                    <div class="meta-item" style="font-size: 11px; opacity: 0.6;">@b.NgayDang.ToString("HH:mm")</div>
+                                </td>
+                                <td class="text-center">
+                                    @if (b.TrangThai)
+                                    {
+                                        <span class="stock-tag stock-ok">Hiện</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="stock-tag stock-out">Ẩn</span>
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="action-flex">
+                                        <a asp-action="Edit" asp-route-id="@b.MaBaiViet" class="act-link" title="Sửa">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@b.MaBaiViet" class="act-link" title="Xem">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@b.MaBaiViet" class="act-link delete" title="Xóa">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-
-<table class="table table-bordered align-middle text-center">
-    <thead class="table-dark">
-        <tr>
-            <th style="width:90px">Ảnh</th>
-            <th>Tiêu đề</th>
-            <th style="width:120px">Loại</th>
-            <th style="width:170px">Ngày đăng</th>
-            <th style="width:100px">Hiển thị</th>
-            <th style="width:260px">Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (!Model.Any())
-        {
-            <tr><td colspan="6" class="text-muted">Chưa có bài viết.</td></tr>
-        }
-        else
-        {
-            foreach (var b in Model)
-            {
-                <tr>
-                    <td>
-                        @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
-                        {
-                            <img src="~/images/@b.AnhDaiDien" style="width:70px; height:50px; object-fit:cover" />
-                        }
-                        else
-                        {
-                            <span class="text-muted">No img</span>
-                        }
-                    </td>
-                    <td class="text-start">
-                        <b>@b.TieuDe</b>
-                        <div class="text-muted" style="font-size:13px">
-                            @(string.IsNullOrWhiteSpace(b.TomTat) ? "" : b.TomTat)
-                        </div>
-                    </td>
-                    <td>
-                        @if (b.Loai == "Ưu đãi")
-                        {
-                            <span class="badge bg-success">Ưu đãi</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-primary">Thông báo</span>
-                        }
-                    </td>
-                    <td>@b.NgayDang.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td>
-                        @if (b.TrangThai)
-                        {
-                            <span class="badge bg-success">ON</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">OFF</span>
-                        }
-                    </td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a asp-action="Details" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-info">Xem</a>
-                            <a asp-action="Edit" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-warning">Sửa</a>
-                            <a asp-action="Delete" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-danger">Xóa</a>
-                        </div>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-
-<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">⬅️ Quay lại</a>

@@ -1,0 +1,131 @@
+﻿/* Layout Header */
+.checkout-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #333;
+    padding-bottom: 15px;
+}
+
+.checkout-title {
+    font-weight: 800;
+    margin: 0;
+    color: #212529;
+    font-size: 1.75rem;
+}
+
+/* Nút Quay lại */
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+    .btn-secondary:hover {
+        background-color: #495057;
+        transform: translateX(-5px);
+    }
+
+/* Bảng sản phẩm */
+.table thead th {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px;
+}
+
+.table tbody td {
+    color: #444;
+}
+
+/* Card Style */
+.card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #dee2e6;
+}
+
+.card-header {
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+}
+
+/* Bảo hiểm đơn hàng */
+.insurance-card {
+    border-left: 5px solid #0dcaf0 !important;
+    background-color: #f0faff;
+}
+
+/* Nút phương thức thanh toán */
+.btn-pay {
+    border: 2px solid #dee2e6;
+    color: #444;
+    transition: all 0.2s ease-in-out;
+}
+
+    .btn-pay:hover {
+        border-color: #0d6efd;
+        background-color: #f8fbff;
+        color: #0d6efd;
+    }
+
+    .btn-pay.active {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+
+/* Tổng cộng & Footer */
+.payment-summary {
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+#finalTotal {
+    letter-spacing: -1px;
+}
+
+.btn-success {
+    background-color: #198754;
+    border: none;
+    transition: 0.3s;
+}
+
+    .btn-success:hover {
+        background-color: #157347;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+    }
+
+/* Form Input */
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    border-color: #0d6efd;
+}
+
+/* CSS riêng cho logo MoMo trong nút bấm */
+.momo-icon-pay {
+    width: 28px; /* Độ rộng vừa vặn với icon FontAwesome */
+    height: 28px; /* Chiều cao bằng chiều rộng để tạo hình vuông */
+    object-fit: contain; /* Giữ nguyên tỉ lệ logo không bị méo */
+    border-radius: 4px; /* Bo góc nhẹ cho giống icon MoMo gốc */
+    vertical-align: middle; /* Căn giữa theo dòng chữ */
+    display: inline-block; /* Đảm bảo nằm cùng hàng với chữ */
+    margin-top: -3px; /* Tinh chỉnh để thẳng hàng hoàn hảo với text */
+}
+
+/* Tùy chỉnh thêm để các nút thanh toán trông đều nhau */
+.btn-pay {
+    display: flex; /* Sử dụng flex để căn giữa icon và chữ dễ hơn */
+    align-items: center;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .btn-pay i {
+        width: 28px; /* Cố định độ rộng icon FA để chữ bắt đầu từ cùng một vị trí */
+        text-align: center;
+    }

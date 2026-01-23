@@ -1,0 +1,76 @@
+﻿/* ============ cart-chontap.css ============ */
+
+/* Thẻ bao quanh chính */
+.selection-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    margin-bottom: 50px;
+}
+
+/* Container ảnh bên trái */
+.selection-img-container {
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-right: 1px solid #f0f0f0;
+}
+
+.selection-img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    /* Giữ ảnh đứng yên giống danh mục */
+    transition: none;
+}
+
+/* Custom các ô nhập liệu */
+.custom-select, .custom-input {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: all 0.2s;
+}
+
+    .custom-select:focus, .custom-input:focus {
+        border-color: #198754;
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+    }
+
+/* Nút bấm đồng bộ màu xanh lá */
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+    .btn-success:hover {
+        background-color: #157347;
+        border-color: #146c43;
+        transform: translateY(-1px);
+    }
+
+    .btn-success:active {
+        transform: translateY(0);
+    }
+
+/* Hiệu ứng Alert nhẹ nhàng hơn */
+.alert {
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 767.98px) {
+    .selection-img-container {
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .selection-img {
+        max-height: 250px;
+    }
+}

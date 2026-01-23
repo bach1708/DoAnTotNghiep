@@ -1,5 +1,58 @@
 /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/* 1. Đảm bảo toàn bộ khung trang không có khoảng trắng thừa */
+html[b-vh1c7cverz], body[b-vh1c7cverz] {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Tránh thanh cuộn ngang */
+}
+
+/* 2. Sidebar sát lề trái hoàn toàn, nền đen full */
+.admin-sidebar[b-vh1c7cverz] {
+    background-color: #000 !important;
+    min-height: calc(100vh - 56px); /* Full chiều cao trừ đi chiều cao navbar */
+    padding: 0;
+    margin: 0;
+}
+
+    .admin-sidebar .sidebar-header[b-vh1c7cverz] {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+    }
+
+    .admin-sidebar .list-group-item[b-vh1c7cverz] {
+        background-color: #000 !important;
+        color: #fff !important;
+        border: none;
+        border-bottom: 1px solid #111;
+        border-radius: 0 !important;
+        padding: 15px 25px;
+        transition: 0.3s;
+    }
+
+        .admin-sidebar .list-group-item:hover[b-vh1c7cverz] {
+            background-color: #333 !important;
+            padding-left: 30px; /* Hiệu ứng trượt nhẹ khi hover */
+        }
+
+/* 3. Phần nội dung bên phải (Thống kê) */
+.main-content[b-vh1c7cverz] {
+    padding: 30px;
+    background-color: #f4f6f9;
+}
+
+/* Tùy chỉnh các card cho giống trang admin chuyên nghiệp */
+.dashboard-card[b-vh1c7cverz] {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
 
 a.navbar-brand[b-vh1c7cverz] {
   white-space: normal;

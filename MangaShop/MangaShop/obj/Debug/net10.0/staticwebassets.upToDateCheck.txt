@@ -1,5 +1,104 @@
+wwwroot\css\BillAdmin.css
+wwwroot\css\BillDetailAdmin.css
+wwwroot\css\BillUser.css
+wwwroot\css\cart-chontap.css
+wwwroot\css\Checkout-Success.css
+wwwroot\css\Checkout-Thanhtoan.css
+wwwroot\css\DanhGia-User.css
+wwwroot\css\GioHang.css
 wwwroot\css\home.css
+wwwroot\css\HuongDan.css
+wwwroot\css\navbar.css
+wwwroot\css\NvbAdminLogin.css
+wwwroot\css\NvbDanhGiaAdmin-Index.css
+wwwroot\css\NvbHome-ChiTiet.css
+wwwroot\css\NvbHome-DanhMuc.css
+wwwroot\css\NvbHome-TimKiem.css
+wwwroot\css\NvbHome-TinTuc.css
+wwwroot\css\NvbHomeAdmin.css
+wwwroot\css\NvbTinTuc-Index.css
+wwwroot\css\NvbTruyen-Create.css
+wwwroot\css\NvbTruyen-Edit.css
+wwwroot\css\NvbTruyen-Index.css
+wwwroot\css\NvbTruyen-NhapKhoTap.css
+wwwroot\css\NvbUserLogin.css
+wwwroot\css\QuanLyKhachHang-Index.css
+wwwroot\css\site.css
+wwwroot\css\ThanhVien.css
+wwwroot\css\TinTuc.css
+wwwroot\css\VeChungToi.css
 wwwroot\favicon.ico
+wwwroot\images\Ascendance of a Bookworm Part 4.jpg
+wwwroot\images\Attack on Titan Final Season Part 3.jpg
+wwwroot\images\attackontitan.jpg
+wwwroot\images\baiviet\2a54ec944360459d84c0d95a433872d9.jpg
+wwwroot\images\baiviet\2a9a16d2a2f64056ade1357f7df6b060.jpg
+wwwroot\images\baiviet\348e9c7ac99d4d1eb3595b8f5fa9c345.png
+wwwroot\images\baiviet\35fa04dd489a46519952dfa3b84e3fb7.jpg
+wwwroot\images\baiviet\49b276863abe4e2898c7e07d75779aaf.jpg
+wwwroot\images\baiviet\856249f3bb21430db366717952205185.jpg
+wwwroot\images\baiviet\bluelocktap20.jpg
+wwwroot\images\baiviet\botruyenbuacomhanhphuc12tap.jpg
+wwwroot\images\baiviet\cd1da45ecaca4fc4913b9641430c792b.jpg
+wwwroot\images\baiviet\cuocnoidaycuaconangmotsach.jpg
+wwwroot\images\baiviet\f8a61dc4634040f28f47ab77da8d0762.jpg
+wwwroot\images\baiviet\giamgiacuoituan.png
+wwwroot\images\baiviet\jujutsukaisentap26manga.jpg
+wwwroot\images\baiviet\onepiecemanga.jpg
+wwwroot\images\biapage1.jpg
+wwwroot\images\biapage2.jpg
+wwwroot\images\biapage3.jpg
+wwwroot\images\Blue Exorcist The Second Coming.jpg
+wwwroot\images\collection_image.jpg
+wwwroot\images\conan-page.jpg
+wwwroot\images\conan.jpg
+wwwroot\images\doraemon.jpg
+wwwroot\images\Dr. Stone New World Part 2.jpg
+wwwroot\images\dragonball.jpg
+wwwroot\images\footer.jpg
+wwwroot\images\footer1.jpg
+wwwroot\images\ghn.png
+wwwroot\images\grab.png
+wwwroot\images\Jigokuraku Season 2.jpg
+wwwroot\images\Jujutsu Kaisen Season 2.jpg
+wwwroot\images\jujutsu.jpg
+wwwroot\images\Kimetsu no Yaiba arc.jpg
+wwwroot\images\kimetsu.jpg
+wwwroot\images\lichphathanh.jpg
+wwwroot\images\logo-admin-login.jpg
+wwwroot\images\logo-icon.png
+wwwroot\images\logo-login-user.jpg
+wwwroot\images\logo-momo.png
+wwwroot\images\logo.png
+wwwroot\images\logo_bct.png
+wwwroot\images\Magic and Muscles Season 2.jpg
+wwwroot\images\My Hero Academia Season 7.jpg
+wwwroot\images\nxb1.jpg
+wwwroot\images\nxb2.jpg
+wwwroot\images\nxb3.jpg
+wwwroot\images\nxb4.jpg
+wwwroot\images\nxb5.png
+wwwroot\images\nxb6.jpg
+wwwroot\images\nxb7.jpg
+wwwroot\images\nxb8.jpg
+wwwroot\images\One Punch Man Season 4.jpg
+wwwroot\images\onepiece.jpg
+wwwroot\images\onepunchman.jpg
+wwwroot\images\parasyte.jpg
+wwwroot\images\quiz1.jpg
+wwwroot\images\quiz2.jpg
+wwwroot\images\quiz3.jpg
+wwwroot\images\quiz4.jpg
+wwwroot\images\Record of Ragnarok Final Season.jpg
+wwwroot\images\rezero.jpg
+wwwroot\images\Solo Leveling.jpg
+wwwroot\images\Spy × Family Season 2.jpg
+wwwroot\images\The Apothecary Diaries Season 2.jpg
+wwwroot\images\The Rising of the Shield Hero Season 3.jpg
+wwwroot\images\Thousand-Year Blood War Part 3.jpg
+wwwroot\images\totoro.jpg
+wwwroot\images\Undead Unluck Season 2.jpg
+wwwroot\images\vnp.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -61,55 +160,36 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\site.css
-wwwroot\css\DanhMuc.css
-wwwroot\images\lichphathanh.jpg
-wwwroot\css\ThanhVien.css
-wwwroot\css\TinTuc.css
-wwwroot\css\HuongDan.css
-wwwroot\css\VeChungToi.css
-wwwroot\images\attackontitan.jpg
-wwwroot\images\conan-page.jpg
-wwwroot\images\conan.jpg
-wwwroot\images\doraemon.jpg
-wwwroot\images\dragonball.jpg
-wwwroot\images\jujutsu.jpg
-wwwroot\images\kimetsu.jpg
-wwwroot\images\logo.png
-wwwroot\images\onepiece.jpg
-wwwroot\images\onepunchman.jpg
-wwwroot\images\parasyte.jpg
-wwwroot\images\quiz1.jpg
-wwwroot\images\quiz2.jpg
-wwwroot\images\quiz3.jpg
-wwwroot\images\quiz4.jpg
-wwwroot\images\rezero.jpg
-wwwroot\images\totoro.jpg
-wwwroot\images\biapage1.jpg
-wwwroot\images\biapage2.jpg
-wwwroot\images\biapage3.jpg
-wwwroot\css\navbar.css
-wwwroot\images\baiviet\35fa04dd489a46519952dfa3b84e3fb7.jpg
-wwwroot\images\collection_image.jpg
-wwwroot\images\Ascendance of a Bookworm Part 4.jpg
-wwwroot\images\Attack on Titan Final Season Part 3.jpg
-wwwroot\images\Blue Exorcist The Second Coming.jpg
-wwwroot\images\Dr. Stone New World Part 2.jpg
-wwwroot\images\Jigokuraku Season 2.jpg
-wwwroot\images\Jujutsu Kaisen Season 2.jpg
-wwwroot\images\Kimetsu no Yaiba arc.jpg
-wwwroot\images\Magic and Muscles Season 2.jpg
-wwwroot\images\My Hero Academia Season 7.jpg
-wwwroot\images\One Punch Man Season 4.jpg
-wwwroot\images\Record of Ragnarok Final Season.jpg
-wwwroot\images\Solo Leveling.jpg
-wwwroot\images\Spy × Family Season 2.jpg
-wwwroot\images\The Apothecary Diaries Season 2.jpg
-wwwroot\images\The Rising of the Shield Hero Season 3.jpg
-wwwroot\images\Thousand-Year Blood War Part 3.jpg
-wwwroot\images\Undead Unluck Season 2.jpg
-wwwroot\images\baiviet\2a9a16d2a2f64056ade1357f7df6b060.jpg
-wwwroot\images\baiviet\cd1da45ecaca4fc4913b9641430c792b.jpg
+wwwroot\css\NvbHome-TinTucChiTiet.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\BillAdmin.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\BillDetailAdmin.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\BillUser.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\cart-chontap.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\Checkout-Success.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\Checkout-Thanhtoan.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\DanhGia-User.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\GioHang.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\home.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\HuongDan.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\navbar.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbAdminLogin.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbDanhGiaAdmin-Index.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHome-ChiTiet.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHome-DanhMuc.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHome-TimKiem.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHome-TinTuc.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHomeAdmin.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbTinTuc-Index.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbTruyen-Create.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbTruyen-Edit.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbTruyen-Index.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbTruyen-NhapKhoTap.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbUserLogin.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\QuanLyKhachHang-Index.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\site.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\ThanhVien.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\TinTuc.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\VeChungToi.css
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\favicon.ico
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\js\site.js
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -171,11 +251,4 @@ C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.s
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\lib\jquery\LICENSE.txt
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\home.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\navbar.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\DanhMuc.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\ThanhVien.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\TinTuc.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\HuongDan.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\VeChungToi.css
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\site.css
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\wwwroot\css\NvbHome-TinTucChiTiet.css

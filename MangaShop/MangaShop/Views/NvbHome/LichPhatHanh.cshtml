@@ -1,5 +1,63 @@
-﻿@{
+﻿@model List<LichItem>
+
+@{
     ViewData["Title"] = "Lịch Phát Hành";
 }
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 style="font-weight: bold; color: #2d5a27;">LỊCH PHÁT HÀNH TRUYỆN TRANH THÁNG @ViewBag.Thang</h2>
+        <div style="width: 100px; height: 3px; background: #2d5a27; margin: 10px auto;"></div>
+    </div>
 
-<img src="/images/lichphathanh.jpg" alt="Manga Shop" style="height: 400px;">
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead style="background-color: #f8f9fa;">
+                    <tr class="text-center text-uppercase" style="font-size: 0.9rem; color: #555;">
+                        <th class="py-3">Ngày</th>
+                        <th class="py-3 text-start">Tựa truyện</th>
+                        <th class="py-3">Tập</th>
+                        <th class="py-3">Giá bìa</th>
+                        <th class="py-3">Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center align-middle fw-bold">@item.Ngay</td>
+                            <td class="align-middle">
+                                @if (!string.IsNullOrEmpty(item.LinkChiTiet))
+                                {
+                                    <a href="@item.LinkChiTiet" class="text-decoration-none text-success fw-bold">@item.TenTruyen</a>
+                                }
+                                else
+                                {
+                                    <span class="fw-bold text-dark">@item.TenTruyen</span>
+                                }
+                            </td>
+                            <td class="text-center align-middle">@item.Tap</td>
+                            <td class="text-center align-middle">@item.Gia đ</td>
+                            <td class="align-middle">
+                                @if (item.GhiChu.Contains("MỚI"))
+                                {
+                                    <span class="badge bg-danger">@item.GhiChu</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">@item.GhiChu</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4 p-3 bg-light rounded border-start border-4 border-success">
+        <small class="text-muted">
+            * Lưu ý: Lịch phát hành có thể thay đổi tùy theo nhà xuất bản. Đừng quên theo dõi Fanpage để cập nhật nhanh nhất!
+        </small>
+    </div>
+</div>

@@ -1,6 +1,59 @@
 /* /Views/Shared/_AdminLayout.cshtml.rz.scp.css */
 /* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+/* 1. Đảm bảo toàn bộ khung trang không có khoảng trắng thừa */
+html[b-vh1c7cverz], body[b-vh1c7cverz] {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Tránh thanh cuộn ngang */
+}
+
+/* 2. Sidebar sát lề trái hoàn toàn, nền đen full */
+.admin-sidebar[b-vh1c7cverz] {
+    background-color: #000 !important;
+    min-height: calc(100vh - 56px); /* Full chiều cao trừ đi chiều cao navbar */
+    padding: 0;
+    margin: 0;
+}
+
+    .admin-sidebar .sidebar-header[b-vh1c7cverz] {
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+    }
+
+    .admin-sidebar .list-group-item[b-vh1c7cverz] {
+        background-color: #000 !important;
+        color: #fff !important;
+        border: none;
+        border-bottom: 1px solid #111;
+        border-radius: 0 !important;
+        padding: 15px 25px;
+        transition: 0.3s;
+    }
+
+        .admin-sidebar .list-group-item:hover[b-vh1c7cverz] {
+            background-color: #333 !important;
+            padding-left: 30px; /* Hiệu ứng trượt nhẹ khi hover */
+        }
+
+/* 3. Phần nội dung bên phải (Thống kê) */
+.main-content[b-vh1c7cverz] {
+    padding: 30px;
+    background-color: #f4f6f9;
+}
+
+/* Tùy chỉnh các card cho giống trang admin chuyên nghiệp */
+.dashboard-card[b-vh1c7cverz] {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+
 
 a.navbar-brand[b-vh1c7cverz] {
   white-space: normal;
@@ -98,3 +151,91 @@ button.accept-policy[b-fclteh2au1] {
 }
 
 
+/*footer*/
+/* ==========================================================================
+   6. FOOTER SECTION
+   ========================================================================== */
+.footer-section[b-fclteh2au1] {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    color: #fff; /* Chữ màu trắng trên nền ảnh */
+}
+
+    /* Lớp phủ mờ để dễ đọc chữ hơn nếu ảnh quá sáng */
+    .footer-section[b-fclteh2au1]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7); /* Độ mờ 70% */
+        z-index: 1;
+    }
+
+    .footer-section .container[b-fclteh2au1] {
+        position: relative;
+        z-index: 2; /* Đẩy nội dung lên trên lớp phủ */
+    }
+
+.footer-heading[b-fclteh2au1] {
+    font-weight: 700;
+    font-size: 16px;
+    border-bottom: 2px solid #fff;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-info p[b-fclteh2au1] {
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+.footer-list li[b-fclteh2au1] {
+    font-size: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.footer-list i[b-fclteh2au1] {
+    color: #fff;
+    margin-top: 4px;
+}
+
+.footer-links li a[b-fclteh2au1] {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-links li[b-fclteh2au1] {
+    margin-bottom: 10px;
+}
+
+    .footer-links li a:hover[b-fclteh2au1] {
+        color: #fff;
+        padding-left: 5px;
+    }
+
+.newsletter-form input[b-fclteh2au1] {
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+}
+
+.fanpage-widget[b-fclteh2au1] {
+    max-width: 250px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.footer-bottom p[b-fclteh2au1] {
+    font-weight: 500;
+}

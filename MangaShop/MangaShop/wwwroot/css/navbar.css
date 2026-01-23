@@ -1,91 +1,174 @@
-﻿/* --- Header & Thanh Menu --- */
+﻿/* --- TỔNG THỂ HEADER --- */
 .manga-header {
-    background-color: white; /* Nền trắng */
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
 }
 
-.header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5%; /* Tùy chỉnh padding để căn chỉnh */
-    /* border-bottom: 1px solid #eee; */
-}
-
+/* Căn chỉnh logo và các thành phần đầu trang */
 .logo img {
-    height: 40px; /* Chiều cao logo Manga Shop */
+    height: 35px; /* Giảm chiều cao để header gọn hơn */
+    transition: transform 0.3s;
 }
 
-/* Căn chỉnh các thành phần bên phải: Tài Khoản | Giỏ Hàng (0) */
-.user-actions {
-    display: flex;
-    align-items: center;
+
+/* Thanh tìm kiếm nhỏ gọn */
+.search-bar form {
+    height: 34px;
+    border: 1px solid #79a14c !important;
 }
 
-    .user-actions a {
-        margin-left: 15px;
-        text-decoration: none;
-        color: #333;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-    }
-
-    .user-actions i {
-        margin-right: 5px;
-        font-size: 16px;
-    }
-
-
-/* Thanh tìm kiếm */
-.search-bar {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: hidden;
-    height: 40px; /* Chiều cao bằng với logo */
+.search-bar input {
+    width: 280px;
+    font-size: 13px;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-    .search-bar input {
-        padding: 8px 15px;
-        border: none;
-        outline: none;
-        width: 350px; /* Chiều rộng thanh input */
-    }
+.search-bar button {
+    background-color: #79a14c;
+    color: #fff;
+    padding: 0 15px;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+}
 
-    .search-bar button {
-        background-color: #79a14c; /* Màu xanh của nút Tìm ngay */
-        color: white;
-        padding: 8px 15px;
-        border: none;
-        cursor: pointer;
-        height: 100%;
-        font-weight: bold;
-    }
-
-/* Thanh điều hướng chính (Menu) */
+/* --- MENU CHÍNH (Thanh màu xanh) --- */
 .main-nav {
-    background-color: #6d934c; /* Màu xanh đậm của thanh menu */
+    background-color: #6d934c;
 }
 
     .main-nav ul {
         list-style: none;
-        padding: 0;
         margin: 0;
+        padding: 0;
         display: flex;
-        justify-content: center; /* Căn giữa menu */
+        justify-content: center;
     }
 
     .main-nav li a {
-        color: white;
-        text-decoration: none;
-        padding: 12px 20px;
+        color: #fff;
+        padding: 8px 18px; /* Giảm padding trên dưới để thanh mỏng lại */
         display: block;
         font-weight: bold;
-        font-size: 15px;
-        transition: background-color 0.2s;
+        font-size: 13px;
+        text-decoration: none;
+        transition: background 0.3s;
     }
 
         .main-nav li a:hover {
             background-color: #55793a;
         }
+
+/* --- PHẦN TÀI KHOẢN & GIỎ HÀNG --- */
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.account-dropdown {
+    position: relative;
+    padding: 10px 0; /* Tạo vùng đệm hover */
+    margin-right: 20px;
+}
+
+.account-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Bảng Popover Đăng ký/Đăng nhập */
+.account-menu-popover {
+    display: block;
+    position: absolute;
+    top: 90%; /* Dịch sát lên trên để không bị mất hover */
+    left: 50%;
+    width: 190px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 1000;
+    padding: 15px;
+    /* Hiệu ứng ẩn ban đầu */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px); /* Trượt nhẹ từ dưới lên */
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Hiển thị khi hover */
+.account-dropdown:hover .account-menu-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Mũi tên nhỏ trên bảng */
+.popover-arrow {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #fff;
+}
+
+/* Nút bấm bên trong bảng */
+.btn-popover {
+    display: block;
+    width: 100%;
+    padding: 11px 10px; /* Tăng độ dày cho nút to ra */
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+    .btn-popover.login {
+        background-color: #6d934c;
+        color: #fff !important;
+    }
+
+    .btn-popover.register {
+        background-color: #f1f3f0;
+        color: #333 !important;
+        border: 1px solid #ddd;
+    }
+
+    .btn-popover:hover {
+        filter: brightness(0.9);
+        transform: scale(1.02);
+    }
+
+    .btn-popover:last-child {
+        margin-bottom: 0;
+    }
+
+/* Giỏ hàng */
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* --- FOOTER --- */
+.footer-section {
+    background-size: cover;
+    background-position: center;
+}
+
+.footer-heading {
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #79a14c;
+    display: inline-block;
+    padding-bottom: 5px;
+}

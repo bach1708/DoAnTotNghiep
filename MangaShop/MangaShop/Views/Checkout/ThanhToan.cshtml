@@ -2,136 +2,221 @@
 @{
     ViewData["Title"] = "Thanh toán";
     var tongTien = Model.Cart.Sum(x => x.Gia * x.SoLuong);
+    int giamPhanTram = ViewBag.GiamPhanTram ?? 0;
+    var tienGiam = Math.Round(tongTien * giamPhanTram / 100.0, 0);
+    var tongThanhToanGoc = tongTien - tienGiam;
 }
 
-<div class="container mt-5">
-    <h2 class="mb-4">🧾 XÁC NHẬN THANH TOÁN</h2>
+<link rel="stylesheet" href="~/css/Checkout-Thanhtoan.css" />
 
-    <!-- 1) BẢNG TRUYỆN -->
-    <table class="table table-bordered text-center align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Ảnh</th>
-                <th>Tên truyện</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Cart)
-            {
+<div class="container mt-5 mb-5">
+    <div class="checkout-header-wrapper">
+        <h2 class="checkout-title">🧾 XÁC NHẬN THANH TOÁN</h2>
+        <a asp-controller="Cart" asp-action="GioHang" class="btn btn-secondary shadow-sm">
+            <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded mb-4">
+        <table class="table table-bordered text-center align-middle m-0">
+            <thead class="table-dark">
                 <tr>
-                    <td style="width:120px">
-                        <img src="~/images/@item.AnhBia"
-                             style="width:80px; height:100px; object-fit:cover" />
-                    </td>
-                    <td class="text-start">
-                        @item.TenTruyen
-                        <span class="text-muted">(Tập @item.SoTap)</span>
-                    </td>
-                    <td class="text-danger fw-bold">@item.Gia.ToString("N0") ₫</td>
-                    <td>@item.SoLuong</td>
-                    <td class="fw-bold">@((item.Gia * item.SoLuong).ToString("N0")) ₫</td>
+                    <th style="width:120px">Ảnh</th>
+                    <th>Tên truyện</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody class="bg-white">
+                @foreach (var item in Model.Cart)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/images/@item.AnhBia" style="width:80px; height:110px; object-fit:cover" class="rounded border" />
+                        </td>
+                        <td class="text-start">
+                            <span class="fw-bold text-dark">@item.TenTruyen</span>
+                            <br />
+                            <small class="text-muted">Tập @item.SoTap</small>
+                        </td>
+                        <td class="text-danger fw-bold">@item.Gia.ToString("N0") ₫</td>
+                        <td><span class="badge bg-light text-dark border">@item.SoLuong</span></td>
+                        <td class="fw-bold text-primary">@((item.Gia * item.SoLuong).ToString("N0")) ₫</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-    <!-- 2) FORM XÁC NHẬN + THÔNG TIN NGƯỜI MUA + PHƯƠNG THỨC -->
-    <form asp-action="Confirm" method="post">
+    <form asp-action="Confirm" method="post" id="checkoutForm">
         @Html.AntiForgeryToken()
 
-        <div class="row g-3 mt-3">
-            <!-- Thông tin người mua -->
-            <div class="col-lg-6">
-                <div class="card shadow-sm">
-                    <div class="card-header fw-bold">👤 Thông tin người mua</div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label">Họ tên</label>
-                            <input asp-for="HoTen" class="form-control" required />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Số điện thoại</label>
-                            <input asp-for="SoDienThoai" class="form-control" required />
-                        </div>
-                        <div class="mb-0">
-                            <label class="form-label">Địa chỉ</label>
-                            <input asp-for="DiaChi" class="form-control" />
-                        </div>
-                    </div>
+        <div class="card border-info mb-4 shadow-sm insurance-card">
+            <div class="card-body py-3 d-flex align-items-center justify-content-between">
+                <div class="form-check m-0">
+                    <input class="form-check-input" type="checkbox" asp-for="CoBaoHiem" id="checkBaoHiem" onchange="updateTotal()">
+                    <label class="form-check-label fw-bold text-info" for="checkBaoHiem" style="cursor:pointer">
+                        🛡️ Bảo hiểm sản phẩm (+1% giá trị đơn hàng)
+                        <div class="small text-muted fw-normal">Đảm bảo đổi trả 1:1 nếu sản phẩm bị móp méo, hư hỏng do vận chuyển.</div>
+                    </label>
                 </div>
-            </div>
-
-            <!-- Phương thức thanh toán -->
-            <div class="col-lg-6">
-                <div class="card shadow-sm">
-                    <div class="card-header fw-bold">💳 Phương thức thanh toán</div>
-                    <div class="card-body">
-                        <input type="hidden" asp-for="PaymentMethod" id="paymentMethod" />
-
-                        <div class="d-flex flex-column gap-2">
-                            <button type="button" class="btn btn-outline-primary text-start"
-                                    onclick="setPay('QR')">
-                                📷 Thanh toán bằng QR
-                            </button>
-
-                            <button type="button" class="btn btn-outline-primary text-start"
-                                    onclick="setPay('BANK')">
-                                🏦 Chuyển khoản ngân hàng
-                            </button>
-
-                            <button type="button" class="btn btn-outline-primary text-start"
-                                    onclick="setPay('COD')">
-                                🚚 Thanh toán khi nhận hàng (COD)
-                            </button>
-
-                            <div class="text-muted mt-2">
-                                Đã chọn: <b id="payLabel">COD</b>
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div class="text-end">
-                            <h4>
-                                Tổng tiền:
-                                <span class="text-danger fw-bold">@tongTien.ToString("N0") ₫</span>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
+                <span class="badge bg-info text-white px-3 py-2 fs-6" id="phiBaoHiemBadge">0 ₫</span>
             </div>
         </div>
 
-        <!-- 4) Nút xác nhận thanh toán (dưới cùng) -->
-        <div class="d-flex justify-content-between mt-4">
-            <a asp-controller="Cart" asp-action="GioHang" class="btn btn-secondary">
-                ← Quay lại giỏ hàng
-            </a>
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="card shadow-sm h-100 border-0">
+                    <div class="card-header bg-primary text-white fw-bold py-3">
+                        <i class="fa-solid fa-user-check me-2"></i> THÔNG TIN GIAO HÀNG
+                    </div>
+                    <div class="card-body border">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Họ tên người nhận</label>
+                            <input asp-for="HoTen" class="form-control form-control-lg" placeholder="Nhập đầy đủ họ tên" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Số điện thoại</label>
+                            <input asp-for="SoDienThoai" class="form-control form-control-lg" placeholder="Số điện thoại liên hệ" required />
+                        </div>
+                        <div class="mb-0">
+                            <label class="form-label fw-semibold">Địa chỉ chi tiết</label>
+                            <textarea asp-for="DiaChi" class="form-control" rows="3" placeholder="Số nhà, tên đường, phường/xã..." required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <button type="submit" class="btn btn-success px-4">
-                ✅ Xác nhận thanh toán
-            </button>
+            <div class="col-lg-5">
+                <div class="card shadow-sm h-100 border-0">
+                    <div class="card-header bg-dark text-white fw-bold py-3">
+                        <i class="fa-solid fa-credit-card me-2"></i> THANH TOÁN
+                    </div>
+                    <div class="card-body border">
+                        <input type="hidden" asp-for="PaymentMethod" id="paymentMethod" value="COD" />
+
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="button" class="btn btn-outline-primary text-start btn-pay p-3" onclick="setPay('QR_MOMO', this)">
+                                <img src="~/images/logo-momo.png" alt="Momo" class="momo-icon-pay me-2" />
+                                Ví MoMo (QR Code)
+                            </button>
+                            <button type="button" class="btn btn-outline-primary text-start btn-pay p-3" onclick="setPay('VISA', this)">
+                                <i class="fa-solid fa-credit-card me-2 fs-5"></i> Thẻ Visa/MasterCard
+                            </button>
+                            <button type="button" class="btn btn-outline-primary text-start btn-pay p-3 active" onclick="setPay('COD', this)">
+                                <i class="fa-solid fa-money-bill-1-wave me-2 fs-5"></i>Thanh toán khi nhận hàng (SHIP-COD)
+                            </button>
+                        </div>
+
+                        <div id="visaForm" class="p-3 border rounded bg-light mb-3" style="display:none">
+                            <h6 class="fw-bold mb-3 text-primary"><i class="fa-brands fa-cc-visa me-1"></i> Thông tin thẻ</h6>
+                            <input type="text" id="visaCardNumber" class="form-control mb-2" placeholder="Số thẻ (16 số)" maxlength="16">
+                            <div class="row g-2">
+                                <div class="col-7"><input type="text" id="visaExpiry" class="form-control" placeholder="MM/YY"></div>
+                                <div class="col-5"><input type="password" id="visaCVV" class="form-control" placeholder="CVV"></div>
+                            </div>
+                            <small id="visaError" class="text-danger mt-2 d-none">⚠️ Vui lòng điền đủ thông tin!</small>
+                        </div>
+                        <div id="momoQR" class="text-center p-3 border rounded mb-3" style="display:none">
+                            <h6 class="fw-bold text-uppercase" style="color:#ae2070">Quét mã MoMo</h6>
+                            <img id="momoQRImage" src="" class="img-fluid mb-2" style="max-width: 150px; border: 4px solid #ae2070; border-radius: 10px;">
+                            <p class="small mb-1">Số tiền: <b id="momoAmountText" class="text-danger">0 ₫</b></p>
+                        </div>
+
+                        <div class="payment-summary mt-3 pt-3 border-top">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Tạm tính:</span>
+                                <span class="fw-bold">@tongTien.ToString("N0") ₫</span>
+                            </div>
+                            <div id="rowBaoHiem" class="d-none justify-content-between mb-2 text-info">
+                                <span>Phí bảo hiểm (1%):</span>
+                                <span class="fw-bold">+<span id="phiBaoHiemValue">0</span> ₫</span>
+                            </div>
+                            @if (giamPhanTram > 0)
+                            {
+                                <div class="d-flex justify-content-between mb-2 text-success">
+                                    <span>Ưu đãi hạng (@giamPhanTram%):</span>
+                                    <span class="fw-bold">-@tienGiam.ToString("N0") ₫</span>
+                                </div>
+                            }
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 fw-bold m-0">TỔNG CỘNG:</span>
+                                <span class="h4 text-danger fw-bold m-0" id="finalTotal">@tongThanhToanGoc.ToString("N0") ₫</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100 mt-4 fw-bold py-3 shadow">
+                            ĐẶT HÀNG <i class="fa-solid fa-check-double ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
 
 @section Scripts {
     <script>
-        function setPay(method) {
-            // ✅ set vào input hidden để gửi lên Confirm()
+        function setPay(method, btn) {
             document.getElementById("paymentMethod").value = method;
+            document.querySelectorAll('.btn-pay').forEach(b => {
+                b.classList.remove('active', 'btn-primary', 'text-white');
+                b.classList.add('btn-outline-primary');
+            });
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('active', 'btn-primary', 'text-white');
 
-            // (tuỳ chọn) đổi chữ "Đã chọn"
-            document.getElementById("payLabel").innerText =
-                (method === "QR") ? "QR" :
-                (method === "BANK") ? "Chuyển khoản" : "COD";
+            document.getElementById("visaForm").style.display = (method === 'VISA') ? "block" : "none";
+            document.getElementById("momoQR").style.display = (method === 'QR_MOMO') ? "block" : "none";
+
+            if (method === 'QR_MOMO') generateMomoQR();
         }
 
-        // ✅ mặc định khi load trang
-        setPay("COD");
+        function generateMomoQR() {
+            const amount = document.getElementById("finalTotal").innerText.replace(/[^0-9]/g, '');
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MangaShop_Pay_${amount}`;
+            document.getElementById("momoQRImage").src = qrUrl;
+            document.getElementById("momoAmountText").innerText = Number(amount).toLocaleString() + " ₫";
+        }
+
+        function updateTotal() {
+            const tamTinh = @tongTien;
+            const giamGia = @tienGiam;
+            const isChecked = document.getElementById("checkBaoHiem").checked;
+            const phiBaoHiem = isChecked ? Math.round(tamTinh * 0.01) : 0;
+            const tongCuoi = tamTinh - giamGia + phiBaoHiem;
+
+            document.getElementById("phiBaoHiemBadge").innerText = phiBaoHiem.toLocaleString() + " ₫";
+            document.getElementById("phiBaoHiemValue").innerText = phiBaoHiem.toLocaleString();
+
+            const rowBH = document.getElementById("rowBaoHiem");
+            if(isChecked) {
+                rowBH.classList.remove('d-none');
+                rowBH.classList.add('d-flex');
+            } else {
+                rowBH.classList.add('d-none');
+                rowBH.classList.remove('d-flex');
+            }
+
+            document.getElementById("finalTotal").innerText = tongCuoi.toLocaleString() + " ₫";
+            if(document.getElementById("paymentMethod").value === 'QR_MOMO') generateMomoQR();
+        }
+
+        document.getElementById("checkoutForm").onsubmit = function(e) {
+            if (document.getElementById("paymentMethod").value === 'VISA') {
+                const card = document.getElementById("visaCardNumber").value.trim();
+                if (card.length < 16) {
+                    e.preventDefault();
+                    document.getElementById("visaError").classList.remove('d-none');
+                    alert("Vui lòng nhập đúng thông tin thẻ!");
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        window.onload = updateTotal;
     </script>
 }
-

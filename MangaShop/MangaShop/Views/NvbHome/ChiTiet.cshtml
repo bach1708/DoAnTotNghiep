@@ -3,10 +3,9 @@
 
 @{
     ViewData["Title"] = Model.TenTruyen;
-
     var returnUrl = ViewBag.ReturnUrl as string;
 
-    // ✅ Danh sách tập (bán theo tập)
+    // Danh sách tập
     var taps = (Model.TruyenTaps ?? new List<TruyenTap>())
         .OrderBy(x => x.SoTap)
         .ToList();
@@ -15,148 +14,173 @@
     bool coTap = taps.Any();
     bool hetHang = !coTap || tongTon <= 0;
 }
-
-<div class="container mt-4">
-
-    <!-- Nút quay lại -->
-    <div class="d-flex justify-content-end mb-3">
-        @if (!string.IsNullOrEmpty(returnUrl))
-        {
-            <a href="@returnUrl" class="btn btn-secondary">← Quay lại</a>
-        }
-        else
-        {
-            <a asp-controller="NvbHome" asp-action="Home" class="btn btn-secondary">← Quay lại trang chủ</a>
-        }
-    </div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbHome-ChiTiet.css" asp-append-version="true" />
+}
+<div class="container mt-4 mb-5">
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Home" class="text-success text-decoration-none">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-action="DanhMuc" asp-route-maTheLoai="@Model.MaTheLoai" class="text-success text-decoration-none">@Model.MaTheLoaiNavigation?.TenTheLoai</a></li>
+            <li class="breadcrumb-item active">@Model.TenTruyen</li>
+        </ol>
+    </nav>
 
     <div class="row g-4">
-        <!-- Ảnh bìa -->
         <div class="col-md-4">
-            <img src="~/images/@Model.AnhBia"
-                 class="img-fluid rounded shadow"
-                 alt="@Model.TenTruyen" />
+            <div class="sticky-top" style="top: 20px;">
+                <img src="~/images/@Model.AnhBia" class="img-fluid rounded shadow-sm border" alt="@Model.TenTruyen" />
+
+                @if (coTap && !hetHang)
+                {
+                    <div class="d-grid mt-3">
+                        <a asp-controller="Cart" asp-action="ChonTap" asp-route-id="@Model.MaTruyen"
+                           asp-route-returnUrl="@Context.Request.Path" class="btn btn-success btn-lg fw-bold">
+                            🛒 CHỌN TẬP
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
 
-        <!-- Thông tin truyện -->
         <div class="col-md-8">
-            <h2 class="mb-2">@Model.TenTruyen</h2>
+            <h1 class="h2 fw-bold text-dark mb-3">@Model.TenTruyen</h1>
 
-            <div class="mb-2">
-                <strong>Thể loại:</strong>
-                <span>@Model.MaTheLoaiNavigation?.TenTheLoai</span>
+            <div class="row mb-4">
+                <div class="col-6">
+                    <p class="mb-1 text-muted">Tác giả: <strong class="text-dark">Akira Toriyama</strong></p>
+                    <p class="mb-1 text-muted">Đối tượng: <strong class="text-dark">17+ (Trưởng thành)</strong></p>
+                    <p class="mb-1 text-muted">Loại truyện: <strong class="text-dark">Truyện tranh (Manga)</strong></p>
+                </div>
+                <div class="col-6">
+                    <p class="mb-1 text-muted">Xuất xứ: <strong class="text-dark">Nhật Bản</strong></p>
+                    <p class="mb-1 text-muted">Ngôn ngữ: <strong class="text-dark">Tiếng Việt</strong></p>
+                    <p class="mb-1 text-muted">
+                        Trạng thái:
+                        <span class="badge @(hetHang ? "bg-secondary" : "bg-success")">
+                            @(hetHang ? "Hết hàng" : "Còn hàng")
+                        </span>
+                    </p>
+                </div>
             </div>
 
-            <div class="fs-4 text-danger fw-bold mb-3">
+            <div class="fs-3 text-danger fw-bold mb-4">
                 @Model.Gia.ToString("N0") ₫
             </div>
 
-            <div class="mb-3">
-                <strong>Mô tả:</strong><br />
-                <span>@Model.MoTa</span>
+            <ul class="nav nav-tabs" id="productTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-bold text-success" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc" type="button">MÔ TẢ SẢN PHẨM</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-bold text-success" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail" type="button">THÔNG TIN CHI TIẾT</button>
+                </li>
+            </ul>
+
+            <div class="tab-content border border-top-0 p-4 bg-white shadow-sm rounded-bottom" id="productTabContent">
+                <div class="tab-pane fade show active" id="desc" role="tabpanel">
+                    <div class="product-description">
+                        <p style="white-space: pre-line;">@Model.MoTa</p>
+                    </div>
+
+                    <div class="tags mt-4">
+                        <span class="me-2"><i class="fa-solid fa-tags text-muted"></i> Tags:</span>                                                                                                                                                                                                                                                                                                                                                                              
+                        <a asp-controller="NvbHome" asp-action="TimKiem" asp-route-keyword="Manga" class="class= badge rounded-pill bg-light text-dark border text-decoration-none p-2 px-3">Manga</a>
+                        <a asp-controller="NvbHome" asp-action="TimKiem" asp-route-keyword="Hành động" class="class= badge rounded-pill bg-light text-dark border text-decoration-none p-2 px-3">Hành động</a>
+                        <a asp-controller="NvbHome" asp-action="TimKiem" asp-route-keyword="NXB Kim Đồng" class="class= badge rounded-pill bg-light text-dark border text-decoration-none p-2 px-3">NXB Kim Đồng</a>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="detail" role="tabpanel">
+                    <table class="table table-sm table-borderless mb-0">
+                        <tr><td class="text-muted" style="width: 150px;">Định Dạng:</td><td class="fw-bold">Bìa Rời</td></tr>
+                        <tr><td class="text-muted">Số Trang:</td><td class="fw-bold">192</td></tr>
+                        <tr><td class="text-muted">NXB:</td><td class="fw-bold text-primary">Kim Đồng</td></tr>
+                        <tr><td class="text-muted">Kích Thước:</td><td class="fw-bold">13 x 18 cm</td></tr>
+                        <tr><td class="text-muted">Tranh:</td><td class="fw-bold">Trắng/Đen</td></tr>
+                        <tr><td class="text-muted">Trọng Lượng:</td><td class="fw-bold">200g</td></tr>
+                        <tr><td class="text-muted">Ngày Phát Hành:</td><td class="fw-bold">19/01/2026</td></tr>
+                    </table>
+                </div>
             </div>
 
-            <!-- ✅ TRẠNG THÁI & NÚT MUA (BÁN THEO TẬP) -->
-            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-                @if (!coTap)
+            <div class="accordion mt-4 shadow-sm" id="tapAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTap">
+                            <i class="fa-solid fa-list-ol me-2"></i> Danh sách số tập đang có (@taps.Count)
+                        </button>
+                    </h2>
+                    <div id="collapseTap" class="accordion-collapse collapse" data-bs-parent="#tapAccordion">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle text-center mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Tập số</th>
+                                            <th>Giá bán</th>
+                                            <th>Kho hàng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var t in taps)
+                                        {
+                                            <tr>
+                                                <td class="fw-bold text-success">Tập @t.SoTap</td>
+                                                <td class="text-danger fw-bold">@t.Gia.ToString("N0") ₫</td>
+                                                <td>
+                                                    @if (t.SoLuongTon > 0)
+                                                    {
+                                                        <span class="badge bg-success-subtle text-success border border-success px-3">Còn @t.SoLuongTon tập</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-light text-muted border px-3">Hết hàng</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 border-top pt-4">
+                <h4 class="fw-bold mb-4">KHÁCH HÀNG ĐÁNH GIÁ</h4>
+                @if (Model.DanhGias == null || !Model.DanhGias.Any())
                 {
-                    <span class="badge bg-warning text-dark p-2">Chưa có tập để bán</span>
-                }
-                else if (!hetHang)
-                {
-                    <span class="badge bg-success p-2">Còn hàng: @tongTon</span>
+                    <div class="alert alert-light border text-center py-4">Chưa có đánh giá nào cho sản phẩm này.</div>
                 }
                 else
                 {
-                    <span class="badge bg-secondary p-2">Hết hàng</span>
+                    @foreach (var dg in Model.DanhGias.OrderByDescending(x => x.NgayDanhGia))
+                    {
+                        <div class="card mb-3 border-0 bg-light-subtle">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="fw-bold mb-1">@dg.MaKhachHangNavigation?.HoTen</h6>
+                                    <small class="text-muted">@dg.NgayDanhGia?.ToString("dd/MM/yyyy")</small>
+                                </div>
+                                <div class="text-warning mb-2 small">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <i class="fa-@(i <= dg.SoSao ? "solid" : "regular") fa-star"></i>
+                                    }
+                                </div>
+                                <p class="card-text small">@dg.NoiDung</p>
+                                @if (dg.MaTap != null)
+                                {
+                                    <div class="small text-muted bg-white d-inline-block p-1 px-2 border rounded">Mua tập: @dg.MaTapNavigation?.SoTap</div>
+                                }
+                            </div>
+                        </div>
+                    }
                 }
             </div>
-
-            @if (coTap && !hetHang)
-            {
-                <a asp-controller="Cart"
-                   asp-action="ChonTap"
-                   asp-route-id="@Model.MaTruyen"
-                   class="btn btn-success btn-lg">
-                    🛒 Chọn tập để mua
-                </a>
-            }
-            else
-            {
-                <button class="btn btn-secondary btn-lg" disabled>
-                    Không thể mua
-                </button>
-            }
-
-            <!-- ✅ (Tuỳ chọn) Hiển thị nhanh danh sách tập -->
-            @if (coTap)
-            {
-                <div class="mt-4">
-                    <h5 class="mb-2">Danh sách tập</h5>
-
-                    <div class="table-responsive">
-                        <table class="table table-bordered align-middle text-center mb-0">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th style="width:110px">Tập</th>
-                                    <th style="width:180px">Giá</th>
-                                    <th style="width:140px">Tồn</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var t in taps)
-                                {
-                                    <tr>
-                                        <td>Tập @t.SoTap</td>
-                                        <td class="text-danger fw-bold">
-                                            @t.Gia.ToString("N0") ₫
-                                        </td>
-                                        <td>
-                                            @if (t.SoLuongTon > 0)
-                                            {
-                                                <span class="fw-bold text-success">@t.SoLuongTon</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-muted">0</span>
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="small text-muted mt-2">
-                        * Bấm “Chọn tập để mua” để thêm vào giỏ.
-                    </div>
-                </div>
-            }
-
-            <hr class="my-4" />
-
-            <!-- Đánh giá -->
-            <h4 class="mt-2">Đánh giá khách hàng</h4>
-
-            @if (Model.DanhGias == null || !Model.DanhGias.Any())
-            {
-                <div class="text-muted">Chưa có đánh giá.</div>
-            }
-            else
-            {
-                @foreach (var dg in Model.DanhGias.OrderByDescending(x => x.NgayDanhGia))
-                {
-                    <div class="border rounded p-2 mb-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <strong>@dg.MaKhachHangNavigation?.HoTen</strong>
-                            <small class="text-muted">@dg.NgayDanhGia?.ToString("dd/MM/yyyy HH:mm")</small>
-                        </div>
-
-                        <div>⭐ @dg.SoSao / 5</div>
-                        <div>@dg.NoiDung</div>
-                    </div>
-                }
-            }
         </div>
     </div>
 </div>
+

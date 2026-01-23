@@ -1,0 +1,140 @@
+﻿/* --- TỔNG THỂ --- */
+.news-detail-wrapper {
+    max-width: 900px; /* Bóp độ rộng lại để đọc văn bản dễ hơn */
+}
+
+/* --- NÚT QUAY LẠI --- */
+.back-link {
+    text-decoration: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .back-link:hover {
+        color: #10b981; /* Xanh lá */
+        transform: translateX(-5px);
+    }
+
+/* --- ARTICLE CARD --- */
+.news-article {
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid #f1f5f9;
+}
+
+/* --- BANNER --- */
+.article-banner {
+    position: relative;
+    width: 100%;
+    max-height: 450px;
+    overflow: hidden;
+}
+
+    .article-banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.article-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+    .article-badge.is-offer {
+        background: #ef4444;
+    }
+
+    .article-badge.is-info {
+        background: #3b82f6;
+    }
+
+/* --- CONTENT BOX --- */
+.article-content-box {
+    padding: 40px 50px;
+}
+
+.article-main-title {
+    font-weight: 900;
+    font-size: 2.25rem;
+    color: #111827;
+    line-height: 1.3;
+}
+
+.title-divider {
+    width: 60px;
+    height: 4px;
+    background: #bbf7d0; /* Xanh lá nhạt theo yêu cầu */
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.article-meta {
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* --- NỘI DUNG CHÍNH --- */
+.article-summary {
+    padding: 20px;
+    background: #f8fafc;
+    border-left: 4px solid #10b981;
+    border-radius: 8px;
+    font-style: italic;
+    color: #475569;
+}
+
+.article-body {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #334155;
+    white-space: pre-line; /* Giữ các dòng xuống hàng từ Database */
+    text-align: justify;
+}
+
+/* --- FOOTER --- */
+.article-footer {
+    border-top: 1px solid #f1f5f9;
+}
+
+.share-box {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.share-icons a {
+    font-size: 20px;
+    margin-right: 15px;
+    color: #94a3b8;
+    transition: color 0.3s;
+}
+
+    .share-icons a:hover {
+        color: #10b981;
+    }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .article-content-box {
+        padding: 25px 20px;
+    }
+
+    .article-main-title {
+        font-size: 1.6rem;
+    }
+}

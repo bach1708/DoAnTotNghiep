@@ -5,83 +5,97 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-3">✏️ Sửa truyện</h2>
+<link rel="stylesheet" href="~/css/NvbTruyen-Edit.css" />
 
-<div class="d-flex gap-2 mb-3">
-    <a asp-action="NhapKhoTap"
-       asp-route-maTruyen="@Model.MaTruyen"
-       class="btn btn-success">
-        📚 Quản lý tập
-    </a>
+<div class="main-wrapper">
+    <div class="admin-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="page-title">Chỉnh sửa thông tin</h2>
+                <p class="text-muted small mb-0">Thay đổi thông tin chi tiết</p>
+            </div>
+            <div class="action-group d-flex gap-2">
+                <a asp-action="NhapKhoTap" asp-route-maTruyen="@Model.MaTruyen" class="btn btn-success">Quản lý tập</a>
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+        </div>
 
-    <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
+        <div class="edit-card shadow-sm">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="MaTruyen" />
+
+                <div class="row">
+                    <div class="col-md-3 border-end">
+                        <div class="form-group-custom text-center">
+                            <label class="form-label text-center">Ảnh bìa hiện tại</label>
+                            <div class="preview-box mb-3">
+                                @if (!string.IsNullOrEmpty(Model.AnhBia))
+                                {
+                                    <img src="~/images/@Model.AnhBia" class="img-preview shadow-sm" id="cover-preview" />
+                                }
+                                else
+                                {
+                                    <div class="no-image">Chưa có ảnh</div>
+                                }
+                            </div>
+                            <input asp-for="AnhBia" class="form-input-dark" placeholder="Ten-file-anh.jpg" />
+                            <span asp-validation-for="AnhBia" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label">Loại hình</label>
+                            <select asp-for="LoaiTruyen" class="form-select-dark">
+                                <option value="0">📖 Truyện Tranh</option>
+                                <option value="1">📝 Truyện Chữ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label">Thể loại</label>
+                            <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select-dark"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9 ps-md-4">
+                        <div class="form-group-custom">
+                            <label class="form-label">Tên bộ truyện</label>
+                            <input asp-for="TenTruyen" class="form-input-dark form-control-lg" style="font-weight: 600;" />
+                            <span asp-validation-for="TenTruyen" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-custom">
+                                    <label class="form-label">Tác giả</label>
+                                    <input asp-for="TacGia" class="form-input-dark" />
+                                    <span asp-validation-for="TacGia" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-custom">
+                                    <label class="form-label">Giá niêm yết (VNĐ)</label>
+                                    <input asp-for="Gia" class="form-input-dark" type="number" />
+                                    <span asp-validation-for="Gia" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label">Mô tả nội dung</label>
+                            <textarea asp-for="MoTa" class="form-input-dark" rows="10" placeholder="Nhập tóm tắt nội dung..."></textarea>
+                            <span asp-validation-for="MoTa" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-footer mt-2">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-
-<form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="MaTruyen" />
-
-    <div class="mb-3">
-        <label class="form-label">Tên truyện</label>
-        <input asp-for="TenTruyen" class="form-control" />
-        <span asp-validation-for="TenTruyen" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Tác giả</label>
-        <input asp-for="TacGia" class="form-control" />
-        <span asp-validation-for="TacGia" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Giá (gợi ý / giá mặc định)</label>
-        <input asp-for="Gia" class="form-control" />
-        <div class="form-text">
-            Nếu bạn bán theo tập: giá thực tế có thể nằm ở từng tập (TruyenTap).
-        </div>
-        <span asp-validation-for="Gia" class="text-danger"></span>
-    </div>
-
-    <!-- ✅ BỎ SỐ LƯỢNG TỒN THEO TRUYỆN (vì quản lý tồn theo tập) -->
-    @* 
-    <div class="mb-3">
-        <label class="form-label">Số lượng tồn</label>
-        <input asp-for="SoLuongTon" class="form-control" readonly />
-    </div>
-    *@
-
-    <div class="mb-3">
-        <label class="form-label">Thể loại</label>
-        <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select"></select>
-        <span asp-validation-for="MaTheLoai" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Mô tả truyện</label>
-        <textarea asp-for="MoTa"
-                  class="form-control"
-                  rows="6"
-                  placeholder="Nhập mô tả chi tiết nội dung truyện..."></textarea>
-        <span asp-validation-for="MoTa" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Tên ảnh bìa (vd: naruto.jpg)</label>
-        <input asp-for="AnhBia" class="form-control" />
-        <span asp-validation-for="AnhBia" class="text-danger"></span>
-    </div>
-
-    @if (!string.IsNullOrEmpty(Model.AnhBia))
-    {
-        <div class="mb-3">
-            <img src="~/images/@Model.AnhBia"
-                 width="140"
-                 class="rounded shadow" />
-        </div>
-    }
-
-    <button type="submit" class="btn btn-primary">✅ Cập nhật</button>
-</form>
 
 @section Scripts {
     @{

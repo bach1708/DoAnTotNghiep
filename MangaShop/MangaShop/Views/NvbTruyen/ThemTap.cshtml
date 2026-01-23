@@ -1,0 +1,76 @@
+﻿@model MangaShop.Models.ViewModels.ThemTapVM
+
+@{
+    ViewData["Title"] = "Thêm tập mới";
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">➕ Thêm tập mới cho truyện: @Model.TenTruyen</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="ThemTap" method="post">
+                <input type="hidden" asp-for="MaTruyen" />
+                <input type="hidden" asp-for="TenTruyen" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-secondary">Số tập hiện có</label>
+                            <div class="form-control bg-light border-0 py-2">
+                                <span class="badge bg-secondary">@(Model.SoTapTiepTheo - 1) tập</span>
+                                <span class="text-muted ms-2">(Dữ liệu hiện tại trong hệ thống)</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-primary">Số tập sắp tạo (Tập mới)</label>
+                            <input asp-for="SoTapTiepTheo" class="form-control border-primary fw-bold text-primary" readonly
+                                   style="background-color: #f0f7ff;" />
+                            <small class="text-muted">Hệ thống tự động tính: [Tập hiện tại] + 1.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Giá bán của tập này (VNĐ)</label>
+                            <input asp-for="Gia" type="number" class="form-control" placeholder="Nhập giá bán..." required />
+                            <span asp-validation-for="Gia" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Số lượng truyện tồn khi tạo tập mới</label>
+                            <input asp-for="SoLuongThem" type="number" class="form-control" value="1" min="1" required />
+                            <span asp-validation-for="SoLuongThem" class="text-danger"></span>
+                            <small class="text-muted">Mỗi tập truyện trong bộ truyện đều có số lượng tồn kho riêng, khi thêm số lượng này đồng nghĩa với việc tồn kho có của tập truyện mới có bằng đó.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-center justify-content-center border-start">
+                        <div class="text-center">
+                            <i class="fa-solid fa-book-medical fa-5x text-info mb-3"></i>
+                            <p class="text-muted px-4">
+                                <strong>Lưu ý:</strong> Khi bạn thêm tập <strong>@Model.SoTapTiepTheo</strong>,
+                                tổng số lượng tồn của truyện <em>@Model.TenTruyen</em> sẽ tự động cộng dồn thêm số lượng bạn vừa nhập.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="d-flex justify-content-end gap-2">
+                    <a asp-action="Index" class="btn btn-secondary">Hủy bỏ</a>
+                    <button type="submit" class="btn btn-info text-white px-4">
+                        <i class="fa-solid fa-save"></i> Xác nhận
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

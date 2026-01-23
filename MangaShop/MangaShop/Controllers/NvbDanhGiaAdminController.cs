@@ -16,29 +16,23 @@ namespace MangaShop.Controllers
         // ✅ Danh sách đánh giá + lọc cơ bản
         public IActionResult Index(int? maTruyen, int? soSao)
         {
+            // Lấy danh sách đánh giá bao gồm thông tin Truyện, Khách hàng và TẬP
             var query = _context.DanhGias
                 .Include(d => d.MaTruyenNavigation)
                 .Include(d => d.MaKhachHangNavigation)
+                .Include(d => d.MaTapNavigation) // Quan trọng: Thêm dòng này
                 .AsQueryable();
 
-            if (maTruyen != null)
-                query = query.Where(d => d.MaTruyen == maTruyen);
+            // ... các đoạn lọc (Filter) theo maTruyen, soSao giữ nguyên ...
 
-            if (soSao != null)
-                query = query.Where(d => d.SoSao == soSao);
+            var model = query.OrderByDescending(x => x.NgayDanhGia).ToList();
 
-            var data = query
-                .OrderByDescending(d => d.NgayDanhGia)
-                .ToList();
-
-            ViewBag.Truyens = _context.Truyens
-                .Select(t => new { t.MaTruyen, t.TenTruyen })
-                .ToList();
-
+            // Đổ dữ liệu truyện ra ViewBag cho dropdown lọc
+            ViewBag.Truyens = _context.Truyens.ToList();
             ViewBag.MaTruyen = maTruyen;
             ViewBag.SoSao = soSao;
 
-            return View(data);
+            return View(model);
         }
 
         // ✅ Xóa đánh giá

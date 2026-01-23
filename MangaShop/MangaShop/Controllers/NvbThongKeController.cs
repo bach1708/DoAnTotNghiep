@@ -1,7 +1,10 @@
-﻿using MangaShop.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using MangaShop.Models;
 using MangaShop.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MangaShop.Controllers
 {
@@ -16,24 +19,26 @@ namespace MangaShop.Controllers
 
         public IActionResult Index(DateTime? tuNgay, DateTime? denNgay)
         {
-            // mặc định 30 ngày gần nhất
-            DateTime end = (denNgay ?? DateTime.Today).Date.AddDays(1).AddTicks(-1); // hết ngày
-            DateTime start = (tuNgay ?? DateTime.Today.AddDays(-29)).Date;           // đầu ngày
+            // 1. Thiết lập khoảng thời gian lọc (mặc định 30 ngày gần nhất)
+            DateTime end = (denNgay ?? DateTime.Today).Date.AddDays(1).AddTicks(-1); // Hết ngày đã chọn
+            DateTime start = (tuNgay ?? DateTime.Today.AddDays(-29)).Date;           // Đầu ngày bắt đầu
 
-            // lọc đơn theo khoảng ngày
+            // 2. Lấy danh sách đơn hàng trong khoảng thời gian
             var donTrongKhoang = _context.DonHangs
                 .Where(d => d.NgayDat >= start && d.NgayDat <= end);
 
+            // 3. Tính toán các chỉ số cơ bản
             int tongDon = donTrongKhoang.Count();
             int donHoanThanh = donTrongKhoang.Count(d => d.TrangThai == "Hoàn thành");
             int donHuy = donTrongKhoang.Count(d => d.TrangThai == "Huỷ" || d.TrangThai == "Hủy");
 
-            // doanh thu chỉ tính đơn hoàn thành
+            // 4. Tính tổng doanh thu (Chỉ tính đơn Hoàn thành)
+            // Ép kiểu (double?) để tránh lỗi Sum trên tập dữ liệu rỗng và khớp với kiểu double của bạn
             double tongDoanhThu = donTrongKhoang
                 .Where(d => d.TrangThai == "Hoàn thành")
                 .Sum(d => (double?)d.TongTien) ?? 0;
 
-            // doanh thu theo ngày (đơn hoàn thành)
+            // 5. Thống kê doanh thu theo từng ngày (Dùng class DoanhThuTheoNgayVM của bạn)
             var doanhThuTheoNgay = donTrongKhoang
                 .Where(d => d.TrangThai == "Hoàn thành")
                 .GroupBy(d => d.NgayDat!.Value.Date)
@@ -46,7 +51,7 @@ namespace MangaShop.Controllers
                 .OrderBy(x => x.Ngay)
                 .ToList();
 
-            // Top truyện bán chạy (đơn hoàn thành)
+            // 6. Top 10 truyện bán chạy (Dùng class TopTruyenVM của bạn)
             var topTruyen = _context.ChiTietDonHangs
                 .Include(ct => ct.MaTruyenNavigation)
                 .Include(ct => ct.MaDonHangNavigation)
@@ -59,14 +64,16 @@ namespace MangaShop.Controllers
                 .Select(g => new TopTruyenVM
                 {
                     MaTruyen = g.Key.MaTruyen,
-                    TenTruyen = g.Key.TenTruyen,
+                    TenTruyen = g.Key.TenTruyen ?? "Không rõ",
                     TongSoLuong = g.Sum(x => x.SoLuong),
-                    DoanhThu = g.Sum(x => x.DonGia * x.SoLuong)
+                    // Tính doanh thu từ chi tiết đơn hàng (SoLuong * DonGia)
+                    DoanhThu = g.Sum(x => (double)x.DonGia * x.SoLuong)
                 })
                 .OrderByDescending(x => x.DoanhThu)
                 .Take(10)
                 .ToList();
 
+            // 7. Khởi tạo ViewModel chính và gán dữ liệu
             var vm = new ThongKeVM
             {
                 TuNgay = start,

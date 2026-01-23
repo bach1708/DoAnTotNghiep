@@ -1,0 +1,116 @@
+﻿/* Container chính 1600px */
+.container-admin-1600 {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tiêu đề và Text */
+.page-title {
+    font-weight: 800;
+    color: #666;
+    letter-spacing: -0.5px;
+    transition: color 0.3s;
+}
+
+    .page-title:hover {
+        color: #444; /* Chỉ vào chữ tiêu đề đổi màu cam */
+    }
+
+/* Khung bảng */
+.table-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Tùy chỉnh bảng */
+.custom-table-order {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+    .custom-table-order thead {
+        background-color: #f8f9fa;
+    }
+
+    .custom-table-order th {
+        padding: 15px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #666;
+        text-transform: uppercase;
+        border-bottom: 2px solid #eee;
+        text-align: center;
+    }
+
+    .custom-table-order td {
+        padding: 16px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+    }
+
+/* Hiệu ứng hover chữ màu Cam */
+.customer-link, .action-link {
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-decoration: none;
+    color: #333;
+}
+
+    .customer-link:hover, .action-link:hover {
+        color: #ff8800 !important;
+    }
+
+/* Định dạng cột tiền */
+.text-price {
+    font-weight: 700;
+    color: #444;
+}
+
+/* Ô chọn trạng thái */
+.status-box {
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+.status-select {
+    border: 1px solid #ddd;
+    font-size: 13px;
+    background-color: #fff;
+}
+
+.btn-save-status {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-left: none;
+    color: #28a745;
+}
+
+    .btn-save-status:hover {
+        background-color: #ff8800;
+        color: white;
+        border-color: #ff8800;
+    }
+
+/* Nút quay lại */
+.btn-back {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+    .btn-back:hover {
+        color: #666;
+        border-color: #444;
+        background-color: #fff;
+    }

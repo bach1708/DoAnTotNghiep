@@ -1,105 +1,305 @@
 ﻿@model List<MangaShop.Models.Truyen>
 
-@{
-    ViewData["Title"] = "Trang chủ";
-}
+
 
 @section Styles {
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 }
 
-<div id="homeBanner"
-     class="carousel slide"
-     data-bs-ride="carousel"
-     data-bs-interval="5000"
-     data-bs-pause="false"
-     data-bs-wrap="true">
-
+@* --- BANNER SLIDER --- *@
+<div id="homeBanner" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#homeBanner" data-bs-slide-to="0" class="active" aria-current="true"></button>
+        <button type="button" data-bs-target="#homeBanner" data-bs-slide-to="0" class="active"></button>
         <button type="button" data-bs-target="#homeBanner" data-bs-slide-to="1"></button>
         <button type="button" data-bs-target="#homeBanner" data-bs-slide-to="2"></button>
     </div>
-
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="~/images/biapage1.jpg" class="d-block w-100" alt="Banner 1" />
-        </div>
-
-        <div class="carousel-item">
-            <img src="~/images/biapage2.jpg" class="d-block w-100" alt="Banner 2" />
-        </div>
-
-        <div class="carousel-item">
-            <img src="~/images/biapage3.jpg" class="d-block w-100" alt="Banner 3" />
-        </div>
+        <div class="carousel-item active"><img src="~/images/biapage1.jpg" class="d-block w-100" alt="Bia 1" /></div>
+        <div class="carousel-item"><img src="~/images/biapage2.jpg" class="d-block w-100" alt="Bia 2" /></div>
+        <div class="carousel-item"><img src="~/images/biapage3.jpg" class="d-block w-100" alt="Bia 3" /></div>
     </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#homeBanner" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#homeBanner" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
 </div>
 
-<!-- PHẦN MỚI NHẤT TRONG TUẦN -->
+@* --- 1. MỚI NHẤT TRONG TUẦN (Sử dụng Model) --- *@
 <div class="home-wrap">
     <section class="weekly-new container">
         <div class="weekly-title text-center">
             <h2 class="weekly-heading">MỚI NHẤT TRONG TUẦN</h2>
-            <div class="weekly-line">
-                <span></span><i class="fa-solid fa-pen-nib"></i><span></span>
-            </div>
-            <p class="weekly-sub">Cùng khám phá các truyện mới nhất của MangaShop</p>
+            <div class="weekly-line"><span></span><i class="fa-solid fa-pen-nib"></i><span></span></div>
         </div>
 
-        <div class="weekly-grid">
-
-            @if (Model == null || !Model.Any())
-            {
-                <div class="alert alert-warning text-center w-100">
-                    Chưa có dữ liệu truyện mới.
-                </div>
-            }
-            else
-            {
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-warning text-center">Chưa có dữ liệu truyện mới.</div>
+        }
+        else
+        {
+            <div class="weekly-slider-list">
                 @foreach (var item in Model)
                 {
                     var img = string.IsNullOrWhiteSpace(item.AnhBia) ? "noimage.jpg" : item.AnhBia;
+                    <div class="weekly-item-wrapper">
+                        <div class="weekly-card mx-2">
 
-                    <div class="weekly-item">
-                        <div class="weekly-card">
-
-                            <div class="weekly-name">
-                                @item.TenTruyen
-                            </div>
+                            @* 1. Link cho Tên truyện *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen">
+                                <div class="weekly-name text-truncate">@item.TenTruyen</div>
+                            </a>
 
                             <div class="weekly-price">
                                 <span class="price-new">@item.Gia.ToString("N0")đ</span>
                             </div>
 
-                            <div class="weekly-img">
+                            @* 2. Link cho Ảnh *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-img">
                                 <img src="~/images/@img" alt="@item.TenTruyen" />
-                            </div>
+                            </a>
 
-                            <!-- Bạn muốn giữ thêm giỏ hàng ở trang ChiTiet,
-                                 nên Home chỉ để "Truyện này có gì" -->
-                            <a asp-controller="NvbHome"
-                               asp-action="ChiTiet"
-                               asp-route-id="@item.MaTruyen"
-                               asp-route-returnUrl="@Url.Action("Home", "NvbHome")"
-                               class="weekly-btn">
+                            @* 3. Link cho Nút xem *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-btn">
                                 Xem truyện
                             </a>
+
                         </div>
                     </div>
                 }
-            }
-
-        </div>
+            </div>
+        }
     </section>
 </div>
+
+@* --- 2. SẮP PHÁT HÀNH (Sử dụng ViewBag.Upcoming) --- *@
+<div class="home-wrap" style="padding-top: 0;">
+    <section class="weekly-new container">
+        <div class="weekly-title text-center">
+            <h2 class="weekly-heading">SẮP PHÁT HÀNH</h2>
+            <div class="weekly-line"><span></span><i class="fa-solid fa-calendar-days"></i><span></span></div>
+        </div>
+
+        @{
+            var upcomingList = ViewBag.Upcoming as List<MangaShop.Models.Truyen>;
+        }
+
+        @if (upcomingList == null || !upcomingList.Any())
+        {
+            <div class="alert alert-warning text-center">Chưa có dữ liệu sắp phát hành.</div>
+        }
+        else
+        {
+            <div class="upcoming-slider-list">
+                @foreach (var item in upcomingList)
+                {
+                    var img = string.IsNullOrWhiteSpace(item.AnhBia) ? "noimage.jpg" : item.AnhBia;
+                    <div class="weekly-item-wrapper">
+                        <div class="weekly-card mx-2">
+                            @* 1. Link Tên truyện *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen">
+                                <div class="weekly-name text-truncate">@item.TenTruyen</div>
+                            </a>
+
+                            <div class="weekly-price"><span class="price-new">Sắp phát hành</span></div>
+
+                            @* 2. Link Ảnh *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-img">
+                                <img src="~/images/@img" alt="@item.TenTruyen" />
+                            </a>
+
+                            @* 3. Link Nút *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-btn">Xem truyện</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>
+
+@* --- 3. SẢN PHẨM KHUYẾN MÃI (Sử dụng ViewBag.Promo) --- *@
+<div class="home-wrap" style="padding-top: 0;">
+    <section class="weekly-new container">
+        <div class="weekly-title text-center">
+            <h2 class="weekly-heading">SẢN PHẨM KHUYẾN MÃI</h2>
+            <div class="weekly-line"><span></span><i class="fa-solid fa-tags"></i><span></span></div>
+        </div>
+
+        @{
+            var promoList = ViewBag.Promo as List<MangaShop.Models.Truyen>;
+        }
+
+        @if (promoList == null || !promoList.Any())
+        {
+            <div class="alert alert-warning text-center">Chưa có dữ liệu khuyến mãi.</div>
+        }
+        else
+        {
+            <div class="promo-slider-list">
+                @foreach (var item in promoList)
+                {
+                    var img = string.IsNullOrWhiteSpace(item.AnhBia) ? "noimage.jpg" : item.AnhBia;
+                    <div class="weekly-item-wrapper">
+                        <div class="weekly-card mx-2">
+                            @* 1. Link Tên truyện *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen">
+                                <div class="weekly-name text-truncate">@item.TenTruyen</div>
+                            </a>
+
+                            <div class="weekly-price">
+                                <span class="price-new text-danger">@item.Gia.ToString("N0")đ</span>
+                            </div>
+
+                            @* 2. Link Ảnh *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-img">
+                                <img src="~/images/@img" alt="@item.TenTruyen" />
+                            </a>
+
+                            @* 3. Link Nút *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" class="weekly-btn">Xem truyện</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </section>
+</div>     
+
+@* đối tác vận chuyển  *@
+
+<div class="home-wrap bg-light py-5">
+    <div class="container">
+        <div class="weekly-title text-center mb-5">
+            <h2 class="weekly-heading">ĐỐI TÁC VẬN CHUYỂN</h2>
+            <div class="weekly-line">
+                <span></span>
+                <i class="fa-solid fa-signs-post mx-2" style="color: #999;"></i>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <img src="~/images/vnp.png" alt="VNPOST" class="img-fluid" style="height: 120px;">
+                    </div>
+                    <div class="partner-body p-4 bg-white shadow-sm mt-n3">
+                        <p class="small text-muted text-start">Giao hàng đến 63 tỉnh thành trên toàn quốc. Đối tác vận chuyển chính của MangaShop Tổng công ty Bưu điện Việt Nam được hình thành trên cơ sở triển khai Đề án thí điểm hình thành Tập đoàn Bưu chính Viễn thông Việt Nam (Tập đoàn VNPT) do Thủ tướng Chính phủ phê duyệt tại Quyết định số 58/2005/QĐ-TTg ngày 23/3/2005.</p>
+                        <h6 class="text-danger fw-bold mt-3">VNPOST</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <img src="~/images/grab.png" alt="GRAB" class="img-fluid" style="height: 120px;">
+                    </div>
+                    <div class="partner-body p-4 bg-white shadow-sm mt-n3">
+                        <p class="small text-muted text-start">Giao hàng trong ngày tại Tp Hồ Chí Minh. Đối tác vận chuyển tin cậy của MangaShop. Công ty TNHH Grab. Địa chỉ: Tòa nhà Mapletree Business Centre, 1060 Nguyễn Văn Linh, Phường Tân Phong, Quận 7, Thành phố Hồ Chí Minh, Việt Nam. Mã số doanh nghiệp: 0312650437</p>
+                        <h6 class="text-danger fw-bold mt-3">GRAB</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="partner-card">
+                    <div class="partner-logo">
+                        <img src="~/images/ghn.png" alt="GHN" class="img-fluid" style="height: 120px;">
+                    </div>
+                    <div class="partner-body p-4 bg-white shadow-sm mt-n3">
+                        <p class="small text-muted text-start">Công ty giao nhận đầu tiên tại Việt Nam được thành lập với sứ mệnh phục vụ nhu cầu vận chuyển chuyên nghiệp của các đối tác Thương mại điện tử trên toàn quốc. Giấy CNĐKDN: 0311 907 295 do Sở Kế Hoạch và Đầu Tư TP HCM cấp lần đầu ngày 02/08/2012, cấp thay đổi lần thứ 16 ngày 10/5/2019.</p>
+                        <h6 class="text-danger fw-bold mt-3">GIAO HÀNG NHANH</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* cam kết dịch vụ *@
+
+<div class="service-commitments py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="commitment-item">
+                    <i class="fa-solid fa-rocket commitment-icon icon-purple"></i>
+                    <h3 class="commitment-title">GIAO HÀNG TẬN NƠI</h3>
+                    <p class="commitment-desc">Dù Bạn Ở Bất Cứ Nơi Đâu</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="commitment-item">
+                    <i class="fa-solid fa-tags commitment-icon icon-blue"></i>
+                    <h3 class="commitment-title">PHỤC VỤ TẬN TÌNH</h3>
+                    <p class="commitment-desc">Niềm Vui Của Bạn Là Hạnh Phúc Của MangaShop</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="commitment-item">
+                    <i class="fa-solid fa-leaf commitment-icon icon-green"></i>
+                    <h3 class="commitment-title">SẢN PHẨM CHẤT LƯỢNG</h3>
+                    <p class="commitment-desc">Hàng Hóa Chính Hãng 100%.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="commitment-item">
+                    <i class="fa-solid fa-heart commitment-icon icon-orange"></i>
+                    <h3 class="commitment-title">BÁN HÀNG VÌ ĐAM MÊ</h3>
+                    <p class="commitment-desc">Bán Hàng Bằng Cả Trái Tim &lt;3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* nhà xuất bản  *@
+
+<div class="home-wrap nxb-section py-5">
+    <div class="container">
+        <div class="weekly-title text-center">
+            <h2 class="weekly-heading">ĐỐI TÁC NHÀ XUẤT BẢN</h2>
+            <div class="weekly-line">
+                <span></span>
+                <i class="fa-solid fa-book-atlas mx-2" style="color: #999;"></i>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="nxb-slider-list">
+            @for (int i = 1; i <= 8; i++)
+            {
+                // Kiểm tra: nếu là số 5 thì dùng đuôi .png, còn lại dùng .jpg
+                string fileName = (i == 5) ? $"nxb{i}.png" : $"nxb{i}.jpg";
+
+                <div class="nxb-item-wrapper">
+                    <div class="nxb-card mx-2 text-center">
+                        <div class="nxb-img-box">
+                            <img src="~/images/@fileName" alt="NXB @i" class="img-fluid" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.weekly-slider-list, .upcoming-slider-list, .promo-slider-list, .nxb-slider-list').slick({
+                slidesToShow: 5,
+                slidesToScroll: 1,
+                autoplay: false, // Không tự động trượt
+                infinite: false, // Dừng ở cuối danh sách
+                arrows: true,    // Hiện nút bấm mũi tên
+                responsive: [
+                    { breakpoint: 1200, settings: { slidesToShow: 4 } },
+                    { breakpoint: 992, settings: { slidesToShow: 3 } },
+                    { breakpoint: 768, settings: { slidesToShow: 2 } },
+                    { breakpoint: 480, settings: { slidesToShow: 1 } }
+                ]
+            });
+        });
+    </script>
+}

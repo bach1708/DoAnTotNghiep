@@ -1,0 +1,128 @@
+﻿/* Layout & Container 1600px - Giữ nguyên cấu trúc */
+.main-wrapper {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa; /* Nền xám cực nhẹ cho toàn trang */
+    min-height: 100vh;
+}
+
+.admin-container {
+    color: #333; /* Chữ màu tối trên nền sáng */
+}
+
+.page-title {
+    font-weight: 700;
+    color: #212529; /* Màu đen xám đậm */
+    font-size: 1.6rem;
+}
+
+/* Edit Card - Chuyển sang Tone Trắng */
+.edit-card {
+    background-color: #ffffff; /* Trắng tinh khôi */
+    border: 1px solid #dee2e6; /* Viền xám mảnh */
+    border-radius: 12px;
+    padding: 35px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ cho sang trọng */
+}
+
+/* Custom Form Groups */
+.form-group-custom {
+    margin-bottom: 22px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #495057; /* Xám đậm cho label */
+}
+
+/* Input & Select phong cách Light & Gray */
+.form-input-dark, .form-select-dark {
+    width: 100%;
+    background-color: #fdfdfd !important; /* Trắng nhẹ */
+    border: 1px solid #ced4da; /* Viền xám chuẩn */
+    border-radius: 6px;
+    padding: 12px 15px;
+    color: #212529; /* Chữ đen */
+    transition: all 0.2s ease-in-out;
+}
+
+    /* Hiệu ứng khi nhấn vào ô nhập liệu */
+    .form-input-dark:focus, .form-select-dark:focus {
+        background-color: #fff !important;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        outline: none;
+    }
+
+/* Ảnh preview */
+.img-preview {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    display: block;
+    margin: 0 auto;
+}
+
+.preview-box {
+    background: #f1f3f5; /* Nền xám nhạt cho khung ảnh */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Buttons - Tông màu tươi sáng hơn */
+.btn-success {
+    background-color: #28a745 !important;
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-secondary {
+    background-color: #6c757d !important; /* Xám chì */
+    border: none;
+    padding: 10px 20px;
+}
+
+.btn-primary {
+    background-color: #007bff !important;
+    border: none;
+    font-weight: 600;
+    padding: 12px 30px;
+}
+
+.form-footer {
+    border-top: 2px solid #f1f3f5; /* Đường kẻ phân cách xám nhạt */
+    padding-top: 25px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Tùy chỉnh thanh cuộn cho Textarea (Tone xám) */
+textarea.form-input-dark::-webkit-scrollbar {
+    width: 8px;
+}
+
+textarea.form-input-dark::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+textarea.form-input-dark::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 10px;
+}
+
+/* Cảnh báo text-danger cho chuẩn nền trắng */
+.text-danger {
+    color: #dc3545 !important;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+}

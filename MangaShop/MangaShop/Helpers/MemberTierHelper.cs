@@ -2,12 +2,12 @@
 {
     public static class MemberTierHelper
     {
-        public static string GetTier(double tongChiTieu)
+        public static string GetTier(double amount)
         {
-            if (tongChiTieu >= 10_000_000) return "Vàng";
-            if (tongChiTieu >= 5_000_000) return "Bạc";
-            if (tongChiTieu >= 1_000_000) return "Đồng";
-            return "Thường";
+            if (amount >= 5000000) return "Kim cương";
+            if (amount >= 2000000) return "Vàng";
+            if (amount >= 500000) return "Bạc";
+            return ""; // Hoặc "Chưa có" tùy bạn đặt
         }
     }
 }

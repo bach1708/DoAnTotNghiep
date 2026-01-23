@@ -2,65 +2,70 @@
     ViewData["Title"] = "Đăng nhập";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header text-center fw-bold">
-                    Đăng nhập tài khoản
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbUserLogin.css" asp-append-version="true" />
+}
+
+<div class="login-page-wrapper">
+    <div class="login-container">
+        <div class="row g-0 shadow-lg overflow-hidden rounded-4">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="login-image-side" style="background-image: url('/images/logo-login-user.jpg');">
+                    <div class="image-overlay">
+                        <h3>Chào mừng bạn trở lại!</h3>
+                        <p>Khám phá thế giới Manga đầy màu sắc cùng MangaShop.</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="card-body">
-
-                    <!-- FORM LOGIN USER -->
-                    <form asp-controller="NvbAccount" asp-action="Login" method="post">
-                        <div class="mb-3">
-                            <label>Email</label>
-                            <input name="Email"
-                                   type="email"
-                                   class="form-control"
-                                   placeholder="Nhập email"
-                                   required />
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Mật khẩu</label>
-                            <input name="MatKhau"
-                                   type="password"
-                                   class="form-control"
-                                   placeholder="Nhập mật khẩu"
-                                   required />
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">
-                            Đăng nhập
-                        </button>
-                        <div class="text-center mt-2">
-                                <a asp-controller="NvbAccount" asp-action="Register" class="btn btn-success w-100">
-                                    Đăng ký ngay
-                                </a>
-                                
-                        </div>
-                    </form>
-
-                    <!-- LINK LOGIN ADMIN -->
-                    <div class="text-center mt-3">
-                        <small>
-                            Bạn là quản trị viên?
-                            <a asp-controller="NvbAdmin" asp-action="Login">
-                                Đăng nhập Admin
-                            </a>
-                        </small>
+            <div class="col-lg-6 bg-white p-4 p-md-5 d-flex align-items-center">
+                <div class="w-100">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-dark">ĐĂNG NHẬP</h2>
+                        <p class="text-muted">Nhập thông tin tài khoản của bạn</p>
                     </div>
 
-                    <!-- HIỂN THỊ LỖI -->
+                    <form asp-controller="NvbAccount" asp-action="Login" method="post">
+                        <div class="form-floating mb-3">
+                            <input name="Email" type="email" class="form-control custom-input" id="floatingInput" placeholder="name@example.com" required>
+                            <label for="floatingInput">Tài khoản</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input name="MatKhau" type="password" class="form-control custom-input" id="floatingPassword" placeholder="Password" required>
+                            <label for="floatingPassword">Mật khẩu</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label small" for="rememberMe">Ghi nhớ đăng nhập</label>
+                            </div>
+                            <a href="#" class="small text-decoration-none text-success fw-bold">Quên mật khẩu?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-login-submit w-100 py-3 mb-3">ĐĂNG NHẬP NGAY</button>
+
+                        <div class="divider mb-3">
+                            <span>HOẶC</span>
+                        </div>
+
+                        <a asp-controller="NvbAccount" asp-action="Register" class="btn btn-register-link w-100 py-2">
+                            Tạo tài khoản mới
+                        </a>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <small class="text-muted">Bạn là quản trị viên? </small>
+                        <a asp-controller="NvbAdmin" asp-action="Login" class="text-decoration-none fw-bold text-primary">Admin Login</a>
+                    </div>
+
                     @if (ViewBag.Error != null)
                     {
-                        <div class="alert alert-danger mt-3 text-center">
-                            @ViewBag.Error
+                        <div class="alert alert-danger mt-3 text-center py-2 animate__animated animate__shakeX">
+                            <i class="fa-solid fa-triangle-exclamation me-2"></i>@ViewBag.Error
                         </div>
                     }
-
                 </div>
             </div>
         </div>

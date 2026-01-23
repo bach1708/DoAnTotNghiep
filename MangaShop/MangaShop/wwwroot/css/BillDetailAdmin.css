@@ -1,0 +1,130 @@
+﻿/* Typography & Color */
+.fw-black {
+    font-weight: 900;
+}
+
+.text-orange {
+    color: #ff8800;
+}
+
+.bg-outline-orange {
+    border: 1px solid #ff8800;
+    color: #ff8800;
+}
+
+/* Product Image */
+.img-product-sm {
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* White Card Layout */
+.white-card {
+    background: #444;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header-plain {
+    padding: 15px 25px;
+    background: #fff;
+    border-bottom: 1px solid #f5f5f5;
+    font-weight: 700;
+    color: #444;
+}
+
+/* Status Banner */
+.status-banner {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.bg-success-light {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.bg-warning-light {
+    background: #fff8e1;
+    color: #f57f17;
+}
+
+/* Buttons */
+.btn-back-minimal {
+    text-decoration: none;
+    color: #888;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+    .btn-back-minimal:hover {
+        color: #ff8800;
+    }
+
+/* Table Adjustments */
+.bg-light-grey {
+    background-color: #fafafa;
+}
+
+.product-name-link {
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+    .product-name-link:hover {
+        color: #ff8800;
+    }
+
+.section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #bbb;
+    letter-spacing: 1px;
+    font-weight: 800;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 5px;
+}
+
+.btn-back-minimal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background-color: #ffffff;
+    color: #888;
+    border: 1px solid #eee;
+    border-radius: 50%; /* Tạo hình tròn */
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+    .btn-back-minimal i {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .btn-back-minimal:hover {
+        background-color: #fff;
+        color: #ff8800; /* Màu cam chủ đạo của bạn */
+        border-color: #ff8800;
+        box-shadow: 0 4px 10px rgba(255, 136, 0, 0.15);
+    }
+
+        /* Hiệu ứng nhích nhẹ icon khi hover */
+        .btn-back-minimal:hover i {
+            transform: translateX(-3px);
+        }
+
+    /* Đảm bảo không bị gạch chân khi hover */
+    .btn-back-minimal:focus, .btn-back-minimal:active {
+        outline: none;
+        text-decoration: none;
+    }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MangaShop.Models;
 
@@ -18,11 +19,15 @@ public partial class Truyen
     public string? AnhBia { get; set; }
 
     public int? MaTheLoai { get; set; }
+    public int? DinhDang { get; set; } // 0: Truyện ngắn, 1: Truyện dài
 
     public int? MaTacGia { get; set; }
 
     public int? MaNxb { get; set; }
     public int SoLuongTon { get; set; }
+
+    [Display(Name = "Loại truyện")]
+    public int LoaiTruyen { get; set; } // 0: Truyện Tranh, 1: Truyện Chữ
     public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; } = new HashSet<ChiTietPhieuNhap>();
 
 

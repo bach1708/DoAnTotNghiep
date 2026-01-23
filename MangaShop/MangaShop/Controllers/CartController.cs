@@ -2,6 +2,9 @@
 using MangaShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace MangaShop.Controllers
 {
     public class CartController : Controller
@@ -13,164 +16,205 @@ namespace MangaShop.Controllers
             _context = context;
         }
 
-        // LẤY GIỎ HÀNG
-        private List<CartItem> GetCart()
-        {
-            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
-            if (cart == null)
-            {
-                cart = new List<CartItem>();
-                HttpContext.Session.SetObject("CART", cart);
-            }
-            return cart;
-        }
+        // --- HÀM PHỤ LẤY USER ID TỪ SESSION ---
+        private int? GetUserId() => HttpContext.Session.GetInt32("UserId");
 
-        // XEM GIỎ HÀNG
+        // --- XEM GIỎ HÀNG ---
         public IActionResult GioHang()
         {
-            return View(GetCart());
-        }
-        // TĂNG SỐ LƯỢNG
-        public IActionResult Increase(int id) // id = MaTap
-        {
-            var tap = _context.TruyenTaps.FirstOrDefault(x => x.MaTap == id);
-            if (tap == null) return NotFound();
+            var userId = GetUserId();
+            List<CartItem> model = new List<CartItem>();
 
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(c => c.MaTap == id);
-
-            if (item != null)
+            if (userId != null)
             {
-                if (item.SoLuong < tap.SoLuongTon) item.SoLuong++;
+                // Trường hợp ĐÃ ĐĂNG NHẬP: Lấy từ SQL
+                model = _context.ChiTietGioHangs
+                    .Where(ct => ct.MaGioHangNavigation.MaKhachHang == userId)
+                    .Select(ct => new CartItem
+                    {
+                        MaTruyen = ct.MaTruyen,
+                        MaTap = ct.MaTap ?? 0,
+                        TenTruyen = ct.MaTapNavigation != null
+                                    ? $"{ct.MaTruyenNavigation.TenTruyen} (Tập {ct.MaTapNavigation.SoTap})"
+                                    : ct.MaTruyenNavigation.TenTruyen,
+                        Gia = (double)(ct.MaTapNavigation != null ? ct.MaTapNavigation.Gia : 0),
+                        SoLuong = ct.SoLuong,
+                        AnhBia = ct.MaTruyenNavigation.AnhBia
+                    }).ToList();
+            }
+            else
+            {
+                // Trường hợp KHÁCH VÃNG LAI: Lấy từ Session
+                model = HttpContext.Session.GetObject<List<CartItem>>("CART") ?? new List<CartItem>();
             }
 
-            HttpContext.Session.SetObject("CART", cart);
-            return RedirectToAction("GioHang");
+            return View(model);
         }
 
-
-
-        // GIẢM SỐ LƯỢNG
-        public IActionResult Decrease(int id) // id = MaTap
-        {
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(c => c.MaTap == id);
-
-            if (item != null)
-            {
-                item.SoLuong--;
-                if (item.SoLuong <= 0) cart.Remove(item);
-            }
-
-            HttpContext.Session.SetObject("CART", cart);
-            return RedirectToAction("GioHang");
-        }
-
-        // GET: hiển thị chọn tập
-        public IActionResult ChonTap(int id) // id = MaTruyen
-        {
-            var truyen = _context.Truyens
-                .Include(t => t.TruyenTaps)
-                .FirstOrDefault(t => t.MaTruyen == id);
-
-            if (truyen == null) return NotFound();
-            return View(truyen);
-        }
-
-        // POST: thêm tập vào giỏ
+        // --- THÊM TẬP VÀO GIỎ (Hỗ trợ cả DB và Session) ---
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddTap(int maTap, int quantity)
         {
             if (quantity < 1) quantity = 1;
+            var userId = GetUserId();
 
             var tap = _context.TruyenTaps
                 .Include(x => x.MaTruyenNavigation)
                 .FirstOrDefault(x => x.MaTap == maTap);
 
             if (tap == null) return NotFound();
-
-            // ✅ hết hàng
             if (tap.SoLuongTon <= 0)
             {
                 TempData["Err"] = "Tập này đã hết hàng.";
                 return RedirectToAction("ChonTap", new { id = tap.MaTruyen });
             }
 
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(c => c.MaTap == maTap);
-
-            if (item == null)
+            if (userId != null)
             {
-                cart.Add(new CartItem
+                // LOGIC DATABASE
+                var gioHang = _context.GioHangs.FirstOrDefault(g => g.MaKhachHang == userId);
+                if (gioHang == null)
                 {
-                    MaTap = tap.MaTap,
-                    MaTruyen = tap.MaTruyen,
-                    SoTap = tap.SoTap,
-                    TenTruyen = tap.MaTruyenNavigation.TenTruyen,
-                    AnhBia = tap.MaTruyenNavigation.AnhBia,
-                    Gia = tap.Gia,
-                    SoLuong = Math.Min(quantity, tap.SoLuongTon) // ✅ không vượt tồn
-                });
+                    gioHang = new GioHang { MaKhachHang = userId.Value, NgayTao = System.DateTime.Now };
+                    _context.GioHangs.Add(gioHang);
+                    _context.SaveChanges();
+                }
+
+                var ctgh = _context.ChiTietGioHangs
+                    .FirstOrDefault(ct => ct.MaGioHang == gioHang.MaGioHang && ct.MaTap == maTap);
+
+                if (ctgh != null)
+                {
+                    ctgh.SoLuong = System.Math.Min(ctgh.SoLuong + quantity, tap.SoLuongTon);
+                }
+                else
+                {
+                    _context.ChiTietGioHangs.Add(new ChiTietGioHang
+                    {
+                        MaGioHang = gioHang.MaGioHang,
+                        MaTruyen = tap.MaTruyen,
+                        MaTap = maTap,
+                        SoLuong = System.Math.Min(quantity, tap.SoLuongTon)
+                    });
+                }
+                _context.SaveChanges();
             }
             else
             {
-                int next = item.SoLuong + quantity;
-                if (next > tap.SoLuongTon) next = tap.SoLuongTon; // ✅ không vượt tồn
-                item.SoLuong = next;
-            }
-
-            HttpContext.Session.SetObject("CART", cart);
-            return RedirectToAction("GioHang");
-        }
-
-
-        // THÊM VÀO GIỎ
-        public IActionResult Add(int id) // id = MaTruyen
-        {
-            return RedirectToAction("ChonTap", new { id });
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult UpdateQuantity(int id, int quantity) // id = MaTap
-        {
-            if (quantity < 1) quantity = 1;
-
-            var tap = _context.TruyenTaps.FirstOrDefault(x => x.MaTap == id);
-            if (tap == null) return NotFound();
-
-            var cart = GetCart();
-            var item = cart.FirstOrDefault(x => x.MaTap == id);
-
-            if (item != null)
-            {
-                if (quantity > tap.SoLuongTon) quantity = tap.SoLuongTon; // ✅ chặn vượt tồn
-                item.SoLuong = quantity;
+                // LOGIC SESSION
+                var cart = HttpContext.Session.GetObject<List<CartItem>>("CART") ?? new List<CartItem>();
+                var item = cart.FirstOrDefault(c => c.MaTap == maTap);
+                if (item == null)
+                {
+                    cart.Add(new CartItem
+                    {
+                        MaTap = tap.MaTap,
+                        MaTruyen = tap.MaTruyen,
+                        TenTruyen = tap.MaTruyenNavigation.TenTruyen,
+                        AnhBia = tap.MaTruyenNavigation.AnhBia,
+                        Gia = tap.Gia,
+                        SoLuong = System.Math.Min(quantity, tap.SoLuongTon)
+                    });
+                }
+                else
+                {
+                    item.SoLuong = System.Math.Min(item.SoLuong + quantity, tap.SoLuongTon);
+                }
                 HttpContext.Session.SetObject("CART", cart);
             }
 
             return RedirectToAction("GioHang");
         }
 
-
-
-        // XÓA 1 SẢN PHẨM
-        public IActionResult Remove(int id) // id = MaTap
+        // --- CẬP NHẬT SỐ LƯỢNG (Increase/Decrease/Update) ---
+        public IActionResult UpdateQuantityDB(int maTap, int quantity)
         {
-            var cart = GetCart();
-            cart.RemoveAll(c => c.MaTap == id);
+            var userId = GetUserId();
+            var tap = _context.TruyenTaps.Find(maTap);
+            if (tap == null) return NotFound();
 
-            HttpContext.Session.SetObject("CART", cart);
+            if (userId != null)
+            {
+                var ctgh = _context.ChiTietGioHangs
+                    .FirstOrDefault(ct => ct.MaGioHangNavigation.MaKhachHang == userId && ct.MaTap == maTap);
+                if (ctgh != null)
+                {
+                    if (quantity <= 0) _context.ChiTietGioHangs.Remove(ctgh);
+                    else ctgh.SoLuong = System.Math.Min(quantity, tap.SoLuongTon);
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                var cart = HttpContext.Session.GetObject<List<CartItem>>("CART") ?? new List<CartItem>();
+                var item = cart.FirstOrDefault(i => i.MaTap == maTap);
+                if (item != null)
+                {
+                    if (quantity <= 0) cart.Remove(item);
+                    else item.SoLuong = System.Math.Min(quantity, tap.SoLuongTon);
+                    HttpContext.Session.SetObject("CART", cart);
+                }
+            }
             return RedirectToAction("GioHang");
         }
 
+        public IActionResult Increase(int id)
+        {
+            var userId = GetUserId();
+            if (userId != null)
+            {
+                var item = _context.ChiTietGioHangs.FirstOrDefault(ct => ct.MaGioHangNavigation.MaKhachHang == userId && ct.MaTap == id);
+                return UpdateQuantityDB(id, (item?.SoLuong ?? 0) + 1);
+            }
+            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
+            var sItem = cart?.FirstOrDefault(c => c.MaTap == id);
+            return UpdateQuantityDB(id, (sItem?.SoLuong ?? 0) + 1);
+        }
 
-        // XÓA HẾT
+        public IActionResult Decrease(int id)
+        {
+            var userId = GetUserId();
+            if (userId != null)
+            {
+                var item = _context.ChiTietGioHangs.FirstOrDefault(ct => ct.MaGioHangNavigation.MaKhachHang == userId && ct.MaTap == id);
+                return UpdateQuantityDB(id, (item?.SoLuong ?? 0) - 1);
+            }
+            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
+            var sItem = cart?.FirstOrDefault(c => c.MaTap == id);
+            return UpdateQuantityDB(id, (sItem?.SoLuong ?? 0) - 1);
+        }
+
+        public IActionResult Remove(int id)
+        {
+            return UpdateQuantityDB(id, 0);
+        }
+
         public IActionResult Clear()
         {
-            HttpContext.Session.Remove("CART");
+            var userId = GetUserId();
+            if (userId != null)
+            {
+                var gioHang = _context.GioHangs.FirstOrDefault(g => g.MaKhachHang == userId);
+                if (gioHang != null)
+                {
+                    var details = _context.ChiTietGioHangs.Where(ct => ct.MaGioHang == gioHang.MaGioHang);
+                    _context.ChiTietGioHangs.RemoveRange(details);
+                    _context.SaveChanges();
+                }
+            }
+            else
+            {
+                HttpContext.Session.Remove("CART");
+            }
             return RedirectToAction("GioHang");
         }
 
+        public IActionResult ChonTap(int id)
+        {
+            var truyen = _context.Truyens.Include(t => t.TruyenTaps).FirstOrDefault(t => t.MaTruyen == id);
+            if (truyen == null) return NotFound();
+            return View(truyen);
+        }
     }
 }

@@ -343,7 +343,27 @@ public partial class MangaShopContext : DbContext
                 .HasConstraintName("FK_CTPN_TruyenTap");
         });
 
+        modelBuilder.Entity<ChiTietGioHang>(entity =>
+        {
+            entity.HasKey(e => e.MaChiTiet).HasName("PK__ChiTietG__CDF0A11499C83BF6");
+            entity.ToTable("ChiTietGioHang");
 
+            entity.Property(e => e.SoLuong).HasDefaultValue(1);
+
+            // ✅ ĐOẠN BẠN CẦN THÊM TRONG CONTEXT
+            entity.HasOne(d => d.MaTapNavigation)
+                .WithMany()
+                .HasForeignKey(d => d.MaTap)
+                .HasConstraintName("FK_ChiTietGioHang_TruyenTap");
+
+            entity.HasOne(d => d.MaGioHangNavigation).WithMany(p => p.ChiTietGioHangs)
+                .HasForeignKey(d => d.MaGioHang)
+                .HasConstraintName("FK__ChiTietGi__MaGio__59FA5E80");
+
+            entity.HasOne(d => d.MaTruyenNavigation).WithMany(p => p.ChiTietGioHangs)
+                .HasForeignKey(d => d.MaTruyen)
+                .HasConstraintName("FK__ChiTietGi__MaTru__5AEE82B9");
+        });
 
     }
 

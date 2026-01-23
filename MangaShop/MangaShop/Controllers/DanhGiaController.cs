@@ -15,21 +15,23 @@ namespace MangaShop.Controllers
 
         // ===== GET: FORM ĐÁNH GIÁ =====
         [HttpGet]
+        [HttpGet]
         public IActionResult Create(int maTruyen, int maDonHang)
         {
             var userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)
                 return RedirectToAction("Login", "NvbAccount");
 
-            // ✅ Lấy danh sách tập đã mua trong đơn này (thuộc truyện này)
+            // Lấy thông tin truyện để hiển thị lên form
+            var truyen = _context.Truyens.FirstOrDefault(t => t.MaTruyen == maTruyen);
+            if (truyen == null) return NotFound();
+
+            // Lấy danh sách tập đã mua trong đơn này
             var tapsDaMua = _context.ChiTietDonHangs
-                .Include(ct => ct.MaDonHangNavigation)
                 .Include(ct => ct.MaTapNavigation)
-                .Where(ct =>
-                    ct.MaDonHang == maDonHang &&
-                    ct.MaDonHangNavigation.MaKhachHang == userId.Value &&
-                    ct.MaTruyen == maTruyen &&
-                    ct.MaTap != null)
+                .Where(ct => ct.MaDonHang == maDonHang &&
+                             ct.MaTruyen == maTruyen &&
+                             ct.MaTap != null)
                 .Select(ct => ct.MaTapNavigation!)
                 .Distinct()
                 .OrderBy(t => t.SoTap)
@@ -37,6 +39,7 @@ namespace MangaShop.Controllers
 
             ViewBag.MaTruyen = maTruyen;
             ViewBag.MaDonHang = maDonHang;
+            ViewBag.Truyen = truyen; // Chuyền đối tượng truyện sang View
             ViewBag.TapsDaMua = tapsDaMua;
 
             return View();

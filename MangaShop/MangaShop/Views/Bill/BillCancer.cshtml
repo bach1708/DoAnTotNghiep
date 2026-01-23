@@ -1,0 +1,59 @@
+﻿@model MangaShop.Models.DonHang
+@{
+    ViewData["Title"] = "Lý do hủy đơn";
+}
+
+<div class="container mt-5">
+    <div class="card mx-auto shadow-sm" style="max-width: 500px; border: 1px solid #000;">
+        <div class="card-header bg-white border-bottom border-dark">
+            <h5 class="mb-0 text-danger fw-bold">XÁC NHẬN HỦY ĐƠN #@Model.MaDonHang</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="ConfirmCancel" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.MaDonHang" />
+
+                <p class="small text-muted mb-3">Vui lòng chọn lý do để chúng tôi cải thiện dịch vụ:</p>
+
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="reason" value="Đổi ý, không muốn mua nữa" checked>
+                    <label class="form-check-label">Đổi ý, không muốn mua nữa</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="reason" value="Thời gian giao hàng quá lâu">
+                    <label class="form-check-label">Thời gian giao hàng quá lâu</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="reason" value="Tìm thấy giá rẻ hơn ở nơi khác">
+                    <label class="form-check-label">Tìm thấy giá rẻ hơn ở nơi khác</label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="reason" id="rOther" value="Khác">
+                    <label class="form-check-label">Lý do khác</label>
+                </div>
+
+                <div id="otherInputArea" class="mb-3 d-none">
+                    <textarea name="otherReason" class="form-control" rows="3" placeholder="Nhập lý do chi tiết..."></textarea>
+                </div>
+
+                <hr>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger w-100 fw-bold">XÁC NHẬN HỦY</button>
+                    <a asp-action="BillUser" class="btn btn-secondary w-100">QUAY LẠI</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('input[name="reason"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const area = document.getElementById('otherInputArea');
+                if (this.id === 'rOther') area.classList.remove('d-none');
+                else area.classList.add('d-none');
+            });
+        });
+    </script>
+}

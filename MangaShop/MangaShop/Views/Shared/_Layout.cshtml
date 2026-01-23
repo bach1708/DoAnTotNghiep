@@ -3,124 +3,120 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MangaShop</title>
+    <title>@ViewData["Title"] Manga Shop</title>
+
+    <link rel="icon" type="image/png" href="~/images/logo-icon.png" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/navbar.css" />
-    <link rel="stylesheet" href="~/MangaShop.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
     @RenderSection("Styles", required: false)
 </head>
 <body>
-    <header class="manga-header">
-        <div class="header-top">
-            <div class="logo">
-                <a asp-controller="NvbHome" asp-action="Home"><img src="/images/logo.png" alt="Manga Shop" style="height: 40px;"></a>
-            </div>
-            <div class="search-bar">
-                <form asp-controller="NvbHome" asp-action="TimKiem" method="get" class="d-flex">
-                    <input type="text"
-                           name="keyword"
-                           value="@Context.Request.Query["keyword"]"
-                           placeholder="Nhập tên truyện / tác giả / thể loại..."
-                           class="form-control" />
-
-                    <button type="submit" class="btn btn-primary ms-2">
-                        Tìm ngay
-                    </button>
-                </form>
-            </div>
-
-            <div class="user-actions">
-
-                @if (Context.Session.GetString("UserName") == null)
-                {
-                    <!-- CHƯA ĐĂNG NHẬP -->
-                    <a asp-controller="NvbAccount" asp-action="Login">
-                        <i class="fa-solid fa-user"></i> Tài Khoản
+    <div class="main-wrapper">
+        <header class="manga-header">
+            <div class="container d-flex justify-content-between align-items-center ">
+                <div class="logo">
+                    <a asp-controller="NvbHome" asp-action="Home">
+                        <img src="/images/logo.png" alt="Manga Shop" style="height: 40px;">
                     </a>
-                }
-                else
-                {
-                    <!-- ĐÃ ĐĂNG NHẬP -->
-                    <div class="dropdown">
-                        <a class="dropdown-toggle text-decoration-none"
-                           href="#"
-                           role="button"
-                           data-bs-toggle="dropdown">
+                </div>
 
-                            <i class="fa-solid fa-user"></i>
-                            Xin chào, @Context.Session.GetString("UserName")
-                            @await Component.InvokeAsync("UserBadge")
-                        </a>
+                <div class="search-bar">
+                    <form asp-controller="NvbHome" asp-action="TimKiem" method="get" class="d-flex border rounded overflow-hidden">
+                        <input type="text" name="keyword" value="@Context.Request.Query["keyword"]"
+                               placeholder="Nhập từ khóa tìm kiếm" class="form-control border-0" />
+                        <button type="submit" class="btn btn-success rounded-0 fw-bold">Tìm ngay</button>
+                    </form>
+                </div>
 
-                        <ul class="dropdown-menu dropdown-menu-end">
-                           
-                            <li>
-                                <a class="dropdown-item"
-                                   asp-controller="NvbHome"
-                                   asp-action="ThanhVienCuaToi">
-                                    <i class="fa-solid fa-crown"></i> Thông tin thành viên
-                                </a>
-                            </li>
+                <div class="user-actions d-flex align-items-center">
+                    @if (Context.Session.GetString("UserName") == null)
+                    {
+                        <div class="account-dropdown">
+                            <a asp-controller="NvbAccount" asp-action="Login" class="account-link">
+                                <i class="fa-solid fa-user me-1"></i> Tài Khoản
+                            </a>
+                            <div class="account-menu-popover">
+                                <div class="popover-arrow"></div>
+                                <div class="popover-content ">
+                                    <a asp-controller="NvbAccount" asp-action="Login" class="btn-popover login">Đăng nhập</a>
+                                    <a asp-controller="NvbAccount" asp-action="Register" class="btn-popover register">Đăng ký</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="dropdown mx-3">
+                            <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fa-solid fa-user me-1"></i> Xin chào, @Context.Session.GetString("UserName")
+                                @await Component.InvokeAsync("UserBadge")
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                                <li><a class="dropdown-item" asp-controller="NvbHome" asp-action="ThanhVienCuaToi"><i class="fa-solid fa-crown me-2"></i>Thông tin thành viên</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" asp-controller="Bill" asp-action="BillUser"><i class="fa-solid fa-box me-2"></i>Đơn hàng đã mua</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" asp-controller="NvbAccount" asp-action="Logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    }
 
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item"
-                                   asp-controller="Bill"
-                                   asp-action="BillUser">
-                                    <i class="fa-solid fa-box"></i> Đơn hàng đã mua
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item"
-                                   asp-controller="NvbAccount"
-                                   asp-action="Logout">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
-                }
-
-                <a asp-controller="Cart" asp-action="GioHang" class="nav-link"> <i class="fa-solid fa-cart-shopping"></i> Giỏ Hàng </a>
+                    <a asp-controller="Cart" asp-action="GioHang" class="nav-link ms-3">
+                        <i class="fa-solid fa-cart-shopping me-1"></i> Giỏ Hàng @await Component.InvokeAsync("CartQuantity")
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <nav class="main-nav">
-            <ul>
-                <li><a asp-controller="NvbHome" asp-action="DanhMuc">DANH MỤC</a></li>
-                <li><a asp-controller="NvbHome" asp-action="LichPhatHanh">LỊCH PHÁT HÀNH</a></li>
-                <li><a asp-controller="NvbHome" asp-action="ThanhVien">THÀNH VIÊN</a></li>
-                <li><a href="#">ĐỔI ĐIỂM</a></li>
-                <li><a asp-controller="NvbHome" asp-action="TinTuc">TIN TỨC</a></li>
-                <li><a asp-controller="NvbHome" asp-action="HuongDan">HƯỚNG DẪN CẦN BIẾT</a></li>
-                <li><a asp-controller="NvbHome" asp-action="VeChungToi">VỀ CHÚNG TÔI</a></li>
-            </ul>
-        </nav>
-    </header>
-    <div class="container-fluid p-0">
-        <main role="main">
-            @RenderBody()
-        </main>
+            <nav class="main-nav">
+                <ul class="d-flex justify-content-center m-0 p-0 list-unstyled">
+                    <li><a asp-controller="NvbHome" asp-action="DanhMuc">DANH MỤC</a></li>
+                    <li><a asp-controller="NvbHome" asp-action="LichPhatHanh">LỊCH PHÁT HÀNH</a></li>
+                    <li><a asp-controller="NvbHome" asp-action="ThanhVien">THÀNH VIÊN</a></li>
+                    <li><a href="#">ĐỔI ĐIỂM</a></li>
+                    <li><a asp-controller="NvbHome" asp-action="TinTuc">TIN TỨC</a></li>
+                    <li><a asp-controller="NvbHome" asp-action="HuongDan">HƯỚNG DẪN CẦN BIẾT</a></li>
+                    <li><a asp-controller="NvbHome" asp-action="VeChungToi">VỀ CHÚNG TÔI</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main role="main">@RenderBody()</main>
+
+        <footer class="footer-section text-white" style="background-image: url('/images/footer.jpg'); background-size: cover;">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <img src="~/images/logo.png" alt="Logo" class="mb-3" style="max-width: 180px;">
+                        <p class="small">Công Ty Cổ Phần Xuất Bản MangaShop<br>MST: 0317420275</p>
+                        <img src="~/images/logo_bct.png" alt="BCT" style="width: 120px;">
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <h6 class="fw-bold mb-3 border-bottom pb-2">LIÊN HỆ</h6>
+                        <ul class="list-unstyled small">
+                            <li class="mb-2"><i class="fa-solid fa-location-dot me-2"></i> 140 Đường Số 3, Quận 11, TP. HCM</li>
+                            <li class="mb-2"><i class="fa-solid fa-phone me-2"></i> 0387387894</li>
+                            <li><i class="fa-solid fa-envelope me-2"></i> kunkontkls@gmail.com</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h6 class="fw-bold mb-3 border-bottom pb-2">FANPAGE</h6>
+                        <div class="bg-white text-dark p-2 rounded shadow-sm">
+                            @* Chèn Widget Fanpage tại đây *@
+                            <div class="small fw-bold">Manga Shop</div>
+                            <div class="text-muted" style="font-size: 11px;">31.806 người theo dõi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-    
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Liên hệ với chúng tôi - <a href="https://www.facebook.com/12TA014.00" target="_blank"> MangaShop </a>
-        </div>
-    </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

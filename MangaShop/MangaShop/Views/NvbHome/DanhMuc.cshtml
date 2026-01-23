@@ -1,66 +1,83 @@
 ﻿@model List<MangaShop.Models.Truyen>
 
-
 @{
     ViewData["Title"] = "Danh mục truyện tranh";
     var theLoai = ViewBag.TheLoai as List<TheLoai>;
     int? maTheLoai = ViewBag.MaTheLoai as int?;
+    int? format = ViewBag.Format as int?;
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbHome-DanhMuc.css" asp-append-version="true" />
 }
 
 <div class="container mt-4">
-
-    <img src="~/images/collection_image.jpg" alt="Danh mục truyện tranh" class="img-fluid mb-4 rounded" style="width:100%; max-height:auto; object-fit:cover;" />
+    @* Banner danh mục *@
+    <img src="~/images/collection_image.jpg" alt="Danh mục" class="img-fluid mb-4 rounded shadow-sm" style="width:100%; object-fit:cover;" />
 
     <div class="row">
-        <!-- CỘT TRÁI: THỂ LOẠI -->
+        @* Cột trái: Bộ lọc (Sidebar) *@
         <div class="col-md-3">
-            <h5>Thể loại</h5>
-            <ul class="list-group">
+            <h5 class="fw-bold"><i class="fa-solid fa-tags me-2"></i>Thể loại</h5>
+            <ul class="list-group mb-4 shadow-sm">
                 <li class="list-group-item @(maTheLoai == null ? "active" : "")">
-                    <a asp-action="DanhMuc"
-                       class="text-decoration-none text-dark d-block">
-                        Tất cả
-                    </a>
+                    <a asp-action="DanhMuc" asp-route-format="@format" asp-route-page="1">Tất cả thể loại</a>
                 </li>
-
                 @foreach (var tl in theLoai)
                 {
                     <li class="list-group-item @(maTheLoai == tl.MaTheLoai ? "active" : "")">
-                        <a asp-action="DanhMuc"
-                           asp-route-maTheLoai="@tl.MaTheLoai"
-                           class="text-decoration-none text-dark d-block">
-                            @tl.TenTheLoai
-                        </a>
+                        <a asp-action="DanhMuc" asp-route-maTheLoai="@tl.MaTheLoai" asp-route-format="@format" asp-route-page="1">@tl.TenTheLoai</a>
                     </li>
                 }
             </ul>
+
+            <h5 class="fw-bold mt-4"><i class="fa-solid fa-book-open me-2"></i>Hình thức</h5>
+            <ul class="list-group shadow-sm">
+                <li class="list-group-item @(format == null ? "active" : "")">
+                    <a asp-action="DanhMuc" asp-route-maTheLoai="@maTheLoai" asp-route-page="1">Tất cả hình thức</a>
+                </li>
+                <li class="list-group-item @(format == 0 ? "active" : "")">
+                    <a asp-action="DanhMuc" asp-route-maTheLoai="@maTheLoai" asp-route-format="0" asp-route-page="1">Truyện ngắn</a>
+                </li>
+                <li class="list-group-item @(format == 1 ? "active" : "")">
+                    <a asp-action="DanhMuc" asp-route-maTheLoai="@maTheLoai" asp-route-format="1" asp-route-page="1">Truyện dài</a>
+                </li>
+            </ul>
         </div>
 
-        <!-- CỘT PHẢI: DANH SÁCH TRUYỆN -->
+        @* Cột phải: Danh sách sản phẩm *@
         <div class="col-md-9">
-
             <div class="row g-4">
-
                 @foreach (var item in Model)
                 {
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm">
+                    var currentUrl = Context.Request.Path + Context.Request.QueryString;
+                    var img = string.IsNullOrWhiteSpace(item.AnhBia) ? "noimage.jpg" : item.AnhBia;
 
-                            <img src="~/images/@item.AnhBia"
-                                 class="card-img-top"
-                                 style="height:260px; object-fit:cover" />
+                    <div class="col-md-4 mb-4">
+                        <div class="weekly-card h-100 shadow-sm">
+                            @* 1. Tên truyện *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" asp-route-returnUrl="@currentUrl" class="text-decoration-none">
+                                <div class="weekly-name">@item.TenTruyen</div>
+                            </a>
 
-                            <div class="card-body text-center">
-                                <h6 class="card-title">@item.TenTruyen</h6>
+                            @* 2. Giá tiền *@
+                            <div class="weekly-price">
+                                <span class="price-new">@item.Gia.ToString("N0")đ</span>
+                            </div>
 
-                                <p class="text-danger fw-bold">
-                                    @item.Gia.ToString("N0") ₫
-                                </p>
-                                <a asp-action="ChiTiet"
-                                   asp-route-id="@item.MaTruyen"
-                                   asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString)"
-                                   class="btn btn-outline-primary w-100 mb-2">
-                                    👁 Truyện này có gì?
+                            @* 3. Ảnh bìa *@
+                            <a asp-action="ChiTiet" asp-route-id="@item.MaTruyen" asp-route-returnUrl="@currentUrl" class="text-decoration-none">
+                                <div class="weekly-img">
+                                    <img src="~/images/@img" alt="@item.TenTruyen" />
+                                </div>
+                            </a>
+
+                            @* 4. Nút chức năng *@
+                            <div class="mt-auto">
+                                <a asp-controller="Cart" asp-action="ChonTap" asp-route-id="@item.MaTruyen" asp-route-returnUrl="@currentUrl" class="weekly-btn d-block">
+                                    🛒 Thêm vào giỏ
                                 </a>
                             </div>
                         </div>
@@ -69,18 +86,45 @@
 
                 @if (!Model.Any())
                 {
-                    <div class="col-12">
-                        <div class="alert alert-warning text-center">
-                            Không có truyện trong danh mục này
+                    <div class="col-12 text-center py-5">
+                        <div class="alert alert-light border shadow-sm py-5">
+                            <i class="fa-solid fa-magnifying-glass fa-3x text-muted mb-3"></i>
+                            <p class="mb-0 fw-bold text-muted">Không tìm thấy truyện nào phù hợp!</p>
+                            <a asp-action="DanhMuc" class="btn btn-success mt-3 btn-sm px-4">Xóa bộ lọc</a>
                         </div>
                     </div>
                 }
-
             </div>
+
+            @* --- THANH PHÂN TRANG (PAGINATION) --- *@
+            @if (totalPages > 1)
+            {
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        @* Nút Previous *@
+                        <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" asp-action="DanhMuc" asp-route-page="@(currentPage - 1)" asp-route-maTheLoai="@maTheLoai" asp-route-format="@format">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                        </li>
+
+                        @* Các số trang *@
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(currentPage == i ? "active" : "")">
+                                <a class="page-link" asp-action="DanhMuc" asp-route-page="@i" asp-route-maTheLoai="@maTheLoai" asp-route-format="@format">@i</a>
+                            </li>
+                        }
+
+                        @* Nút Next *@
+                        <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                            <a class="page-link" asp-action="DanhMuc" asp-route-page="@(currentPage + 1)" asp-route-maTheLoai="@maTheLoai" asp-route-format="@format">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            }
         </div>
     </div>
 </div>
-
-@section Styles {
-    <link rel="stylesheet" href="~/css/DanhMuc.css" asp-append-version="true" />
-}

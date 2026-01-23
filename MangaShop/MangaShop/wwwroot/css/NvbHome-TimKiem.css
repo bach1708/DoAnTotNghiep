@@ -1,0 +1,72 @@
+﻿/* BÊ NGUYÊN CSS THẺ HOME QUA - KHÔNG SỬA ĐỔI */
+
+.weekly-card {
+    border: 1px solid #eee;
+    padding: 18px 16px 16px;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.weekly-name {
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.25;
+    min-height: 64px;
+    margin-bottom: 10px;
+    color: #111;
+    transition: color 0.2s ease;
+    display: block;
+    text-decoration: none !important;
+}
+
+    /* Hiệu ứng hover tên truyện của bạn */
+    .weekly-card a:hover ~ .weekly-name,
+    .weekly-name:hover,
+    .weekly-card a:hover .weekly-name {
+        color: #d0021b !important;
+    }
+
+.weekly-price {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.price-new {
+    color: #d0021b;
+    font-weight: 700;
+}
+
+.weekly-img {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0 14px;
+}
+
+    .weekly-img img {
+        height: 210px;
+        object-fit: contain;
+        transition: transform 0.3s ease; /* Giữ hiệu ứng ảnh từ CSS của bạn */
+    }
+
+.weekly-btn {
+    margin-top: auto;
+    border: 1px solid #cfcfcf;
+    color: #777;
+    text-align: center;
+    padding: 10px 8px;
+    font-size: 13px;
+    transition: .2s ease;
+    text-decoration: none;
+}
+
+    .weekly-btn:hover {
+        border-color: #111;
+        color: #111;
+    }
+
+/* Đảm bảo link không có gạch chân giống Home */
+.weekly-card a {
+    text-decoration: none !important;
+}

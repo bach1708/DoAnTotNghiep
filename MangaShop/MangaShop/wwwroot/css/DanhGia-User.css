@@ -1,0 +1,75 @@
+﻿/* Container chính */
+.rating-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Thông tin sản phẩm */
+.product-info-box {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.product-img {
+    width: 80px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Custom Checkbox chọn tập */
+.tap-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tap-item input[type="checkbox"] {
+    display: none;
+}
+
+.tap-item label {
+    display: block;
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    font-size: 14px;
+}
+
+.tap-item input[type="checkbox"]:checked + label {
+    background: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Star Rating */
+.star-select {
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    font-size: 16px;
+}
+
+    .star-select:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+/* Textarea */
+.textarea-custom {
+    border-radius: 8px;
+    padding: 12px;
+    resize: none;
+}

@@ -1,0 +1,107 @@
+﻿/* Container bao phủ toàn màn hình */
+.login-page-wrapper {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f7f6;
+    padding: 20px 0;
+}
+
+.login-container {
+    max-width: 950px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Phần hình ảnh bên trái */
+.login-image-side {
+    height: 100%;
+    min-height: 550px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+    .image-overlay h3 {
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+/* Tùy chỉnh Input */
+.custom-input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+
+    .custom-input:focus {
+        border-color: #6d934c;
+        box-shadow: 0 0 0 0.25rem rgba(109, 147, 76, 0.1);
+    }
+
+/* Nút bấm */
+.btn-login-submit {
+    background-color: #6d934c;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    transition: 0.3s;
+}
+
+    .btn-login-submit:hover {
+        background-color: #55793a;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+.btn-register-link {
+    background-color: transparent;
+    color: #6d934c;
+    border: 1.5px solid #6d934c;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+    .btn-register-link:hover {
+        background-color: #6d934c;
+        color: white;
+    }
+
+/* Đường gạch ngang chữ HOẶC */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #ccc;
+}
+
+    .divider::before, .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #eee;
+    }
+
+    .divider span {
+        padding: 0 10px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+/* Responsive */
+@media (max-width: 991px) {
+    .login-container {
+        max-width: 500px;
+    }
+}

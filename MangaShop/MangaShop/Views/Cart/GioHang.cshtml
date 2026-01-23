@@ -4,114 +4,104 @@
     ViewData["Title"] = "Giỏ hàng";
 }
 
-<h2 class="mb-4">🛒 Giỏ hàng của bạn</h2>
-<a asp-controller="Bill"
-   asp-action="BillUser"
-   class="btn btn-secondary">
-    📦 Đơn hàng đã mua
-</a>
-
-@if (!Model.Any())
-{
-    <div class="alert alert-warning">
-        Giỏ hàng đang trống
-    </div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/GioHang.css" asp-append-version="true" />
 }
-else
-{
-    <table class="table table-bordered align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>Ảnh</th>
-                <th>Tên truyện</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <img src="~/images/@item.AnhBia" width="60" />
-                    </td>
 
-                    <td>
-                        @item.TenTruyen
-                        <span class="text-muted">(Tập @item.SoTap)</span>
-                    </td>
-
-                    <td>@item.Gia.ToString("N0") ₫</td>
-
-                    <!-- SỐ LƯỢNG + - -->
-                    <td>
-                        <div class="d-flex align-items-center justify-content-center gap-1">
-                            <a asp-controller="Cart"
-                               asp-action="Decrease"
-                               asp-route-id="@item.MaTap"
-                               class="btn btn-sm btn-outline-secondary px-2">➖</a>
-
-                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="m-0">
-                                <input type="hidden" name="id" value="@item.MaTap" />
-                                <input type="number"
-                                       name="quantity"
-                                       value="@item.SoLuong"
-                                       min="1"
-                                       class="form-control form-control-sm text-center"
-                                       style="width:42px; height:28px; padding:0;"
-                                       onchange="this.form.submit()" />
-                            </form>
-
-                            <a asp-controller="Cart"
-                               asp-action="Increase"
-                               asp-route-id="@item.MaTap"
-                               class="btn btn-sm btn-outline-secondary px-2">➕</a>
-                        </div>
-                    </td>
-
-                    <!-- ✅ THÀNH TIỀN -->
-                    <td class="text-danger fw-bold">
-                        @((item.Gia * item.SoLuong).ToString("N0")) ₫
-                    </td>
-
-                    <!-- ✅ XÓA -->
-                    <td>
-                        <a asp-controller="Cart"
-                           asp-action="Remove"
-                           asp-route-id="@item.MaTap"
-                           class="btn btn-sm btn-danger">
-                            X
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-
-    <div class="d-flex justify-content-between">
-        <a asp-controller="NvbHome"
-           asp-action="DanhMuc"
-           class="btn btn-secondary">
-            ⬅ Tiếp tục mua
-        </a>
-
-        <a asp-controller="Checkout"
-           asp-action="ThanhToan"
-           class="btn btn-success">
-            💳 Thanh toán
+<div class="container cart-page-container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="m-0">🛒 Giỏ hàng của bạn</h2>
+        <a asp-controller="Bill" asp-action="BillUser" class="btn btn-outline-dark">
+            <i class="fa-solid fa-box-open me-2"></i>Đơn hàng đã mua
         </a>
     </div>
-   
-}
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="empty-cart-wrapper text-center animate__animated animate__fadeIn">
+            <div class="mb-4">
+                <i class="fa-solid fa-cart-shopping text-muted" style="font-size: 5rem; opacity: 0.3;"></i>
+            </div>
+            <h3 class="fw-bold">Giỏ hàng của bạn đang trống</h3>
+            <p class="text-muted mb-4">Hãy chọn cho mình những bộ truyện yêu thích nhất nhé!</p>
+            <a asp-controller="NvbHome" asp-action="DanhMuc" class="btn btn-success btn-lg px-5 shadow">
+                🛍️ MUA SẮM NGAY
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-hover align-middle cart-table m-0">
+                <thead>
+                    <tr class="text-center">
+                        <th>Ảnh</th>
+                        <th class="text-start">Tên truyện</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>
+                                <img src="~/images/@item.AnhBia" class="cart-img-preview" />
+                            </td>
+                            <td class="text-start fw-bold">@item.TenTruyen</td>
+                            <td>@item.Gia.ToString("N0") ₫</td>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center gap-2">
+                                    <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.MaTap"
+                                       class="btn btn-sm btn-light qty-btn border">➖</a>
+
+                                    <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="m-0">
+                                        <input type="hidden" name="id" value="@item.MaTap" />
+                                        <input type="number" name="quantity" value="@item.SoLuong" min="1"
+                                               class="form-control form-control-sm text-center qty-input"
+                                               style="width:50px;" onchange="this.form.submit()" />
+                                    </form>
+
+                                    <a asp-controller="Cart" asp-action="Increase" asp-route-id="@item.MaTap"
+                                       class="btn btn-sm btn-light qty-btn border">➕</a>
+                                </div>
+                            </td>
+                            <td class="text-danger fw-bold">@((item.Gia * item.SoLuong).ToString("N0")) ₫</td>
+                            <td>
+                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.MaTap"
+                                   class="btn btn-sm btn-outline-danger" onclick="return confirm('Xóa sản phẩm này?')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a asp-controller="NvbHome" asp-action="DanhMuc" class="btn btn-sm btn-outline-secondary px-3 align-self-start">
+                <i class="fa-solid fa-arrow-left me-1"></i> Tiếp tục mua
+            </a>
+            <div class="text-end">
+                <p class="mb-2">Tổng cộng: <span class="fs-4 fw-bold text-danger">@Model.Sum(x => x.Gia * x.SoLuong).ToString("N0") ₫</span></p>
+                <a asp-controller="Checkout" asp-action="ThanhToan" class="btn btn-success btn-lg px-5 shadow">
+                    <i class="fa-solid fa-credit-card me-2"></i>THANH TOÁN
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
 @section Scripts {
     <script>
+        // Tự động submit sau khi người dùng ngừng nhập số lượng
         let qtyTimer;
         function queueQtySubmit(form) {
             clearTimeout(qtyTimer);
-            qtyTimer = setTimeout(() => form.submit(), 400); // đợi 0.4s rồi submit
+            qtyTimer = setTimeout(() => form.submit(), 500);
         }
     </script>
 }

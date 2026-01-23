@@ -38,7 +38,7 @@ namespace MangaShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Truyen truyen)
+        public IActionResult Create([Bind("MaTruyen,TenTruyen,TacGia,Gia,MaTheLoai,MoTa,AnhBia,LoaiTruyen")] Truyen truyen)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace MangaShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Truyen truyen)
+        public IActionResult Edit([Bind("MaTruyen,TenTruyen,TacGia,Gia,MaTheLoai,MoTa,AnhBia,LoaiTruyen")] Truyen truyen)
         {
             if (ModelState.IsValid)
             {
@@ -216,7 +216,53 @@ namespace MangaShop.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        // Thêm số lượng tập
+        public IActionResult ThemTap(int id) // id là MaTruyen
+        {
+            var truyen = _context.Truyens.Include(t => t.TruyenTaps).FirstOrDefault(t => t.MaTruyen == id);
+            if (truyen == null) return NotFound();
 
+            // Tìm số tập lớn nhất hiện tại và cộng thêm 1
+            int soTapHienTaiMax = truyen.TruyenTaps.Any() ? truyen.TruyenTaps.Max(x => x.SoTap) : 0;
+
+            var model = new ThemTapVM
+            {
+                MaTruyen = id,
+                TenTruyen = truyen.TenTruyen,
+                SoTapTiepTheo = soTapHienTaiMax + 1,
+                Gia = truyen.Gia // Lấy giá mặc định của truyện làm gợi ý
+            };
+            return View(model);
+        }
+
+        // 2. Xử lý lưu tập mới
+        [HttpPost]
+        public IActionResult ThemTap(ThemTapVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                // 1. Thêm vào bảng TruyenTap
+                var moi = new TruyenTap
+                {
+                    MaTruyen = model.MaTruyen,
+                    SoTap = model.SoTapTiepTheo,
+                    Gia = model.Gia,
+                    SoLuongTon = model.SoLuongThem
+                };
+                _context.TruyenTaps.Add(moi);
+
+                // 2. Cập nhật tổng số lượng tồn của bảng Truyen
+                var truyen = _context.Truyens.Find(model.MaTruyen);
+                if (truyen != null)
+                {
+                    truyen.SoLuongTon += model.SoLuongThem;
+                }
+
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
 
 
     }

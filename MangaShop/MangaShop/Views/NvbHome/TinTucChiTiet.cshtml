@@ -4,21 +4,59 @@
     ViewData["Title"] = Model.TieuDe;
 }
 
-<a asp-action="TinTuc" class="btn btn-secondary btn-sm mb-3">⬅ Quay lại</a>
+<link rel="stylesheet" href="~/css/NvbHome-TinTucChiTiet.css" />
 
-<div class="card shadow">
-    @if (!string.IsNullOrWhiteSpace(Model.AnhDaiDien))
-    {
-        <img src="~/images/@Model.AnhDaiDien" class="card-img-top" style="max-height:350px; object-fit:cover;" />
-    }
-    <div class="card-body">
-        <span class="badge @(Model.Loai == "Ưu đãi" ? "bg-success" : "bg-primary")">@Model.Loai</span>
-        <h2 class="mt-2">@Model.TieuDe</h2>
-        <p class="text-muted">@Model.NgayDang.ToString("dd/MM/yyyy HH:mm")</p>
-
-        <hr />
-        <div style="white-space:pre-line;">
-            @Model.NoiDung
-        </div>
+<div class="news-detail-wrapper container py-5">
+    <div class="mb-4">
+        <a asp-action="TinTuc" class="back-link">
+            <i class="fa-solid fa-arrow-left-long me-2"></i> Quay lại danh sách tin tức
+        </a>
     </div>
+
+    <article class="news-article shadow-sm">
+        @if (!string.IsNullOrWhiteSpace(Model.AnhDaiDien))
+        {
+            <div class="article-banner">
+                <img src="~/images/@Model.AnhDaiDien" alt="@Model.TieuDe" onerror="this.src='/images/no-image.png'" />
+                <div class="article-badge @(Model.Loai == "Ưu đãi" ? "is-offer" : "is-info")">
+                    @Model.Loai
+                </div>
+            </div>
+        }
+
+        <div class="article-content-box">
+            <header class="article-header text-center mb-5">
+                <div class="article-meta mb-2">
+                    <span class="publish-date">
+                        <i class="fa-regular fa-calendar-check me-1"></i>
+                        Đăng ngày: @Model.NgayDang.ToString("dd/MM/yyyy HH:mm")
+                    </span>
+                </div>
+                <h1 class="article-main-title">@Model.TieuDe</h1>
+                <div class="title-divider mx-auto"></div>
+            </header>
+
+            @if (!string.IsNullOrWhiteSpace(Model.TomTat))
+            {
+                <div class="article-summary mb-4">
+                    <strong>Tóm tắt:</strong> @Model.TomTat
+                </div>
+            }
+
+            <div class="article-body">
+                @Model.NoiDung
+            </div>
+
+            <footer class="article-footer mt-5 pt-4">
+                <div class="share-box">
+                    <span>Chia sẻ bài viết:</span>
+                    <div class="share-icons ms-3">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-messenger"></i></a>
+                        <a href="#"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </article>
 </div>

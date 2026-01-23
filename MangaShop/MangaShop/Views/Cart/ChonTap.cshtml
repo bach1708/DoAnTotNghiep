@@ -1,68 +1,86 @@
 ﻿@model MangaShop.Models.Truyen
 @{
     ViewData["Title"] = "Chọn tập";
+    var img = string.IsNullOrWhiteSpace(Model.AnhBia) ? "noimage.jpg" : Model.AnhBia;
 }
 
-<h3 class="mb-3">📚 Chọn tập - @Model.TenTruyen</h3>
-
-@if (TempData["Err"] != null)
-{
-    <div class="alert alert-warning">@TempData["Err"]</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/cart-chontap.css" asp-append-version="true" />
 }
 
-@if (Model.TruyenTaps == null || !Model.TruyenTaps.Any())
-{
-    <div class="alert alert-warning">Chưa có dữ liệu tập cho truyện này.</div>
-    <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
-        Quay lại
-    </a>
-}
-else
-{
-    var conHang = Model.TruyenTaps
-        .OrderBy(x => x.SoTap)
-        .Where(x => x.SoLuongTon > 0)
-        .ToList();
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="selection-card shadow-sm border-0">
+                <div class="row g-0">
+                    @* Cột 1: Ảnh truyện *@
+                    <div class="col-md-5 selection-img-container">
+                        <img src="~/images/@img" alt="@Model.TenTruyen" class="selection-img" />
+                    </div>
 
-    if (!conHang.Any())
-    {
-        <div class="alert alert-secondary">
-            Tất cả các tập hiện đang hết hàng.
+                    @* Cột 2: Form chọn tập *@
+                    <div class="col-md-7 p-4">
+                        <h3 class="mb-2 text-success fw-bold">@Model.TenTruyen</h3>
+                        <p class="text-muted mb-4 small"><i class="fa-solid fa-layer-group me-2"></i>Vui lòng chọn tập bạn muốn mua</p>
+
+                        @if (TempData["Err"] != null)
+                        {
+                            <div class="alert alert-warning py-2 small">@TempData["Err"]</div>
+                        }
+
+                        @if (Model.TruyenTaps == null || !Model.TruyenTaps.Any())
+                        {
+                            <div class="alert alert-secondary border-0">Chưa có dữ liệu tập cho truyện này.</div>
+                            <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-outline-secondary w-100 mt-3">Quay lại</a>
+                        }
+                        else
+                        {
+                            var conHang = Model.TruyenTaps
+                            .OrderBy(x => x.SoTap)
+                            .Where(x => x.SoLuongTon > 0)
+                            .ToList();
+
+                            if (!conHang.Any())
+                            {
+                                <div class="alert alert-danger border-0">Tất cả các tập hiện đang hết hàng.</div>
+                                <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-outline-secondary w-100 mt-3">Quay lại</a>
+                            }
+                            else
+                            {
+                                <form asp-controller="Cart" asp-action="AddTap" method="post">
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold small text-uppercase text-muted">Chọn tập số:</label>
+                                        <select class="form-select custom-select" name="maTap" required>
+                                            @foreach (var tap in conHang)
+                                            {
+                                                <option value="@tap.MaTap">
+                                                    Tập @tap.SoTap - @tap.Gia.ToString("N0") ₫ (Còn: @tap.SoLuongTon)
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold small text-uppercase text-muted">Số lượng mua:</label>
+                                        <input type="number" name="quantity" value="1" min="1" class="form-control custom-input" style="width:100px" />
+                                    </div>
+
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-success btn-lg py-2 fw-bold" type="submit">
+                                            <i class="fa-solid fa-cart-plus me-2"></i>Thêm vào giỏ hàng
+                                        </button>
+                                        <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-light text-muted btn-sm border-0">
+                                            Hủy bỏ và quay lại
+                                        </a>
+                                    </div>
+                                </form>
+                            }
+                        }
+                    </div> @* End Cột 2 *@
+                </div>
+            </div>
         </div>
-        <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
-            Quay lại
-        </a>
-    }
-    else
-    {
-        <form asp-controller="Cart" asp-action="AddTap" method="post" class="card p-3 shadow">
-            @Html.AntiForgeryToken()
-
-            <div class="mb-3">
-                <label class="form-label">Chọn tập</label>
-                <select class="form-select" name="maTap" required>
-                    @foreach (var tap in conHang)
-                    {
-                        <option value="@tap.MaTap">
-                            Tập @tap.SoTap - @tap.Gia.ToString("N0") ₫ (Còn: @tap.SoLuongTon)
-                        </option>
-                    }
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Số lượng</label>
-                <!-- ✅ Giữ đúng tên quantity khớp controller -->
-                <input type="number" name="quantity" value="1" min="1"
-                       class="form-control" style="width:110px" />
-            </div>
-
-            <div class="d-flex gap-2">
-                <button class="btn btn-success" type="submit">Thêm vào giỏ</button>
-                <a asp-controller="NvbHome" asp-action="ChiTiet" asp-route-id="@Model.MaTruyen" class="btn btn-secondary">
-                    Quay lại
-                </a>
-            </div>
-        </form>
-    }
-}
+    </div>
+</div>

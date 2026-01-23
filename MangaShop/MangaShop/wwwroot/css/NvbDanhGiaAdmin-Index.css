@@ -1,0 +1,153 @@
+﻿/* Tối ưu hóa Container và Tiêu đề */
+.container-admin-1600 {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page-title {
+    font-weight: 800;
+    color: #444;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Tùy chỉnh thanh bộ lọc (Filter Bar) */
+.filter-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.status-select {
+    border: 1px solid #ddd !important;
+    font-size: 14px;
+    height: 42px;
+    border-radius: 6px !important;
+    transition: border-color 0.2s;
+}
+
+    .status-select:focus {
+        border-color: #ff8800 !important;
+        box-shadow: none !important;
+    }
+
+/* Nút bấm đồng bộ màu Cam/Xám */
+.btn-save-status {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    color: #666;
+    font-weight: 600;
+    height: 42px;
+    transition: all 0.2s;
+}
+
+    .btn-save-status:hover {
+        background-color: #e0e0e0;
+        border-color: black;
+    }
+
+.btn-back {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .btn-back:hover {
+        color: #333;
+        border-color: #444;
+        background-color: #fafafa;
+    }
+
+/* Định dạng Bảng dữ liệu */
+.table-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.custom-table-order {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+    .custom-table-order thead {
+        background-color: #f8f9fa;
+    }
+
+    .custom-table-order th {
+        padding: 15px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #666;
+        text-transform: uppercase;
+        border-bottom: 2px solid #eee;
+        text-align: center;
+    }
+
+    .custom-table-order td {
+        padding: 16px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #444;
+    }
+
+/* Hiệu ứng văn bản và màu sắc */
+.customer-link {
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-decoration: none;
+    color: #333;
+}
+
+    .customer-link:hover {
+        color: #ff8800 !important;
+    }
+
+.action-link {
+    font-weight: 600;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+    .action-link:hover {
+        opacity: 0.7;
+    }
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Badge trang trí cho Số tập */
+.badge-chapter {
+    background-color: #f0f2f5;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 4px;
+}

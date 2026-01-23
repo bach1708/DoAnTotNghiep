@@ -1,51 +1,73 @@
 ﻿@model List<MangaShop.Models.BaiViet>
 
 @{
-    ViewData["Title"] = "Tin tức";
+    ViewData["Title"] = "Tin tức & Ưu đãi";
     var loai = ViewBag.Loai as string;
 }
 
-<h2 class="mb-3">📰 Tin tức & Ưu đãi</h2>
+<link rel="stylesheet" href="~/css/NvbHome-TinTuc.css" />
 
-<div class="d-flex gap-2 mb-3">
-    <a asp-action="TinTuc" class="btn btn-outline-dark btn-sm @(string.IsNullOrEmpty(loai) ? "active" : "")">Tất cả</a>
-    <a asp-action="TinTuc" asp-route-loai="Thông báo" class="btn btn-outline-primary btn-sm @(loai == "Thông báo" ? "active" : "")">Thông báo</a>
-    <a asp-action="TinTuc" asp-route-loai="Ưu đãi" class="btn btn-outline-success btn-sm @(loai == "Ưu đãi" ? "active" : "")">Ưu đãi</a>
-</div>
+<div class="news-home-wrapper container py-5">
+    <div class="news-hero-section text-center mb-5">
+        <h1 class="news-main-title">📰 TIN TỨC & ƯU ĐÃI</h1>
+        <div class="title-accent mx-auto"></div>
+        <p class="news-subtitle mt-3 text-muted">Cập nhật những thông báo mới nhất và chương trình khuyến mãi từ MangaShop</p>
 
-@if (!Model.Any())
-{
-    <div class="alert alert-info">Chưa có bài đăng nào.</div>
-}
-else
-{
-    <div class="row g-3">
-        @foreach (var b in Model)
-        {
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow h-100">
-                    @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
-                    {
-                        <img src="~/images/@b.AnhDaiDien" class="card-img-top" style="height:180px; object-fit:cover;" />
-                    }
-                    <div class="card-body">
-                        <span class="badge @(b.Loai == "Ưu đãi" ? "bg-success" : "bg-primary")">
-                            @b.Loai
-                        </span>
-
-                        <h5 class="card-title mt-2">@b.TieuDe</h5>
-                        <p class="text-muted mb-2">@b.NgayDang.ToString("dd/MM/yyyy HH:mm")</p>
-
-                        <p class="card-text">
-                            @(string.IsNullOrWhiteSpace(b.TomTat) ? (b.NoiDung.Length > 120 ? b.NoiDung.Substring(0, 120) + "..." : b.NoiDung) : b.TomTat)
-                        </p>
-
-                        <a asp-action="TinTucChiTiet" asp-route-id="@b.MaBaiViet" class="btn btn-sm btn-dark">
-                            Xem chi tiết
-                        </a>
-                    </div>
-                </div>
-            </div>
-        }
+        <div class="news-filter-group d-flex justify-content-center gap-2 mt-4">
+            <a asp-action="TinTuc" class="news-filter-link @(string.IsNullOrEmpty(loai) ? "active" : "")">Tất cả</a>
+            <a asp-action="TinTuc" asp-route-loai="Thông báo" class="news-filter-link @(loai == "Thông báo" ? "active" : "")">Thông báo</a>
+            <a asp-action="TinTuc" asp-route-loai="Ưu đãi" class="news-filter-link @(loai == "Ưu đãi" ? "active" : "")">Ưu đãi</a>
+        </div>
     </div>
-}
+
+    @if (!Model.Any())
+    {
+        <div class="news-empty-container text-center py-5">
+            <div class="empty-icon-wrapper">
+                <i class="fa-regular fa-newspaper"></i>
+            </div>
+            <h4 class="mt-3 fw-bold text-secondary">Chưa có bài đăng nào</h4>
+            <p class="text-muted">Chúng tôi sẽ sớm cập nhật nội dung mới đến bạn.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var b in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <a asp-action="TinTucChiTiet" asp-route-id="@b.MaBaiViet" class="news-main-card-link">
+                        <div class="news-custom-card">
+                            <div class="news-card-img-wrapper">
+                                @if (!string.IsNullOrWhiteSpace(b.AnhDaiDien))
+                                {
+                                    <img src="~/images/@b.AnhDaiDien" class="news-card-img" alt="@b.TieuDe" onerror="this.src='/images/no-image.png'" />
+                                }
+                                else
+                                {
+                                    <div class="news-card-no-img">MangaShop</div>
+                                }
+                                <div class="news-card-badge @(b.Loai == "Ưu đãi" ? "is-offer" : "is-info")">
+                                    @b.Loai
+                                </div>
+                            </div>
+
+                            <div class="news-card-body">
+                                <div class="news-card-date">
+                                    <i class="fa-regular fa-calendar-alt me-1"></i> @b.NgayDang.ToString("dd/MM/yyyy")
+                                </div>
+                                <h5 class="news-card-title">@b.TieuDe</h5>
+                                <p class="news-card-text">
+                                    @(string.IsNullOrWhiteSpace(b.TomTat) ? (b.NoiDung.Length > 100 ? b.NoiDung.Substring(0, 100) + "..." : b.NoiDung) : b.TomTat)
+                                </p>
+                                <div class="news-card-footer">
+                                    <span class="news-btn-text">Đọc bài viết <i class="fa-solid fa-arrow-right ms-1"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -11,9 +11,13 @@ public partial class ChiTietGioHang
 
     public int MaTruyen { get; set; }
 
+    public int? MaTap { get; set; }
+
     public int SoLuong { get; set; }
 
     public virtual GioHang MaGioHangNavigation { get; set; } = null!;
 
     public virtual Truyen MaTruyenNavigation { get; set; } = null!;
+
+    public virtual TruyenTap? MaTapNavigation { get; set; }
 }

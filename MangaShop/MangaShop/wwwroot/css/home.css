@@ -1,34 +1,36 @@
-﻿/* ===== HOME BANNER ===== */
-#homeBanner {
+﻿/* ==========================================================================
+   1. BANNER & LAYOUT CHUNG
+   ========================================================================== */
+.home {
+    max-width: 1600px;
+    margin: auto;
+}
+
+
+#homeBanner, #homeBanner .carousel-inner, #homeBanner .carousel-item, #homeBanner img {
     height: 100vh;
+}
+
+#homeBanner {
     overflow: hidden;
 }
 
-    #homeBanner .carousel-inner,
-    #homeBanner .carousel-item {
-        height: 100vh;
-    }
-
     #homeBanner img {
-        height: 100vh;
         width: 100%;
         object-fit: cover;
     }
 
-    /* thời gian trượt */
     #homeBanner .carousel-item {
         transition: transform 1.2s ease-in-out;
     }
 
-    /* nút điều hướng */
-    #homeBanner .carousel-control-prev-icon,
-    #homeBanner .carousel-control-next-icon {
+    /* Nút điều hướng & Chấm báo hiệu Banner */
+    #homeBanner .carousel-control-prev-icon, #homeBanner .carousel-control-next-icon {
         width: 3rem;
         height: 3rem;
         filter: drop-shadow(0 0 4px rgba(0,0,0,0.5));
     }
 
-    /* chấm báo hiệu (SỬA ĐÚNG SELECTOR) */
     #homeBanner .carousel-indicators button {
         width: 12px;
         height: 12px;
@@ -36,12 +38,14 @@
         margin: 0 6px;
     }
 
-/* ===== WEEKLY SECTION ===== */
 .home-wrap {
     background: #fff;
     padding: 30px 0 60px;
 }
 
+/* ==========================================================================
+   2. TIÊU ĐỀ MỤC (WEEKLY, UPCOMING, PROMO)
+   ========================================================================== */
 .weekly-title {
     margin: 30px 0 35px;
 }
@@ -51,6 +55,13 @@
     letter-spacing: 4px;
     font-weight: 700;
     margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.weekly-sub {
+    font-style: italic;
+    color: #777;
+    margin: 0;
 }
 
 .weekly-line {
@@ -69,43 +80,60 @@
         display: block;
     }
 
-.weekly-sub {
-    font-style: italic;
-    color: #777;
-    margin: 0;
+/* ==========================================================================
+   3. CẤU TRÚC SLIDER TRUYỆN (Slick Slider)
+   ========================================================================== */
+/* Gộp tất cả Slider dùng chung style */
+.weekly-slider-list, .upcoming-slider-list, .promo-slider-list {
+    display: block;
+    position: relative;
+    padding: 0 40px;
 }
 
-.weekly-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 22px;
+/* Style chung cho nút mũi tên Slick */
+.slick-prev, .slick-next {
+    width: 45px !important;
+    height: 45px !important;
+    z-index: 10;
+    background: #f8f9fa !important;
+    border: 1px solid #ddd !important;
+    border-radius: 50%;
 }
 
-/* responsive */
-@media (max-width: 1200px) {
-    .weekly-grid {
-        grid-template-columns: repeat(4, 1fr);
+.slick-prev {
+    left: 0;
+}
+
+.slick-next {
+    right: 0;
+}
+
+.slick-prev:before {
+    content: '❮';
+    color: #333;
+    font-size: 20px;
+}
+
+.slick-next:before {
+    content: '❯';
+    color: #333;
+    font-size: 20px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background: #333 !important;
+}
+
+    .slick-prev:hover:before, .slick-next:hover:before {
+        color: #fff;
     }
+
+.slick-disabled {
+    opacity: 0.2;
+    cursor: default;
 }
 
-@media (max-width: 992px) {
-    .weekly-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .weekly-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 420px) {
-    .weekly-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
+/* Thẻ Card truyện */
 .weekly-card {
     border: 1px solid #eee;
     padding: 18px 16px 16px;
@@ -134,17 +162,9 @@
     font-weight: 700;
 }
 
-.price-old {
-    color: #444;
-    text-decoration: line-through;
-    margin-left: 8px;
-    font-size: 14px;
-}
-
 .weekly-img {
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 6px 0 14px;
 }
 
@@ -158,15 +178,254 @@
     margin-top: auto;
     border: 1px solid #cfcfcf;
     color: #777;
-    text-decoration: none;
     text-align: center;
     padding: 10px 8px;
     font-size: 13px;
-    letter-spacing: 1px;
     transition: .2s ease;
+    text-decoration: none;
 }
 
     .weekly-btn:hover {
         border-color: #111;
         color: #111;
     }
+
+/* ==========================================================================
+   4. THỐNG KÊ & ĐỐI TÁC VẬN CHUYỂN
+   ========================================================================== */
+.stats-bar-parallax {
+    background: linear-gradient(rgba(33, 158, 188, 0.8), rgba(33, 158, 188, 0.8)), url('/images/bg-parallax.jpg') fixed center/cover;
+    color: #fff;
+    padding: 50px 0;
+}
+
+.stats-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.stats-icon-wrap {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.stats-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.stats-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+/* Đối tác vận chuyển */
+.partner-card {
+    position: relative;
+    padding-top: 30px;
+}
+
+.partner-logo {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    display: inline-block;
+    padding: 10px 20px;
+}
+
+.partner-body {
+    border: 1px solid #eee;
+    border-top: none;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: -30px;
+}
+
+    .partner-body p {
+        font-size: 16px !important;
+        line-height: 1.6;
+        color: #555 !important;
+    }
+
+    .partner-body h6 {
+        font-size: 20px !important;
+        letter-spacing: 1px;
+        color: #d0021b;
+    }
+
+/* ==========================================================================
+   5. CAM KẾT DỊCH VỤ (SERVICE COMMITMENTS)
+   ========================================================================== */
+.service-commitments {
+    background-color: #fcfcfc;
+    border-top: 1px solid #eee;
+}
+
+.commitment-item {
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+    .commitment-item:hover {
+        transform: translateY(-5px);
+    }
+
+.commitment-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* Đổ màu Icon giống ảnh mẫu */
+.icon-purple {
+    color: #a29bfe;
+}
+/* Tím nhạt cho tên lửa */
+.icon-blue {
+    color: #74b9ff;
+}
+/* Xanh dương cho thẻ tag */
+.icon-green {
+    color: #55efc4;
+}
+/* Xanh lá cho chiếc lá */
+.icon-orange {
+    color: #fab1a0;
+}
+/* Cam đỏ cho trái tim */
+
+.commitment-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.commitment-desc {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+
+/* Tùy chỉnh riêng cho Slider NXB */
+.nxb-slider-list {
+    display: block;
+    position: relative;
+    padding: 0 40px;
+}
+
+.nxb-img-box {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    padding: 15px;
+    transition: 0.3s;
+}
+
+    .nxb-img-box:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        border-color: #ddd;
+    }
+
+    .nxb-img-box img {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        filter: grayscale(20%); /* Làm nhạt màu một chút cho sang, hover sẽ rõ nét */
+    }
+
+    .nxb-img-box:hover img {
+        filter: grayscale(0%);
+    }
+.stats-bar-parallax {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/footer1.jpg');
+    background-attachment: fixed; /* Tạo hiệu ứng Parallax */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    padding: 60px 0;
+}
+
+/* Định dạng link bao quanh icon */
+.stats-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+    .stats-link:hover {
+        transform: translateY(-10px);
+        color: #ffc107; /* Màu vàng khi hover */
+    }
+
+/* Định dạng Icon hình ảnh */
+.custom-stats-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.stats-icon-wrap i {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.stats-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.stats-number {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+
+/* Trạng thái mặc định của tên truyện */
+.weekly-name {
+    color: #111;
+    transition: color 0.2s ease;
+    display: block;
+    text-decoration: none !important;
+}
+
+    /* Khi hover vào chính tên truyện, hoặc ảnh, hoặc nút */
+    .weekly-card a:hover ~ .weekly-name, /* Nếu link ảnh nằm trước tên */
+    .weekly-name:hover, /* Khi hover trực tiếp vào tên */
+    .weekly-card a:hover .weekly-name { /* Cấu trúc bao quanh */
+        color: #d0021b !important;
+    }
+
+/* Đảm bảo link không có gạch chân */
+.weekly-card a {
+    text-decoration: none !important;
+}
+
+/* Hiệu ứng cho ảnh khi hover */
+.weekly-img img {
+    transition: transform 0.3s ease;
+}
+

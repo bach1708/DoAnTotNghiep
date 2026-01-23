@@ -1,0 +1,195 @@
+﻿/* 1. TỔNG THỂ (ĐỒNG BỘ MÀU NỀN SÁNG) */
+body {
+    background-color: #f8f9fa !important;
+    margin: 0;
+}
+
+.main-wrapper {
+    width: 100% !important;
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+    padding: 30px 20px;
+    display: block;
+}
+
+.admin-container {
+    padding: 0;
+    background-color: transparent;
+    min-height: 100vh;
+    color: #333; /* Chữ tối trên nền sáng */
+}
+
+.page-title {
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+/* 2. ACCORDION (PHONG CÁCH WHITE-CARD) */
+.accordion-dark {
+    border: none;
+    background-color: transparent;
+    margin-bottom: 100px; /* Khoảng cách tránh bị footer đè */
+}
+
+    .accordion-dark .accordion-item {
+        background-color: #fff;
+        border: 1px solid #dee2e6; /* Viền xám nhạt */
+        margin-bottom: 12px;
+        border-radius: 4px !important;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .accordion-dark .accordion-button {
+        background-color: #fff;
+        color: #333;
+        padding: 15px 20px;
+        border: none;
+        box-shadow: none !important;
+        font-weight: 600;
+    }
+
+        .accordion-dark .accordion-button:not(.collapsed) {
+            background-color: #f1f3f5; /* Xám nhạt khi mở */
+            color: #000;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .accordion-dark .accordion-button::after {
+            filter: none; /* Trả lại màu gốc cho mũi tên hoặc dùng invert(0) */
+        }
+
+/* 3. THÔNG TIN TRUYỆN TRONG ACCORDION */
+.img-manga-mini {
+    width: 45px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+.manga-title-acc {
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+}
+
+.manga-info-acc {
+    color: #888;
+    font-size: 12px;
+}
+
+/* 4. BẢNG TẬP TRUYỆN BÊN TRONG (CHI TIẾT) */
+.table-dark-sub {
+    background-color: #fff; /* Nền trắng sạch sẽ */
+    color: #333;
+    margin: 0;
+    width: 100%;
+}
+
+    .table-dark-sub thead th {
+        background-color: #f8f9fa; /* Header bảng con màu xám nhạt */
+        color: #666;
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 12px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .table-dark-sub td {
+        padding: 12px;
+        border-bottom: 1px solid #f1f3f5;
+        vertical-align: middle;
+    }
+
+/* 5. BỘ ĐIỀU KHIỂN SỐ LƯỢNG (QTY CONTROL) - ĐÃ LÀM SÁNG */
+.qty-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: fit-content;
+    overflow: hidden;
+    background: #fff;
+}
+
+.btn-qty {
+    background: #f8f9fa;
+    border: none;
+    color: #333;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    .btn-qty:hover {
+        background: #e9ecef;
+    }
+
+.input-qty {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    width: 50px;
+    height: 32px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 6. FOOTER & NÚT BẤM */
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1600px;
+    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ hiện đại */
+    backdrop-filter: blur(5px);
+    border-top: 1px solid #dee2e6;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.btn-success {
+    background-color: #333 !important; /* Đổi nút Lưu thành màu đen theo style mới */
+    border: 1px solid #333 !important;
+    color: #fff !important;
+    font-weight: 600;
+    padding: 10px 30px;
+    border-radius: 4px;
+}
+
+    .btn-success:hover {
+        background-color: #000 !important;
+    }
+
+.btn-secondary {
+    background: #fff !important;
+    color: #666 !important;
+    border: 1px solid #ddd !important;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+/* Đơn vị tập/quyển mờ (nếu bạn có dùng) */
+.unit-text {
+    font-size: 11px;
+    font-weight: 400;
+    color: #999;
+    opacity: 0.7;
+    margin-left: 3px;
+}

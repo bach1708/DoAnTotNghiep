@@ -1,0 +1,65 @@
+﻿/* Khung bao nội dung Admin tương tự trang người dùng */
+.admin-main-wrapper {
+    max-width: 1600px;
+    margin: 0 auto; /* Căn giữa */
+    background-color: #fff; /* Nền trắng bên trong */
+    box-shadow: 0 0 30px rgba(0,0,0,0.15); /* Bóng đổ */
+    min-height: calc(100vh - 56px); /* Chiều cao tối thiểu (trừ navbar) */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar đen hoàn toàn, bám sát mép trái của khung 1600px */
+.admin-sidebar {
+    background-color: #000 !important;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #222;
+}
+
+    .admin-sidebar .sidebar-header {
+        padding: 25px 15px;
+        color: #fff;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: 1px solid #333;
+        letter-spacing: 1px;
+    }
+
+    .admin-sidebar .list-group-item {
+        background-color: #000 !important;
+        color: #e0e0e0 !important;
+        border: none;
+        border-bottom: 1px solid #111;
+        border-radius: 0 !important;
+        padding: 18px 25px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .admin-sidebar .list-group-item:hover {
+            background-color: #1a1a1a !important;
+            color: #007bff !important;
+            padding-left: 35px; /* Hiệu ứng đẩy chữ */
+        }
+
+/* Nội dung bên phải (Thống kê) */
+.main-content {
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+/* Tùy chỉnh các thẻ Dashboard con số */
+.stat-card {
+    border: none;
+    border-top: 4px solid #000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.chart-container {
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    margin-top: 20px;
+}

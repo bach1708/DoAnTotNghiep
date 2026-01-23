@@ -1,71 +1,109 @@
 ﻿@model MangaShop.Models.Truyen
 
 @{
-    ViewData["Title"] = "Thêm truyện";
+    ViewData["Title"] = "Thêm truyện mới";
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-3">➕ Thêm truyện</h2>
+<link rel="stylesheet" href="~/css/NvbTruyen-Create.css" />
 
-<form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="mb-3">
-        <label class="form-label">Tên truyện</label>
-        <input asp-for="TenTruyen" class="form-control" />
-        <span asp-validation-for="TenTruyen" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Tác giả</label>
-        <input asp-for="TacGia" class="form-control" />
-        <span asp-validation-for="TacGia" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Giá (gợi ý / mặc định)</label>
-        <input asp-for="Gia" class="form-control" />
-        <div class="form-text">
-            Nếu bạn bán theo tập: giá thực tế có thể nằm ở từng tập (TruyenTap).
+<div class="main-wrapper">
+    <div class="admin-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="page-title">Thêm bộ truyện mới</h2>
+                <p class="text-muted small mb-0">Thiết lập thông tin cơ bản cho bộ truyện mới trong hệ thống</p>
+            </div>
+            <div class="action-group">
+                <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
+            </div>
         </div>
-        <span asp-validation-for="Gia" class="text-danger"></span>
-    </div>
 
-    <!-- ✅ BỎ SỐ LƯỢNG TỒN (vì tồn kho quản lý theo tập) -->
-    @*
-    <div class="mb-3">
-        <label class="form-label">Số lượng tồn</label>
-        <input asp-for="SoLuongTon" class="form-control" />
-    </div>
-    *@
+        <div class="edit-card shadow-sm">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
 
-    <div class="mb-3">
-        <label class="form-label">Thể loại</label>
-        <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select"></select>
-        <span asp-validation-for="MaTheLoai" class="text-danger"></span>
-    </div>
+                <div class="row">
+                    <div class="col-md-3 border-end">
+                        <div class="form-group-custom text-center">
+                            <label class="form-label text-center">Xem trước ảnh bìa</label>
+                            <div class="preview-box mb-3">
+                                <img src="~/images/no-image.png" class="img-preview shadow-sm" id="img-preview-el"
+                                     onerror="this.src='/images/no-image.png'" />
+                            </div>
+                            <input asp-for="AnhBia" class="form-input-light" placeholder="vd: naruto.jpg" id="anh-bia-input" />
+                            <span asp-validation-for="AnhBia" class="text-danger small"></span>
+                            <div class="form-text mt-1" style="font-size: 11px;">Nhập tên file ảnh đã upload vào thư mục images.</div>
+                        </div>
 
-    <div class="mb-3">
-        <label class="form-label">Mô tả truyện</label>
-        <textarea asp-for="MoTa"
-                  class="form-control"
-                  rows="6"
-                  placeholder="Nhập mô tả chi tiết nội dung truyện..."></textarea>
-        <span asp-validation-for="MoTa" class="text-danger"></span>
-    </div>
+                        <div class="form-group-custom">
+                            <label class="form-label">Loại hình truyện</label>
+                            <select asp-for="LoaiTruyen" class="form-select-light">
+                                <option value="0">📖 Truyện Tranh (Manga)</option>
+                                <option value="1">📝 Truyện Chữ (Light Novel)</option>
+                            </select>
+                            <span asp-validation-for="LoaiTruyen" class="text-danger small"></span>
+                        </div>
 
-    <div class="mb-3">
-        <label class="form-label">Tên ảnh bìa (vd: naruto.jpg)</label>
-        <input asp-for="AnhBia" class="form-control" />
-        <span asp-validation-for="AnhBia" class="text-danger"></span>
-    </div>
+                        <div class="form-group-custom">
+                            <label class="form-label">Thể loại</label>
+                            <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select-light"></select>
+                            <span asp-validation-for="MaTheLoai" class="text-danger small"></span>
+                        </div>
+                    </div>
 
-    <button type="submit" class="btn btn-success">✅ Lưu</button>
-    <a asp-action="Index" class="btn btn-secondary">⬅ Quay lại</a>
-</form>
+                    <div class="col-md-9 ps-md-4">
+                        <div class="form-group-custom">
+                            <label class="form-label">Tên bộ truyện</label>
+                            <input asp-for="TenTruyen" class="form-input-light form-control-lg" placeholder="Nhập tên truyện..." style="font-weight: 600;" />
+                            <span asp-validation-for="TenTruyen" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-custom">
+                                    <label class="form-label">Tác giả</label>
+                                    <input asp-for="TacGia" class="form-input-light" placeholder="Tên tác giả..." />
+                                    <span asp-validation-for="TacGia" class="text-danger small"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-custom">
+                                    <label class="form-label">Giá niêm yết (VNĐ)</label>
+                                    <input asp-for="Gia" class="form-input-light" type="number" placeholder="0" />
+                                    <span asp-validation-for="Gia" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label class="form-label">Mô tả chi tiết nội dung</label>
+                            <textarea asp-for="MoTa" class="form-input-light" rows="10" placeholder="Viết giới thiệu nội dung truyện tại đây..."></textarea>
+                            <span asp-validation-for="MoTa" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-footer mt-2">
+                            <button type="submit" class="btn btn-success btn-lg px-5">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        // Script hỗ trợ xem trước ảnh khi nhập tên file
+        document.getElementById('anh-bia-input').addEventListener('input', function() {
+            var fileName = this.value;
+            if (fileName) {
+                document.getElementById('img-preview-el').src = '/images/' + fileName;
+            }
+        });
+    </script>
 }

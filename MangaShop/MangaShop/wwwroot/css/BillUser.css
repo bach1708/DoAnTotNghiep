@@ -1,0 +1,51 @@
+﻿/* Container giới hạn độ rộng bảng để không bị quá to */
+.bill-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Chỉnh kích thước chữ và khoảng cách trong bảng */
+.table-custom {
+    font-size: 14px; /* Chữ nhỏ lại */
+}
+
+    .table-custom thead {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .table-custom th, .table-custom td {
+        padding: 12px 8px !important;
+        vertical-align: middle;
+    }
+
+/* Hiệu ứng badge trạng thái bo tròn hơn */
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+/* CSS cho phần phân trang */
+.pagination-custom .page-link {
+    color: #333;
+    border: 1px solid #dee2e6;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.pagination-custom .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+/* Nút bấm nhỏ lại */
+.btn-sm {
+    font-size: 12px;
+    padding: 4px 10px;
+}
