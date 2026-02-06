@@ -145,44 +145,75 @@ body {
     font-weight: bold;
 }
 
-/* 6. FOOTER & NÚT BẤM */
-.sticky-footer {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 1600px;
-    background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ hiện đại */
-    backdrop-filter: blur(5px);
-    border-top: 1px solid #dee2e6;
-    padding: 15px 20px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    z-index: 1000;
-}
+/* 6. FOOTER & NÚT BẤM (ĐÃ CẬP NHẬT KÍCH THƯỚC NHỎ GỌN) */
 
-.btn-success {
-    background-color: #333 !important; /* Đổi nút Lưu thành màu đen theo style mới */
+/* Nút Xác nhận nhập kho & Nút Lịch sử nhập (Màu đen đồng bộ) */
+.btn-success,
+.btn-outline-dark {
+    background-color: #333 !important;
     border: 1px solid #333 !important;
     color: #fff !important;
     font-weight: 600;
-    padding: 10px 30px;
+    padding: 6px 18px !important; /* Giảm chiều cao và chiều rộng */
     border-radius: 4px;
+    font-size: 13px; /* Font nhỏ hơn cho cân đối */
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-    .btn-success:hover {
+    /* Hiệu ứng Hover cho các nút màu đen */
+    .btn-success:hover,
+    .btn-outline-dark:hover {
         background-color: #000 !important;
+        border-color: #000 !important;
+        color: #fff !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-.btn-secondary {
+/* Nút Hủy bỏ & Quay lại (Màu xám trắng) */
+.btn-secondary,
+.btn-secondary-custom {
     background: #fff !important;
     color: #666 !important;
     border: 1px solid #ddd !important;
     font-weight: 600;
-    padding: 10px 20px;
+    padding: 6px 18px !important; /* Cùng kích thước với nút đen */
     border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+    .btn-secondary:hover {
+        background: #f8f9fa !important;
+        color: #333 !important;
+        border-color: #ccc !important;
+    }
+
+.sticky-footer {
+    position: fixed; /* Quan trọng nhất: ghim cố định */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95); /* Trắng mờ */
+    backdrop-filter: blur(10px); /* Hiệu ứng mờ hiện đại */
+    border-top: 1px solid #dee2e6;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: flex-end; /* Đẩy nút sang phải */
+    z-index: 1050; /* Nằm trên các thành phần khác */
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+/* Điều chỉnh lề cho Wrapper để không bị Footer đè mất nội dung cuối cùng */
+.main-wrapper {
+    padding-bottom: 80px !important;
+}
+/* Đảm bảo Action Group phía trên tiêu đề cũng gọn gàng */
+.action-group .btn {
+    min-width: 100px; /* Độ rộng tối thiểu để không bị quá ngắn */
 }
 
 /* Đơn vị tập/quyển mờ (nếu bạn có dùng) */
@@ -192,4 +223,45 @@ body {
     color: #999;
     opacity: 0.7;
     margin-left: 3px;
+}
+/* Thêm vào cuối file CSS hiện tại của bạn */
+
+/* Nút lịch sử nhập (Viền đen chữ đen) */
+.btn-outline-dark {
+    border: 1px solid #333 !important;
+    color: #333 !important;
+    background: transparent !important;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+    .btn-outline-dark:hover {
+        background: #333 !important;
+        color: #fff !important;
+    }
+
+/* Custom cho phần icon box trong lịch sử */
+.icon-box {
+    border: 1px solid #dee2e6;
+    background: #f8f9fa;
+}
+
+/* Đảm bảo bảng trong lịch sử giống bảng nhập kho */
+.table-dark-sub thead th {
+    background-color: #f1f3f5 !important; /* Màu nền header bảng sáng hơn chút */
+    color: #495057 !important;
+}
+
+/* Hiệu ứng khi hover vào dòng lịch sử */
+.accordion-dark .accordion-item:hover {
+    border-color: #adb5bd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Badge số lượng nhập trong lịch sử */
+.badge.bg-light {
+    font-size: 0.9rem;
+    padding: 5px 10px;
 }

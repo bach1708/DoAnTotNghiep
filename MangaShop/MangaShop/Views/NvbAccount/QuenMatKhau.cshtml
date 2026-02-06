@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "Khôi phục mật khẩu";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbUserLogin.css" asp-append-version="true" />
+    <style>
+        .recovery-box {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .masked-info {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+<div class="login-container" style="max-width: 500px;">
+    <div class="card shadow-lg p-4">
+        <h3 class="text-center fw-bold">QUÊN MẬT KHẨU</h3>
+        <p class="text-center text-muted small">Nhập Email tài khoản để tìm kiếm</p>
+
+        <div class="d-flex gap-2 mb-3">
+            <div class="form-floating flex-grow-1">
+                <input type="email" id="emailInput" class="form-control" placeholder="name@example.com">
+                <label>Email đăng nhập</label>
+            </div>
+            <button type="button" onclick="checkAccount()" class="btn btn-dark">OK</button>
+        </div>
+
+        <div id="recoverySection" style="display:none;" class="mt-4 border-top pt-3">
+            <p class="text-danger small fw-bold">Xác nhận Số điện thoại để đổi mật khẩu:</p>
+            <div class="masked-info text-center mb-3" id="maskedPhone">0*******9</div>
+
+            <div class="form-floating mb-3">
+                <input type="text" id="confirmPhone" class="form-control" placeholder="SĐT">
+                <label>Nhập chính xác Số điện thoại</label>
+            </div>
+
+            <div id="changePassSection" style="display:none;">
+                <div class="form-floating mb-3">
+                    <input type="password" id="newPass" class="form-control" placeholder="Mật khẩu mới">
+                    <label>Mật khẩu mới (từ 6 ký tự)</label>
+                </div>
+                <button type="button" onclick="resetPassword()" class="btn btn-success w-100">ĐỔI MẬT KHẨU</button>
+            </div>
+
+            <button type="button" id="btnVerify" onclick="verifyInfo()" class="btn btn-primary w-100">XÁC NHẬN THÔNG TIN</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // 1. Tìm bằng Email
+        function checkAccount() {
+            const email = document.getElementById('emailInput').value;
+            if (!email) { alert("Vui lòng nhập Email!"); return; }
+
+            fetch(`/NvbAccount/TimKiemTaiKhoan?keyword=${email}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('recoverySection').style.display = 'block';
+                        document.getElementById('maskedPhone').innerText = data.maskedP;
+                        alert("Tìm thấy tài khoản! Hãy nhập SĐT xác nhận.");
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+
+        // 2. Xác nhận SĐT
+        function verifyInfo() {
+            const email = document.getElementById('emailInput').value;
+            const phone = document.getElementById('confirmPhone').value;
+
+            const formData = new FormData();
+            formData.append('account', email); // Gửi email lên làm key định danh
+            formData.append('phone', phone);
+            formData.append('newPass', "CHECK_ONLY");
+
+            fetch('/NvbAccount/CapNhatMatKhau', { method: 'POST', body: formData })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('changePassSection').style.display = 'block';
+                        document.getElementById('btnVerify').style.display = 'none';
+                        alert("Thông tin chính xác! Mời nhập mật khẩu mới.");
+                    } else {
+                        alert(data.message);
+                    }
+                });
+        }
+
+        // 3. Reset mật khẩu (Tương tự hàm verifyInfo nhưng gửi newPass thực)
+        function resetPassword() {
+            const email = document.getElementById('emailInput').value;
+            const phone = document.getElementById('confirmPhone').value;
+            const pass = document.getElementById('newPass').value;
+
+            if(pass.length < 6) { alert("Mật khẩu quá ngắn!"); return; }
+
+            const formData = new FormData();
+            formData.append('account', email);
+            formData.append('phone', phone);
+            formData.append('newPass', pass);
+
+            fetch('/NvbAccount/CapNhatMatKhau', { method: 'POST', body: formData })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Đã đổi mật khẩu thành công!");
+                        window.location.href = '/NvbAccount/Login';
+                    } else { alert(data.message); }
+                });
+        }
+    </script>
+}

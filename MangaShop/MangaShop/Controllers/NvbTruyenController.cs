@@ -216,13 +216,38 @@ namespace MangaShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NhapKhoTap(List<NhapKhoTapTruyenVM> model)
         {
-            if (model == null) return RedirectToAction("NhapKhoTap");
+            if (model == null || !model.Any()) return RedirectToAction("NhapKhoTap");
 
+            // 1. KIỂM TRA HỢP LỆ: Phải có ít nhất 1 tập có số lượng nhập > 0
+            var coNhapHang = model.Any(tr => tr.Taps != null && tr.Taps.Any(tap => tap.SoLuongNhap > 0));
+
+            if (!coNhapHang)
+            {
+                // Thêm thông báo lỗi để hiển thị ngoài View (nếu bạn có dùng ValidationSummary)
+                ModelState.AddModelError("", "Vui lòng nhập số lượng cho ít nhất một tập truyện.");
+                return View(model);
+            }
+
+            // 2. TẠO PHIẾU NHẬP (Chỉ tạo khi đã chắc chắn có hàng)
+            var phieuNhap = new PhieuNhap
+            {
+                MaAdmin = 1, // ID Admin thực tế của bạn
+                NgayNhap = DateTime.Now,
+                TrangThai = "Đã nhập",
+                TongTienNhap = 0 // Sẽ cập nhật sau khi tính toán
+            };
+
+            _context.PhieuNhaps.Add(phieuNhap);
+            await _context.SaveChangesAsync(); // Lưu để lấy MaPhieuNhap tự sinh
+
+            decimal tongTienPhieu = 0;
+
+            // 3. XỬ LÝ CHI TIẾT VÀ CẬP NHẬT KHO
             foreach (var tr in model)
             {
                 if (tr.Taps == null) continue;
-
                 int tongNhapCuaTruyenNay = 0;
+
                 foreach (var tapVm in tr.Taps)
                 {
                     if (tapVm.SoLuongNhap <= 0) continue;
@@ -230,12 +255,30 @@ namespace MangaShop.Controllers
                     var tap = await _context.TruyenTaps.FirstOrDefaultAsync(x => x.MaTap == tapVm.MaTap);
                     if (tap != null)
                     {
+                        // Tính giá nhập (70% giá bán lẻ)
+                        decimal giaNhapKhuyenNghi = (decimal)(tap.Gia * 0.7);
+
+                        // Lưu chi tiết phiếu nhập
+                        var chiTiet = new ChiTietPhieuNhap
+                        {
+                            MaPhieuNhap = phieuNhap.MaPhieuNhap,
+                            MaTruyen = tr.MaTruyen,
+                            MaTap = tap.MaTap,
+                            SoLuongNhap = tapVm.SoLuongNhap,
+                            DonGiaNhap = giaNhapKhuyenNghi
+                        };
+                        _context.ChiTietPhieuNhaps.Add(chiTiet);
+
+                        // Cập nhật tồn kho cho từng tập
                         tap.SoLuongTon += tapVm.SoLuongNhap;
-                        tongNhapCuaTruyenNay += tapVm.SoLuongNhap; // Cộng dồn để update vào bảng Truyens
+                        tongNhapCuaTruyenNay += tapVm.SoLuongNhap;
+
+                        // Cộng dồn vào tổng tiền phiếu
+                        tongTienPhieu += (decimal)tapVm.SoLuongNhap * giaNhapKhuyenNghi;
                     }
                 }
 
-                // Cập nhật tổng tồn vào bảng Truyens để hiển thị ở trang chủ không bị mất dữ liệu
+                // Cập nhật tổng tồn kho cho đầu truyện
                 if (tongNhapCuaTruyenNay > 0)
                 {
                     var truyen = await _context.Truyens.FindAsync(tr.MaTruyen);
@@ -246,8 +289,23 @@ namespace MangaShop.Controllers
                 }
             }
 
+            // 4. CẬP NHẬT TỔNG TIỀN CUỐI CÙNG VÀ HOÀN TẤT
+            phieuNhap.TongTienNhap = tongTienPhieu;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("LichSuNhap");
+        }
+        public IActionResult LichSuNhap()
+        {
+            var data = _context.PhieuNhaps
+                .Include(p => p.ChiTietPhieuNhaps)
+                    .ThenInclude(ct => ct.MaTruyenNavigation)
+                .Include(p => p.ChiTietPhieuNhaps)
+                    .ThenInclude(ct => ct.MaTapNavigation)
+                .OrderByDescending(p => p.NgayNhap)
+                .ToList();
+
+            return View(data);
         }
         // Thêm số lượng tập
         public IActionResult ThemTap(int id) // id là MaTruyen

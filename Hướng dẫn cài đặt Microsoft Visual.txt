@@ -1,0 +1,29 @@
+Hướng dẫn cài đặt Microsoft Visual Studio
+Truy cập trang chính thức của Microsoft và tải Visual Studio Installer.
+Mở file vừa tải → chọn Install.
+Trong cửa sổ cài đặt, tích các Workloads bạn cần (ví dụ: ASP.NET and web development, .NET desktop development…).
+Nhấn Install while downloading để bắt đầu cài. 
+Chờ hoàn tất → bấm Launch để mở và đăng nhập tài khoản Microsoft (nếu được yêu cầu).
+Nên chọn ổ đĩa còn ít nhất 20–30GB trống để tránh lỗi khi cài.
+
+
+Hướng dẫn cài đặt Microsoft SQL Server 2022
+Vào trang Microsoft → tải SQL Server 2022 bản Developer (miễn phí) hoặc Express.
+Mở file tải về → chọn Basic để cài nhanh (hoặc Custom nếu muốn tùy chỉnh).
+Chấp nhận điều khoản → chọn vị trí lưu → nhấn Install.
+Sau khi cài xong, tải thêm SQL Server Management Studio (SSMS) để dễ quản lý cơ sở dữ liệu.
+Mở SSMS → Connect với Server Name mặc định → bắt đầu sử dụng.
+
+
+Trình duyệt web (Browser)
+Khuyến nghị sử dụng các trình duyệt hiện đại như Google Chrome, Microsoft Edge hoặc Cốc Cốc (như bạn đang dùng trong ảnh) để các hiệu ứng CSS (Dropdown, Collapse) hiển thị đúng nhất.
+
+
+Môi trường thực thi (Runtime & SDK)
+.NET SDK (ví dụ: .NET 6.0, 7.0 hoặc 8.0): Tùy thuộc vào phiên bản bạn chọn khi tạo Project. Nếu thiếu cái này, Visual Studio sẽ không thể biên dịch mã nguồn.
+ASP.NET Core Runtime: Cần thiết để thực thi ứng dụng trên trình duyệt.
+
+
+Các thư viện mở rộng (NuGet Packages)
+Entity Framework Core: Để kết nối giữa C# và SQL Server.
+Microsoft.EntityFrameworkCore.SqlServer: Trình điều khiển cho SQL Server.

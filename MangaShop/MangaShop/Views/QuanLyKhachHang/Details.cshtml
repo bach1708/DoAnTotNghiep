@@ -5,19 +5,96 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-3">👤 CHI TIẾT KHÁCH HÀNG</h2>
+@section Styles {
+    <link rel="stylesheet" href="~/css/QuanLyKhachHang-Details.css" asp-append-version="true" />
+}
 
-<div class="card shadow">
-    <div class="card-body">
-        <p><b>Mã:</b> #@Model.MaKhachHang</p>
-        <p><b>Họ tên:</b> @Model.HoTen</p>
-        <p><b>Email:</b> @Model.Email</p>
-        <p><b>SĐT:</b> @Model.SoDienThoai</p>
-        <p><b>Địa chỉ:</b> @Model.DiaChi</p>
-        <p><b>Ngày tạo:</b> @Model.NgayTao?.ToString("dd/MM/yyyy HH:mm")</p>
+<div class="manga-admin-wrapper">
+    <div class="manga-header">
+        <div class="header-info">
+            <h2 class="manga-title">👤 CHI TIẾT KHÁCH HÀNG</h2>
+            <p class="manga-subtitle">Thông tin chi tiết tài khoản và lịch sử thành viên</p>
+        </div>
+        <div class="header-actions">
+            <a asp-action="Index" class="manga-btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
 
-        <p><b>Số đơn đã mua:</b> @(Model.DonHangs?.Count ?? 0)</p>
+    <div class="manga-card shadow-sm p-4">
+        <div class="row">
+            @* Cột bên trái: Avatar & Tên *@
+            <div class="col-md-3 text-center border-end">
+                <div class="avatar-circle-wrapper mx-auto mb-3" style="width: 140px; height: 140px;">
+                    @if (!string.IsNullOrEmpty(Model.AnhDaiDien))
+                    {
+                        <img src="~/images/avatars/@Model.AnhDaiDien" alt="User" onerror="this.src='/images/no-avatar.png'" />
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-user-circle" style="font-size: 120px; color: #ddd;"></i>
+                    }
+                </div>
+                <h4 class="fw-bold mb-1">@Model.HoTen</h4>
+                <div class="badge bg-dark mb-2">ID: #@Model.MaKhachHang</div>
+            </div>
 
-        <a asp-action="Index" class="btn btn-secondary mt-2">⬅ Quay lại</a>
+            @* Cột bên phải: Thông tin chi tiết *@
+            <div class="col-md-9 ps-md-5">
+                <div class="detail-row">
+                    <span class="detail-label">Email tài khoản:</span>
+                    <span class="fw-medium">@Model.Email</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Số điện thoại:</span>
+                    <span>@Model.SoDienThoai</span>
+                </div>
+
+                @* Phần Mật khẩu có mắt *@
+                <div class="detail-row">
+                    <span class="detail-label">Mật khẩu:</span>
+                    <div class="password-wrapper">
+                        <span id="passwordText" data-password="@Model.MatKhau">********</span>
+                        <i class="fa-solid fa-eye toggle-password" id="eyeIcon"></i>
+                    </div>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-label">Địa chỉ đăng ký:</span>
+                    <span>@(string.IsNullOrEmpty(Model.DiaChi) ? "Chưa cập nhật" : Model.DiaChi)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Ngày tham gia:</span>
+                    <span class="text-muted">@Model.NgayTao?.ToString("dd/MM/yyyy HH:mm")</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Số đơn hàng đã mua:</span>
+                    <span class="badge bg-success" style="font-size: 13px;">@(Model.DonHangs?.Count ?? 0) đơn hàng</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const eyeIcon = document.getElementById('eyeIcon');
+            const pwdSpan = document.getElementById('passwordText');
+            const realPassword = pwdSpan.getAttribute('data-password');
+
+            eyeIcon.addEventListener('click', function () {
+                if (this.classList.contains('fa-eye')) {
+                    // Hiện mật khẩu
+                    pwdSpan.textContent = realPassword;
+                    this.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    // Ẩn mật khẩu
+                    pwdSpan.textContent = '********';
+                    this.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        });
+    </script>
+}

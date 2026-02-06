@@ -1,0 +1,123 @@
+﻿/* Phá vỡ giới hạn Layout Admin để rộng 1600px */
+.admin-main-wrapper {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.manga-admin-wrapper {
+    max-width: 1600px;
+    margin: 25px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header */
+.manga-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.manga-title {
+    font-weight: 800;
+    font-size: 24px;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.manga-subtitle {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Card & Content */
+.manga-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background-color: #fcfcfc; /* Màu nền nhẹ nhàng giống ảnh bạn gửi */
+}
+
+.detail-row {
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+    .detail-row:last-child {
+        border-bottom: none;
+    }
+
+.detail-label {
+    width: 220px;
+    font-weight: 700;
+    color: #444;
+    font-size: 15px;
+}
+
+/* Password Box */
+.password-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #fff;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    min-width: 220px;
+    justify-content: space-between;
+}
+
+#passwordText {
+    font-family: 'Consolas', monospace;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.toggle-password {
+    cursor: pointer;
+    color: #888;
+    transition: 0.2s;
+}
+
+    .toggle-password:hover {
+        color: #000;
+    }
+
+/* Avatar */
+.avatar-circle-wrapper {
+    border-radius: 50%;
+    overflow: hidden;
+    background: #fff;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+    .avatar-circle-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+/* Buttons */
+.manga-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-secondary {
+    background: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+    .btn-secondary:hover {
+        background: #f8f8f8;
+    }

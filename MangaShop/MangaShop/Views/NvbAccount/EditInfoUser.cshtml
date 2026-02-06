@@ -70,7 +70,17 @@
                         <input asp-for="Email" class="form-control rounded-pill" readonly style="background-color: #f8f9fa;" />
                         <div class="form-text text-muted">Email là định danh tài khoản và không thể thay đổi.</div>
                     </div>
-
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu</label>
+                        <div class="input-group">
+                            <input type="password" id="passInput" name="newPassword" class="form-control rounded-start-pill"
+                                   value="@Model.MatKhau" readonly style="background-color: #f8f9fa;" />
+                            <button class="btn btn-outline-secondary rounded-end-pill" type="button" onclick="enableEditPass(this)">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                        </div>
+                        <div id="passNote" class="form-text text-danger d-none">Lưu ý: Bạn đang thay đổi mật khẩu đăng nhập!</div>
+                    </div>
                     <div class="mb-4">
                         <label class="form-label fw-bold">Địa chỉ giao hàng</label>
                         <textarea asp-for="DiaChi" class="form-control" rows="3"
@@ -117,6 +127,34 @@
                 bsAlert.close();
             }
         }, 4000);
+
+                function enableEditPass(btn) {
+            const input = document.getElementById("passInput");
+            const note = document.getElementById("passNote");
+            const icon = btn.querySelector("i");
+
+            if (input.hasAttribute("readonly")) {
+                // Chuyển sang chế độ chỉnh sửa
+                input.removeAttribute("readonly");
+                input.style.backgroundColor = "#fff";
+                input.type = "text"; // Hiện mật khẩu để dễ sửa
+                input.focus();
+
+                // Đổi icon sang dấu X hoặc check để báo hiệu đang sửa
+                icon.classList.replace("fa-pen", "fa-lock-open");
+                note.classList.remove("d-none");
+                btn.classList.replace("btn-outline-secondary", "btn-outline-warning");
+            } else {
+                // Khóa lại (nếu nhấn lần nữa)
+                input.setAttribute("readonly", true);
+                input.style.backgroundColor = "#f8f9fa";
+                input.type = "password";
+
+                icon.classList.replace("fa-lock-open", "fa-pen");
+                note.classList.add("d-none");
+                btn.classList.replace("btn-outline-warning", "btn-outline-secondary");
+            }
+        }
     </script>
 
     @* Load các script validation của Microsoft để kiểm tra dữ liệu phía Client *@

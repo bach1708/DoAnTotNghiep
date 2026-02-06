@@ -1,0 +1,88 @@
+﻿@model List<MangaShop.Models.PhieuNhap>
+@{
+    ViewData["Title"] = "Lịch sử nhập kho";
+    Layout = "_AdminLayout";
+}
+
+<link rel="stylesheet" href="~/css/NvbTruyen-NhapKhoTap.css" />
+
+<div class="main-wrapper">
+    <div class="admin-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="page-title">Lịch sử nhập kho</h2>
+                <p class="text-muted small mb-0">Xem lại các đợt nhập truyện và biến động tồn kho</p>
+            </div>
+            <div class="action-group">
+                <a asp-action="NhapKhoTap" class="btn btn-success" style="background-color: #333 !important; border-color: #333 !important;">
+                    <i class="fa-solid fa-plus me-1"></i> Nhập kho mới
+                </a>
+                <a asp-action="NhapKhoTap" class="btn btn-secondary"> <i class="fa-solid fa-arrow-left"></i></a>
+            </div>
+        </div>
+
+        <div class="accordion accordion-dark" id="historyAccordion">
+            @if (Model == null || !Model.Any())
+            {
+                <div class="alert alert-info border-0 shadow-sm text-center">Chưa có phiếu nhập nào được ghi nhận.</div>
+            }
+            else
+            {
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var pn = Model[i];
+                    var collapseId = $"collapse_{i}";
+                    var headingId = $"heading_{i}";
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="@headingId">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId">
+                                <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="icon-box bg-light p-2 rounded text-center" style="min-width: 60px;">
+                                            <div class="small fw-bold">ID: #@pn.MaPhieuNhap</div>
+                                        </div>
+                                        <div>
+                                            <div class="manga-title-acc text-uppercase">Ngày nhập: @pn.NgayNhap.ToString("dd/MM/yyyy HH:mm")</div>
+                                            <div class="manga-info-acc">Trạng thái: <span class="text-success">@pn.TrangThai</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="small text-muted">Tổng tiền nhập:</div>
+                                        <div class="fw-bold text-danger">@pn.TongTienNhap?.ToString("N0") đ</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div id="@collapseId" class="accordion-collapse collapse" data-bs-parent="#historyAccordion">
+                            <div class="accordion-body p-0">
+                                <table class="table table-dark-sub m-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="ps-4">Tên Truyện</th>
+                                            <th class="text-center">Số tập</th>
+                                            <th class="text-center">Số lượng nhập</th>
+                                            <th class="text-end pe-4">Đơn giá nhập</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var ct in pn.ChiTietPhieuNhaps)
+                                        {
+                                            <tr>
+                                                <td class="ps-4 fw-bold">@ct.MaTruyenNavigation?.TenTruyen</td>
+                                                <td class="text-center">Tập @ct.MaTapNavigation?.SoTap</td>
+                                                <td class="text-center"><span class="badge bg-light text-dark border">+ @ct.SoLuongNhap</span></td>
+                                                <td class="text-end pe-4">@ct.DonGiaNhap.ToString("N0") đ</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

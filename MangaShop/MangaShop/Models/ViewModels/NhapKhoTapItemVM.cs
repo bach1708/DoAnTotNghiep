@@ -6,5 +6,6 @@
         public int SoTap { get; set; }
         public int SoLuongTon { get; set; }
         public int SoLuongNhap { get; set; }
+
     }
 }

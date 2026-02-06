@@ -3,111 +3,124 @@
 @{
     ViewData["Title"] = "Quản lý khách hàng";
     Layout = "_AdminLayout";
-
     var chiTieuDict = ViewBag.ChiTieuDict as Dictionary<int, double> ?? new Dictionary<int, double>();
     var hangDict = ViewBag.HangDict as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
-<h2 class="mb-3">👤 QUẢN LÝ KHÁCH HÀNG</h2>
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-warning">@TempData["Error"]</div>
-}
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
+@section Styles {
+    @* Kết nối CSS chuyên biệt *@
+    <link rel="stylesheet" href="~/css/QuanLyKhachHang-Index.css" asp-append-version="true" />
 }
 
-<form method="get" class="row g-2 mb-3">
-    <div class="col-md-9">
-        <input name="keyword" value="@ViewBag.Keyword" class="form-control"
-               placeholder="Tìm theo họ tên / email / số điện thoại..." />
+<div class="manga-admin-wrapper">
+    @* Header *@
+    <div class="manga-header">
+        <div class="header-info">
+            <h2 class="manga-title">👤 QUẢN LÝ KHÁCH HÀNG</h2>
+            <p class="manga-subtitle">Hệ thống phân hạng thành viên dựa trên tổng chi tiêu tích lũy.</p>
+        </div>
+        <div class="header-actions">
+            <a asp-controller="NvbAdmin" asp-action="Index" class="manga-btn btn-secondary">
+                <i class="fa-solid fa-arrow-left"></i> 
+            </a>
+        </div>
     </div>
-    <div class="col-md-3 d-flex gap-2">
-        <button class="btn btn-primary w-100">Tìm</button>
-        <a asp-action="Index" class="btn btn-secondary w-100">Reset</a>
+
+    @* Bộ lọc tìm kiếm *@
+    <div class="manga-toolbox shadow-sm">
+        <form method="get" class="d-flex gap-2 w-100">
+            <input class="form-control" name="keyword" value="@ViewBag.Keyword"
+                   placeholder="Tìm theo tên, email hoặc số điện thoại..." style="flex-grow: 1;" />
+            <button type="submit" class="manga-btn btn-dark" style="min-width: 120px;">TÌM KIẾM</button>
+            <a asp-action="Index" class="manga-btn btn-light-border">LÀM MỚI</a>
+        </form>
     </div>
-</form>
 
-<table class="table table-bordered align-middle text-center">
-    <thead class="table-dark">
-        <tr>
-            <th>Mã</th>
-            <th>Họ tên</th>
-            <th>Email</th>
-            <th>SĐT</th>
-            <th>Ngày tạo</th>
-            <th>Chi tiêu</th>
-            <th>Hạng</th>
-            <th style="width:200px">Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model == null || !Model.Any())
-        {
-            <tr>
-                <td colspan="8" class="text-muted">Chưa có khách hàng.</td>
-            </tr>
-        }
-        else
-        {
-            @foreach (var u in Model)
-            {
-                var tongChiTieu = chiTieuDict.ContainsKey(u.MaKhachHang) ? chiTieuDict[u.MaKhachHang] : 0;
-                var hang = hangDict.ContainsKey(u.MaKhachHang) ? hangDict[u.MaKhachHang] : "Thường";
+    @* Bảng danh sách *@
+    <div class="manga-card shadow-sm">
+        <div class="table-responsive">
+            <table class="manga-table">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width:70px">ID</th>
+                        <th class="text-center" style="width:80px">Avatar</th>
+                        <th class="text-start">Họ tên & Thành viên</th>
+                        <th class="text-center">Liên hệ</th>
+                        <th class="text-center">Ngày tạo</th>
+                        <th class="text-center">Tổng chi tiêu</th>
+                        <th class="text-center">Hạng</th>
+                        <th class="text-center" style="width:160px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        var tongChiTieu = chiTieuDict.ContainsKey(u.MaKhachHang) ? chiTieuDict[u.MaKhachHang] : 0;
+                        var hang = hangDict.ContainsKey(u.MaKhachHang) ? hangDict[u.MaKhachHang] : "Thường";
 
-                <tr>
-                    <td>#@u.MaKhachHang</td>
-                    <td>@u.HoTen</td>
-                    <td>@u.Email</td>
-                    <td>@u.SoDienThoai</td>
-                    <td>@u.NgayTao?.ToString("dd/MM/yyyy HH:mm")</td>
-
-                    <td class="text-danger fw-bold">
-                        @tongChiTieu.ToString("N0") ₫
-                    </td>
-
-                    <td>
-                        @if (hang == "Vàng")
-                        {
-                            <span class="badge bg-warning text-dark">🥇 Vàng</span>
-                        }
-                        else if (hang == "Bạc")
-                        {
-                            <span class="badge bg-secondary">🥈 Bạc</span>
-                        }
-                        else if (hang == "Đồng")
-                        {
-                            <span class="badge bg-danger">🥉 Đồng</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-light text-dark">Thường</span>
-                        }
-                    </td>
-
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a asp-action="Details" asp-route-id="@u.MaKhachHang"
-                               class="btn btn-sm btn-primary">
-                                Chi tiết
-                            </a>
-
-                            <form asp-action="Delete" method="post"
-                                  onsubmit="return confirm('Xóa khách hàng này?');" class="m-0">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="id" value="@u.MaKhachHang" />
-                                <button class="btn btn-sm btn-danger">Xóa</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-
-<a asp-controller="NvbAdmin" asp-action="Index" class="btn btn-secondary">
-    ⬅️ Quay lại
-</a>
+                        <tr>
+                            <td class="text-center fw-bold text-muted">#@u.MaKhachHang</td>
+                            <td class="text-center">
+                                <div class="avatar-circle-wrapper mx-auto">
+                                    @if (!string.IsNullOrEmpty(u.AnhDaiDien))
+                                    {
+                                        @* Lưu ý: Đường dẫn ảnh phải khớp với thư mục lưu trữ của bạn *@
+                                        <img src="~/images/avatars/@u.AnhDaiDien" alt="User" onerror="this.src='/images/no-avatar.png'" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-user-circle"></i>
+                                    }
+                                </div>
+                            </td>
+                            <td class="text-start">
+                                <div class="manga-name">@u.HoTen</div>
+                                <span class="badge bg-light text-dark extra-small border">ID: @u.MaKhachHang</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="contact-text">@u.Email</div>
+                                <div class="text-muted small">@u.SoDienThoai</div>
+                            </td>
+                            <td class="text-center text-muted small">@u.NgayTao?.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                <span class="fw-bold text-danger">@tongChiTieu.ToString("N0") ₫</span>
+                            </td>
+                            <td class="text-center">
+                                @if (hang == "Kim cương")
+                                {
+                                    <span class="rank-badge-pill diamond"><i class="fa-solid fa-gem"></i> KIM CƯƠNG</span>
+                                }
+                                else if (hang == "Vàng")
+                                {
+                                    <span class="rank-badge-pill gold"><i class="fa-solid fa-crown"></i> VÀNG</span>
+                                }
+                                else if (hang == "Bạc")
+                                {
+                                    <span class="rank-badge-pill silver"><i class="fa-solid fa-medal"></i> BẠC</span>
+                                }
+                                else
+                                {
+                                    <span class="rank-badge-pill standard"><i class="fa-solid fa-user"></i> THƯỜNG</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="action-flex">
+                                    <a asp-action="Details" asp-route-id="@u.MaKhachHang" class="act-link" title="Chi tiết">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </a>
+                                    <form asp-action="Delete" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa khách hàng này?');" class="m-0">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@u.MaKhachHang" />
+                                        <button class="act-link delete" type="submit" style="border:none; background:none; padding:0;">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

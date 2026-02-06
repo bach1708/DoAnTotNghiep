@@ -111,25 +111,25 @@ namespace MangaShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditInfoUser(KhachHang model, IFormFile? fAvatar)
+        public async Task<IActionResult> EditInfoUser(KhachHang model, IFormFile? fAvatar, string? newPassword)
         {
-            // Quan trọng: Xóa kiểm tra các trường không có trên form để IsValid = True
+            // Xóa validation các trường không có trong form
             ModelState.Remove("MatKhau");
             ModelState.Remove("NgayTao");
             ModelState.Remove("fAvatar");
+            ModelState.Remove("newPassword");
 
             var user = await _context.KhachHangs.FindAsync(model.MaKhachHang);
             if (user == null) return NotFound();
 
             if (ModelState.IsValid)
             {
-                // Xử lý Upload ảnh
+                // 1. Xử lý ảnh đại diện (giữ nguyên logic cũ của bạn)
                 if (fAvatar != null && fAvatar.Length > 0)
                 {
                     string folderPath = Path.Combine(_env.WebRootPath, "images", "avatars");
                     if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
-                    // Xóa ảnh cũ
                     if (!string.IsNullOrEmpty(user.AnhDaiDien))
                     {
                         string oldPath = Path.Combine(folderPath, user.AnhDaiDien);
@@ -137,35 +137,107 @@ namespace MangaShop.Controllers
                     }
 
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fAvatar.FileName);
-                    string filePath = Path.Combine(folderPath, fileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var stream = new FileStream(Path.Combine(folderPath, fileName), FileMode.Create))
                     {
-                        await fAvatar.CopyToAsync(fileStream);
-
+                        await fAvatar.CopyToAsync(stream);
                     }
                     user.AnhDaiDien = fileName;
-                    // Cập nhật lại avatar trong session để Navbar thay đổi ngay lập tức
                     HttpContext.Session.SetString("UserAvatar", fileName);
                 }
 
-                // Cập nhật thông tin text
+                // 2. Cập nhật thông tin cơ bản
                 user.HoTen = model.HoTen;
                 user.SoDienThoai = model.SoDienThoai;
                 user.DiaChi = model.DiaChi;
-                user.Email = model.Email; // Thường Email là ReadOnly trên View
 
-                // Cập nhật session tên
-                HttpContext.Session.SetString("UserName", user.HoTen ?? "");
+                // 3. Cập nhật mật khẩu nếu có thay đổi từ input newPassword
+                if (!string.IsNullOrEmpty(newPassword) && newPassword != user.MatKhau)
+                {
+                    user.MatKhau = newPassword;
+                }
 
                 _context.Update(user);
                 await _context.SaveChangesAsync();
-                HttpContext.Session.SetString("UserAvatar", user.AnhDaiDien ?? "default-avatar.png");
-                HttpContext.Session.SetString("UserName", user.HoTen ?? "");
 
-                ViewBag.Success = "Cập nhật thông tin thành công!";
+                HttpContext.Session.SetString("UserName", user.HoTen ?? "");
+                ViewBag.Success = "Cập nhật hồ sơ thành công!";
             }
             return View(user);
+        }
+        public IActionResult QuenMatKhau()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult TimKiemTaiKhoan(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword)) return Json(new { success = false });
+
+            // BƯỚC 1: Chỉ tìm tài khoản bằng EMAIL
+            var kh = _context.KhachHangs.FirstOrDefault(u => u.Email == keyword);
+
+            if (kh != null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    maskedP = MaskPhone(kh.SoDienThoai) // Hiện SĐT đã che để gợi nhớ
+                });
+            }
+            return Json(new { success = false, message = "Email này chưa được đăng ký tài khoản!" });
+        }
+
+        [HttpPost]
+        public IActionResult CapNhatMatKhau(string account, string phone, string newPass)
+        {
+            // account ở đây sẽ là Email khách đã nhập ở bước 1
+            if (string.IsNullOrEmpty(account) || string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(newPass))
+            {
+                return Json(new { success = false, message = "Vui lòng nhập đầy đủ thông tin!" });
+            }
+
+            // BƯỚC 2: Tìm khách hàng có Email đó VÀ có Số điện thoại khớp với số khách vừa nhập
+            var kh = _context.KhachHangs.FirstOrDefault(u => u.Email == account && u.SoDienThoai == phone);
+
+            if (kh != null)
+            {
+                if (newPass == "CHECK_ONLY") return Json(new { success = true });
+
+                // BƯỚC 3: Cập nhật mật khẩu mới
+                kh.MatKhau = newPass;
+                _context.SaveChanges();
+                return Json(new { success = true, message = "Đổi mật khẩu thành công!" });
+            }
+
+            return Json(new { success = false, message = "Số điện thoại xác nhận không chính xác!" });
+        }
+
+        // --- CÁC HÀM HELPER ĐÃ SỬA LỖI RETURN ---
+
+        private string MaskEmail(string e)
+        {
+            if (string.IsNullOrEmpty(e) || !e.Contains("@"))
+                return "********"; // Trả về mặc định nếu không phải email
+
+            var parts = e.Split('@');
+            var name = parts[0];
+            var domain = parts[1];
+
+            if (name.Length <= 2)
+                return name.Substring(0, 1) + "****@" + domain;
+
+            // Lấy ký tự đầu và cuối của phần tên, ở giữa thay bằng ****
+            return name.Substring(0, 1) + "****" + name.Substring(name.Length - 1) + "@" + domain;
+        }
+
+        private string MaskPhone(string p)
+        {
+            if (string.IsNullOrEmpty(p) || p.Length < 3)
+                return "********"; // Trả về mặc định nếu SĐT quá ngắn
+
+            // Lấy ký tự đầu và cuối, ở giữa là 7 dấu sao
+            return p.Substring(0, 1) + "*******" + p.Substring(p.Length - 1);
         }
 
         public IActionResult Logout()

@@ -291,8 +291,6 @@ C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\11a
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\4nrly6y81i-{0}-vw2h9lolhi-vw2h9lolhi.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\c8v6yvx5nw-{0}-rkwqkon2by-rkwqkon2by.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\6jufpwa27w-{0}-0bnlp6mc7z-0bnlp6mc7z.gz
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\dicnunprt0-{0}-jlchoozu7c-jlchoozu7c.gz
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\nhu98wxndx-{0}-w0ciehf6ih-w0ciehf6ih.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\7sajmjzasc-{0}-srh46ntbp4-srh46ntbp4.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\jajrwr8jfn-{0}-rfroxkjnbv-rfroxkjnbv.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\xwx2hfsgpb-{0}-n9rfkvhcvp-n9rfkvhcvp.gz
@@ -315,4 +313,8 @@ C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\cn5
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\yhqktg49x4-{0}-gzyuq8rw0c-gzyuq8rw0c.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\otxazpgocn-{0}-7obsma6l9c-7obsma6l9c.gz
 C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\vljavv6utp-{0}-ub8wt6qkms-ub8wt6qkms.gz
-C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\4yjkf6t9ij-{0}-uh0nn1e0dh-uh0nn1e0dh.gz
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\4yjkf6t9ij-{0}-vb81bx7wcm-vb81bx7wcm.gz
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\8q3b7fem0t-{0}-mrzejjs8ft-mrzejjs8ft.gz
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\dicnunprt0-{0}-a3893yq9sc-a3893yq9sc.gz
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\nhu98wxndx-{0}-cwejng8dap-cwejng8dap.gz
+C:\Users\admin\Desktop\DATN\MangaShop\MangaShop\obj\Debug\net10.0\compressed\72e3gbyf1d-{0}-wes4fum188-wes4fum188.gz

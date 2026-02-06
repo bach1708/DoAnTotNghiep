@@ -1,6 +1,182 @@
-﻿namespace MangaShop.wwwroot.css
-{
-    public class QuanLyKhachHang_Index
-    {
-    }
+﻿/* Phá khung 1600px */
+.admin-main-wrapper {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
 }
+
+.manga-admin-wrapper {
+    max-width: 1600px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Header & Typography */
+.manga-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.manga-title {
+    font-weight: 800;
+    font-size: 24px;
+    color: #1a1a1a;
+}
+
+.manga-subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Avatar Circle - Hiển thị ảnh tròn chuyên nghiệp */
+.avatar-circle-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #f8f9fa;
+    border: 2px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+    .avatar-circle-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .avatar-circle-wrapper i {
+        font-size: 30px;
+        color: #ccc;
+    }
+
+/* Table Style */
+.manga-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .manga-table thead th {
+        background: #1a1a1a;
+        color: #fff;
+        padding: 15px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .manga-table tbody td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+    }
+
+.manga-name {
+    font-weight: 700;
+    color: #333;
+    font-size: 15px;
+}
+
+.contact-text {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Rank Badge Pill */
+.rank-badge-pill {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid transparent;
+}
+
+    .rank-badge-pill.diamond {
+        background: #e3f2fd;
+        color: #1976d2;
+        border-color: #bbdefb;
+    }
+
+    .rank-badge-pill.gold {
+        background: #fffde7;
+        color: #f9a825;
+        border-color: #fff9c4;
+    }
+
+    .rank-badge-pill.silver {
+        background: #f5f5f5;
+        color: #616161;
+        border-color: #e0e0e0;
+    }
+
+    .rank-badge-pill.standard {
+        background: #fafafa;
+        color: #9e9e9e;
+        border-color: #eee;
+    }
+
+/* Manga ToolBox & Buttons */
+.manga-toolbox {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.manga-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.btn-dark {
+    background: #000;
+    color: #fff;
+}
+
+    .btn-dark:hover {
+        background: #333;
+    }
+
+.btn-secondary {
+    background: #fff;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+/* Action Links */
+.action-flex {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.act-link {
+    font-size: 18px;
+    color: #0d6efd;
+    transition: 0.2s;
+}
+
+    .act-link.delete {
+        color: #dc3545;
+    }
+
+    .act-link:hover {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
