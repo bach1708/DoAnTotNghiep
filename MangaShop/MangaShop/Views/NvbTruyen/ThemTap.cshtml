@@ -40,9 +40,9 @@
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Số lượng truyện tồn khi tạo tập mới</label>
-                            <input asp-for="SoLuongThem" type="number" class="form-control" value="1" min="1" required />
+                            <input asp-for="SoLuongThem" type="number" class="form-control" value="0" min="0" />
                             <span asp-validation-for="SoLuongThem" class="text-danger"></span>
-                            <small class="text-muted">Mỗi tập truyện trong bộ truyện đều có số lượng tồn kho riêng, khi thêm số lượng này đồng nghĩa với việc tồn kho có của tập truyện mới có bằng đó.</small>
+                            <small class="text-muted">Mỗi tập truyện trong bộ truyện đều có số lượng tồn kho riêng, khi thêm số lượng này đồng nghĩa với việc tồn kho có của tập truyện mới có bằng đó. Nếu để 0 thì sẽ lưu dưới dạng truyện sắp phát hành</small>
                         </div>
                     </div>
 

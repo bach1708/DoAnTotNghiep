@@ -7,28 +7,44 @@
     if (conThieu < 0) conThieu = 0;
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/NvbHome-ThanhVienCuaToi.css" />
+}
+
 <div class="container mt-4 mb-5">
     <h2 class="mb-1">👤 Thông tin cá nhân</h2>
     <p class="text-muted mb-4">Theo dõi chi tiêu, cấp bậc và lịch sử đơn hàng.</p>
 
     <div class="row g-4">
-        <!-- LEFT: Progress -->
         <div class="col-lg-5">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h5 class="mb-1">@Model.HoTen</h5>
-                            <div class="text-muted small">@Model.Email</div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar-wrapper">
+                                @if (!string.IsNullOrEmpty(Model.AnhDaiDien))
+                                {
+                                    <img src="~/images/avatars/@Model.AnhDaiDien" alt="Avatar" />
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-user"></i>
+                                }
+                            </div>
+                            <div>
+                                <h5 class="mb-1 fw-bold">@Model.HoTen</h5>
+                                <div class="text-muted small">@Model.Email</div>
+                            </div>
                         </div>
-                        <span class="badge bg-dark px-3 py-2">
-                            Hạng: @Model.HangThanhVien
-                        </span>
-                        <div>
-                            <a class="dropdown-item"
+
+                        <div class="text-end">
+                            <span class="badge bg-dark px-3 py-2 d-block mb-2">
+                                Hạng: @Model.HangThanhVien
+                            </span>
+                            <a class="btn btn-outline-secondary btn-sm"
                                asp-controller="NvbAccount"
                                asp-action="EditInfoUser">
-                                <i class="fa-solid fa-pen-to-square"></i> Sửa thông tin
+                                <i class="fa-solid fa-pen-to-square"></i> Sửa
                             </a>
                         </div>
                     </div>
@@ -36,7 +52,6 @@
                     <hr />
 
                     <div class="d-flex align-items-center gap-4">
-                        <!-- vòng tròn -->
                         <div class="progress-ring" style="--p:@Model.PhanTramTienDo;">
                             <div class="ring-inner">
                                 <div class="fw-bold fs-4">@Model.PhanTramTienDo%</div>
@@ -46,16 +61,16 @@
 
                         <div class="flex-grow-1">
                             <div class="mb-2">
-                                <div class="text-muted">Tổng chi tiêu</div>
+                                <div class="text-muted small">Tổng chi tiêu</div>
                                 <div class="fs-5 fw-bold text-danger">@Model.TongChiTieu.ToString("N0") ₫</div>
                             </div>
 
                             <div class="mb-2">
-                                <div class="text-muted">Mục tiêu lên hạng @Model.HangTiepTheo</div>
+                                <div class="text-muted small">Mục tiêu lên hạng @Model.HangTiepTheo</div>
                                 <div class="fw-semibold">@Model.MucTieuTiepTheo.ToString("N0") ₫</div>
                             </div>
 
-                            <div class="text-muted">
+                            <div class="text-muted small">
                                 Còn thiếu: <b class="text-success">@conThieu.ToString("N0") ₫</b>
                             </div>
                         </div>
@@ -88,7 +103,6 @@
             </div>
         </div>
 
-        <!-- RIGHT: Orders lite -->
         <div class="col-lg-7">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -114,15 +128,9 @@
                                 @foreach (var d in Model.DonHangGanDay)
                                 {
                                     <tr>
-                                        <td class="text-start">
-                                            Đơn hàng #@d.MaDonHang
-                                        </td>
-                                        <td class="text-danger fw-bold">
-                                            @d.TongTien.ToString("N0") ₫
-                                        </td>
-                                        <td>
-                                            @d.NgayDat?.ToString("dd/MM/yyyy HH:mm")
-                                        </td>
+                                        <td class="text-start">Đơn hàng #@d.MaDonHang</td>
+                                        <td class="text-danger fw-bold">@d.TongTien.ToString("N0") ₫</td>
+                                        <td>@d.NgayDat?.ToString("dd/MM/yyyy HH:mm")</td>
                                     </tr>
                                 }
                             </tbody>
@@ -133,26 +141,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .progress-ring {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        background: conic-gradient(#198754 calc(var(--p) * 1%), #e9ecef 0);
-        display: grid;
-        place-items: center;
-        position: relative;
-        box-shadow: 0 6px 18px rgba(0,0,0,.08);
-    }
-
-    .ring-inner {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        background: #fff;
-        display: grid;
-        place-items: center;
-        text-align: center;
-    }
-</style>

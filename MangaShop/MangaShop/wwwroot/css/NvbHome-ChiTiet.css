@@ -26,3 +26,44 @@
 .bg-success-subtle {
     background-color: #e8f5e9;
 }
+
+.sticky-wrapper {
+    height: fit-content;
+    margin-bottom: 20px;
+}
+
+.thumb-img {
+    transition: transform 0.2s;
+    height: 65px;
+    width: 100%;
+    object-fit: contain; /* Sửa thành contain để giữ đúng hình dạng ảnh gốc trong khung thumbnail */
+    cursor: pointer;
+    background: #fff;
+}
+
+    .thumb-img:hover {
+        transform: scale(1.05);
+        border-color: #198754;
+    }
+
+.row.g-4 {
+    align-items: flex-start;
+}
+
+html, body {
+    overflow-x: visible !important;
+}
+
+main, .container {
+    overflow: visible !important;
+}
+
+.col-md-4 {
+    position: relative;
+    height: 100%;
+}
+
+/* Class bổ sung cho ảnh chính để luôn nét và theo khung hình gốc */
+#mainImg {
+    width: auto !important; /* Không ép rộng 100% nếu ảnh nhỏ hơn khung */
+}

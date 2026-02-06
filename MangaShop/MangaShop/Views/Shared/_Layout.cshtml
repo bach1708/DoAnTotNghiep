@@ -49,13 +49,24 @@
                     }
                     else
                     {
-                        <div class="dropdown mx-3">
-                            <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-user me-1"></i> Xin chào, @Context.Session.GetString("UserName")
+                        <div class="dropdown mx-3 d-flex align-items-center">
+                            @{
+                                var userAvatar = Context.Session.GetString("UserAvatar");
+                                var avatarPath = string.IsNullOrEmpty(userAvatar) ? "/images/default-avatar.png" : "/images/avatars/" + userAvatar;
+                            }
+
+                            <a class="dropdown-toggle text-decoration-none text-dark d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                                <img src="@avatarPath"
+                                     alt="Avatar"
+                                     class="rounded-circle me-2 border"
+                                     style="width: 30px; height: 30px; object-fit: cover;">
+
+                                <span> @Context.Session.GetString("UserName")</span>
                                 @await Component.InvokeAsync("UserBadge")
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                <li><a class="dropdown-item" asp-controller="NvbHome" asp-action="ThanhVienCuaToi"><i class="fa-solid fa-crown me-2"></i>Thông tin thành viên</a></li>
+
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li><a class="dropdown-item" asp-controller="NvbHome" asp-action="ThanhVienCuaToi"><i class="fa-solid fa-crown me-2 text-warning"></i>Thông tin thành viên</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-controller="Bill" asp-action="BillUser"><i class="fa-solid fa-box me-2"></i>Đơn hàng đã mua</a></li>
                                 <li><hr class="dropdown-divider"></li>

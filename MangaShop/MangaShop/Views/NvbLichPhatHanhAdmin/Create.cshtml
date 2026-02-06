@@ -1,0 +1,157 @@
+﻿@model MangaShop.Models.LichPhatHanh
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Thêm lịch phát hành";
+}
+
+<link rel="stylesheet" href="~/css/LichPhatHanhAdmin-Create.css" />
+
+<div class="container-admin-1600">
+    @* Header: Tiêu đề *@
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+        <div>
+            <h2 class="page-title">THÊM LỊCH PHÁT HÀNH</h2>
+            <p class="text-muted small">Tạo thông báo phát hành tập truyện mới cho khách hàng</p>
+        </div>
+        <a asp-action="Index" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+
+    @* Form Card *@
+    <div class="form-card shadow-sm">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row g-4">
+                @* Cột trái: Thông tin chính *@
+                <div class="col-md-8">
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">CHỌN TRUYỆN</label>
+                        <select asp-for="MaTruyen" class="form-select-custom shadow-none" id="selectTruyen" asp-items="ViewBag.Truyen">
+                            <option value="">-- Chọn truyện từ danh sách --</option>
+                        </select>
+                        <span asp-validation-for="MaTruyen" class="text-danger small"></span>
+
+                        <div id="areaTacGia" class="mt-2 text-muted italic" style="display:none;">
+                            <small><i class="fas fa-user-edit me-1"></i> Tác giả: <span id="valTacGia" class="fw-bold"></span></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">SỐ TẬP PHÁT HÀNH</label>
+                        <input asp-for="MaTap" type="number" class="form-select-custom shadow-none" id="inputSoTap" placeholder="Chọn truyện để hiển thị gợi ý." />
+                        <span asp-validation-for="MaTap" class="text-danger small"></span>
+
+                        <div id="hintTap" class="mt-2" style="display:none;">
+                            <span class="badge-chapter">
+                                <i class="fas fa-info-circle me-1"></i> Kho hiện có: <b>Tập <span id="valTapMax"></span></b>. Tự động gợi ý tập tiếp theo.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label-custom">NGÀY PHÁT HÀNH</label>
+                            <input asp-for="NgayPhatHanh" type="date" class="form-select-custom shadow-none" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        </div>
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label-custom">GIÁ DỰ KIẾN (Đ)</label>
+                            <input asp-for="GiaDuKien" type="number" class="form-select-custom shadow-none" placeholder="0" id="inputGia" />
+
+                            @* Tag gợi ý giá đồng bộ với Tag số tập *@
+                            <div id="hintGia" class="mt-2" style="display:none;">
+                                <span class="badge-chapter">
+                                    <i class="fas fa-tag me-1"></i> Giá niêm yết: <b class="text-dark"><span id="valGiaNiemYet"></span>đ</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">GHI CHÚ</label>
+                        <textarea asp-for="GhiChu" class="form-select-custom shadow-none" rows="3" placeholder="Ví dụ: Bản giới hạn, Tặng kèm Postcard..."></textarea>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="form-check custom-checkbox">
+                            <input asp-for="TrangThai" class="form-check-input shadow-none" type="checkbox" id="checkStatus" checked>
+                            <label class="form-check-label text-dark" for="checkStatus">
+                                Hiển thị lịch này công khai trên Website
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                @* Cột phải: Preview ảnh *@
+                <div class="col-md-4 border-start d-flex flex-column align-items-center justify-content-start pt-2">
+                    <label class="form-label-custom mb-3">ẢNH BÌA TRUYỆN</label>
+                    <div class="img-preview-box">
+                        <img id="imgPreview" src="/images/no-image.png" class="img-fluid" />
+                    </div>
+                    <p class="text-muted small mt-3 italic text-center px-4">Ảnh bìa sẽ được tự động cập nhật dựa trên truyện bạn chọn.</p>
+                </div>
+            </div>
+
+            @* Footer Form *@
+            <div class="form-footer mt-4">
+                <button type="submit" class="btn-save-status px-5">
+                    <i class="fas fa-save me-2"></i> LƯU LỊCH PHÁT HÀNH
+                </button>
+                <a asp-action="Index" class="btn-back ms-2 px-4">HỦY BỎ</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const dsTruyenJson = @Html.Raw(Json.Serialize(ViewBag.TruyenData));
+
+        $(document).ready(function() {
+            $('#selectTruyen').change(function() {
+                const ma = $(this).val();
+                const item = dsTruyenJson.find(x => x.maTruyen == ma);
+
+                if (item) {
+                    // 1. Cập nhật ảnh
+                    const path = item.anhBia ? '/images/' + item.anhBia : '/images/no-image.png';
+                    $('#imgPreview').attr('src', path).hide().fadeIn();
+
+                    // 2. Cập nhật Tác giả
+                    $('#areaTacGia').show();
+                    $('#valTacGia').text(item.tacGia);
+
+                    // 3. Cập nhật Tag số tập & Gợi ý số tập tiếp theo
+                    $('#hintTap').fadeIn();
+                    $('#valTapMax').text(item.tapHienTaiMax);
+                    $('#inputSoTap').val(item.tapHienTaiMax + 1);
+
+                    // 4. CẬP NHẬT TAG GIÁ (Phần bị thiếu của bạn)
+                    if (item.giaNiemYet) {
+                        $('#hintGia').fadeIn();
+                        // Định dạng số có dấu phẩy (VD: 50.000)
+                        const giaFormatted = new Intl.NumberFormat('vi-VN').format(item.giaNiemYet);
+                        $('#valGiaNiemYet').text(giaFormatted);
+
+                        // Tự động điền vào ô input nếu ô đó đang trống hoặc bằng 0
+                        if($('#inputGia').val() == "" || $('#inputGia').val() == "0") {
+                            $('#inputGia').val(item.giaNiemYet);
+                        }
+                    } else {
+                        $('#hintGia').hide();
+                    }
+
+                } else {
+                    // Reset khi không chọn truyện
+                    $('#imgPreview').attr('src', '/images/no-image.png');
+                    $('#areaTacGia').hide();
+                    $('#hintTap').hide();
+                    $('#hintGia').hide(); // Thêm dòng này
+                    $('#inputSoTap').val('');
+                    $('#inputGia').val(''); // Thêm dòng này
+                }
+            });
+        });
+    </script>
+}

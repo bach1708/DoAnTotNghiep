@@ -1,0 +1,129 @@
+﻿/* Khung ngoài */
+.container-admin-1600 {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Tiêu đề */
+.page-title {
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Nút thêm mới - Tông Đen */
+.btn-add-new {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+    .btn-add-new:hover {
+        background-color: #333;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+/* Nút quay lại dạng ô vuông */
+.btn-back-square {
+    background-color: #fff;
+    color: #666;
+    border: 1px solid #ddd;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+    .btn-back-square:hover {
+        border-color: #000;
+        color: #000;
+    }
+
+/* Table Card */
+.table-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .table-custom thead {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #eee;
+    }
+
+    .table-custom th {
+        padding: 15px 20px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .table-custom td {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f1f1;
+        font-size: 14px;
+        color: #333;
+        text-align: center;
+    }
+
+    .table-custom tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table-custom tr:hover {
+        background-color: #fafafa;
+    }
+
+/* Category Name Style */
+.category-name {
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Nút sửa bên trong bảng */
+.btn-edit-inline {
+    background: none;
+    border: 1px solid #ddd;
+    color: #555;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+    .btn-edit-inline i {
+        margin-right: 5px;
+    }
+
+    .btn-edit-inline:hover {
+        background-color: #000;
+        border-color: #000;
+        color: #fff;
+    }

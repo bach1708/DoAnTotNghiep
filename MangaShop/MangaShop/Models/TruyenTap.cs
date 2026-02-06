@@ -13,6 +13,8 @@ namespace MangaShop.Models
 
         public virtual Truyen MaTruyenNavigation { get; set; } = null!;
         public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; } = new HashSet<ChiTietPhieuNhap>();
+        public virtual ICollection<LichPhatHanh> LichPhatHanhs { get; set; } = new List<LichPhatHanh>();
+
 
     }
 }

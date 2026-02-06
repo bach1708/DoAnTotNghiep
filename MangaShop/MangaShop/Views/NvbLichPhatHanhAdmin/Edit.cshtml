@@ -1,0 +1,140 @@
+﻿@model MangaShop.Models.LichPhatHanh
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Chỉnh sửa lịch phát hành";
+}
+
+<link rel="stylesheet" href="~/css/LichPhatHanhAdmin-Create.css" />
+
+<div class="container-admin-1600">
+    @* Header *@
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+        <div>
+            <h2 class="page-title">CẬP NHẬT LỊCH PHÁT HÀNH</h2>
+            <p class="text-muted small">Chỉnh sửa thông tin phát hành cho tập truyện này</p>
+        </div>
+        <a asp-action="Index" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+
+    <div class="form-card shadow-sm">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="MaLich" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row g-4">
+                @* Cột trái: Form nhập liệu *@
+                <div class="col-md-8">
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">CHỌN TRUYỆN</label>
+                        <select asp-for="MaTruyen" class="form-select-custom shadow-none" id="selectTruyen" asp-items="ViewBag.Truyen">
+                            <option value="">-- Chọn truyện --</option>
+                        </select>
+                        <span asp-validation-for="MaTruyen" class="text-danger small"></span>
+
+                        <div id="areaTacGia" class="mt-2 text-muted italic">
+                            <small><i class="fas fa-user-edit me-1"></i> Tác giả: <span id="valTacGia" class="fw-bold"></span></small>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">SỐ TẬP PHÁT HÀNH</label>
+                        <input asp-for="MaTap" type="number" class="form-select-custom shadow-none" id="inputSoTap" />
+                        <span asp-validation-for="MaTap" class="text-danger small"></span>
+
+                        <div id="hintTap" class="mt-2">
+                            <span class="badge-chapter">
+                                <i class="fas fa-info-circle me-1"></i> Kho hiện có: <b>Tập <span id="valTapMax"></span></b>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label-custom">NGÀY PHÁT HÀNH</label>
+                            <input asp-for="NgayPhatHanh" type="date" class="form-select-custom shadow-none" />
+                        </div>
+                        <div class="col-md-6 form-group mb-4">
+                            <label class="form-label-custom">GIÁ DỰ KIẾN (Đ)</label>
+                            <input asp-for="GiaDuKien" type="number" class="form-select-custom shadow-none" id="inputGia" />
+
+                            <div id="hintGia" class="mt-2">
+                                <span class="badge-chapter">
+                                    <i class="fas fa-tag me-1"></i> Giá niêm yết: <b class="text-dark"><span id="valGiaNiemYet"></span>đ</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label-custom">GHI CHÚ</label>
+                        <textarea asp-for="GhiChu" class="form-select-custom shadow-none" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <div class="form-check custom-checkbox">
+                            <input asp-for="TrangThai" class="form-check-input shadow-none" type="checkbox" id="checkStatus">
+                            <label class="form-check-label text-dark" for="checkStatus">
+                                Hiển thị lịch này công khai trên Website
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                @* Cột phải: Preview *@
+                <div class="col-md-4 border-start d-flex flex-column align-items-center justify-content-start pt-2">
+                    <label class="form-label-custom mb-3">ẢNH BÌA TRUYỆN</label>
+                    <div class="img-preview-box">
+                        <img id="imgPreview" src="/images/no-image.png" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer mt-4">
+                <button type="submit" class="btn-save-status px-5">
+                    <i class="fas fa-save me-2"></i> CẬP NHẬT THAY ĐỔI
+                </button>
+                <a asp-action="Index" class="btn-back ms-2 px-4">HỦY BỎ</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const dsTruyenJson = @Html.Raw(Json.Serialize(ViewBag.TruyenData));
+
+        function updateInfo() {
+            const ma = $('#selectTruyen').val();
+            const item = dsTruyenJson.find(x => x.maTruyen == ma);
+
+            if (item) {
+                const path = item.anhBia ? '/images/' + item.anhBia : '/images/no-image.png';
+                $('#imgPreview').attr('src', path);
+                $('#areaTacGia').show();
+                $('#valTacGia').text(item.tacGia);
+                $('#hintTap').show();
+                $('#valTapMax').text(item.tapHienTaiMax);
+                $('#hintGia').show();
+                const giaFormatted = new Intl.NumberFormat('vi-VN').format(item.giaNiemYet);
+                $('#valGiaNiemYet').text(giaFormatted);
+            } else {
+                $('#imgPreview').attr('src', '/images/no-image.png');
+                $('#areaTacGia, #hintTap, #hintGia').hide();
+            }
+        }
+
+        $(document).ready(function() {
+            // Chạy ngay khi load trang để hiển thị thông tin của truyện hiện tại
+            updateInfo();
+
+            // Chạy khi thay đổi truyện
+            $('#selectTruyen').change(function() {
+                updateInfo();
+            });
+        });
+    </script>
+}

@@ -34,9 +34,10 @@ namespace MangaShop.Controllers
                     {
                         MaTruyen = ct.MaTruyen,
                         MaTap = ct.MaTap ?? 0,
-                        TenTruyen = ct.MaTapNavigation != null
-                                    ? $"{ct.MaTruyenNavigation.TenTruyen} (Tập {ct.MaTapNavigation.SoTap})"
-                                    : ct.MaTruyenNavigation.TenTruyen,
+                        // SỬA: Chỉ lấy tên truyện gốc (để dùng GroupBy ở View)
+                        TenTruyen = ct.MaTruyenNavigation.TenTruyen,
+                        // SỬA: Gán số tập thực tế từ Database
+                        SoTap = ct.MaTapNavigation != null ? ct.MaTapNavigation.SoTap : 0,
                         Gia = (double)(ct.MaTapNavigation != null ? ct.MaTapNavigation.Gia : 0),
                         SoLuong = ct.SoLuong,
                         AnhBia = ct.MaTruyenNavigation.AnhBia
@@ -51,7 +52,6 @@ namespace MangaShop.Controllers
             return View(model);
         }
 
-        // --- THÊM TẬP VÀO GIỎ (Hỗ trợ cả DB và Session) ---
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddTap(int maTap, int quantity)
@@ -64,15 +64,17 @@ namespace MangaShop.Controllers
                 .FirstOrDefault(x => x.MaTap == maTap);
 
             if (tap == null) return NotFound();
+
+            // Kiểm tra tồn kho
             if (tap.SoLuongTon <= 0)
             {
-                TempData["Err"] = "Tập này đã hết hàng.";
+                TempData["Err"] = $"Tập {tap.SoTap} hiện đang sắp phát hành hoặc đã hết hàng.";
                 return RedirectToAction("ChonTap", new { id = tap.MaTruyen });
             }
 
             if (userId != null)
             {
-                // LOGIC DATABASE
+                // --- LOGIC DATABASE ---
                 var gioHang = _context.GioHangs.FirstOrDefault(g => g.MaKhachHang == userId);
                 if (gioHang == null)
                 {
@@ -102,16 +104,20 @@ namespace MangaShop.Controllers
             }
             else
             {
-                // LOGIC SESSION
+                // --- LOGIC SESSION ---
                 var cart = HttpContext.Session.GetObject<List<CartItem>>("CART") ?? new List<CartItem>();
                 var item = cart.FirstOrDefault(c => c.MaTap == maTap);
+
                 if (item == null)
                 {
                     cart.Add(new CartItem
                     {
                         MaTap = tap.MaTap,
                         MaTruyen = tap.MaTruyen,
+                        // SỬA: Lưu tên gốc để không bị sai lệch khi GroupBy
                         TenTruyen = tap.MaTruyenNavigation.TenTruyen,
+                        // SỬA: Lưu số tập để hiển thị đúng "Tập X"
+                        SoTap = tap.SoTap,
                         AnhBia = tap.MaTruyenNavigation.AnhBia,
                         Gia = tap.Gia,
                         SoLuong = System.Math.Min(quantity, tap.SoLuongTon)
@@ -127,7 +133,7 @@ namespace MangaShop.Controllers
             return RedirectToAction("GioHang");
         }
 
-        // --- CẬP NHẬT SỐ LƯỢNG (Increase/Decrease/Update) ---
+        // --- CẬP NHẬT SỐ LƯỢNG ---
         public IActionResult UpdateQuantityDB(int maTap, int quantity)
         {
             var userId = GetUserId();
@@ -162,27 +168,35 @@ namespace MangaShop.Controllers
         public IActionResult Increase(int id)
         {
             var userId = GetUserId();
+            int currentQty = 0;
             if (userId != null)
             {
                 var item = _context.ChiTietGioHangs.FirstOrDefault(ct => ct.MaGioHangNavigation.MaKhachHang == userId && ct.MaTap == id);
-                return UpdateQuantityDB(id, (item?.SoLuong ?? 0) + 1);
+                currentQty = item?.SoLuong ?? 0;
             }
-            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
-            var sItem = cart?.FirstOrDefault(c => c.MaTap == id);
-            return UpdateQuantityDB(id, (sItem?.SoLuong ?? 0) + 1);
+            else
+            {
+                var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
+                currentQty = cart?.FirstOrDefault(c => c.MaTap == id)?.SoLuong ?? 0;
+            }
+            return UpdateQuantityDB(id, currentQty + 1);
         }
 
         public IActionResult Decrease(int id)
         {
             var userId = GetUserId();
+            int currentQty = 0;
             if (userId != null)
             {
                 var item = _context.ChiTietGioHangs.FirstOrDefault(ct => ct.MaGioHangNavigation.MaKhachHang == userId && ct.MaTap == id);
-                return UpdateQuantityDB(id, (item?.SoLuong ?? 0) - 1);
+                currentQty = item?.SoLuong ?? 0;
             }
-            var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
-            var sItem = cart?.FirstOrDefault(c => c.MaTap == id);
-            return UpdateQuantityDB(id, (sItem?.SoLuong ?? 0) - 1);
+            else
+            {
+                var cart = HttpContext.Session.GetObject<List<CartItem>>("CART");
+                currentQty = cart?.FirstOrDefault(c => c.MaTap == id)?.SoLuong ?? 0;
+            }
+            return UpdateQuantityDB(id, currentQty - 1);
         }
 
         public IActionResult Remove(int id)

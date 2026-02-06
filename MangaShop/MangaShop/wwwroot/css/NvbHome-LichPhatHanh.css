@@ -1,0 +1,37 @@
+﻿/* Loại bỏ gạch chân cho tất cả link trong bảng */
+.table a {
+    text-decoration: none !important;
+    transition: all 0.2s ease-in-out;
+}
+
+    /* Hiệu ứng khi di chuột vào tên truyện */
+    .table a:hover {
+        color: #007bff !important; /* Đổi sang màu xanh đặc trưng khi hover */
+        text-decoration: none !important; /* Vẫn không hiện gạch chân */
+    }
+
+/* Tùy chỉnh Header bảng cho chuyên nghiệp hơn */
+.table thead th {
+    background-color: #28a745 !important; /* Màu xanh lá đồng bộ với logo */
+    border-bottom: 2px solid #1e7e34;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* Hiệu ứng dòng khi di chuột vào (Row hover) */
+.table-hover tbody tr:hover {
+    background-color: rgba(40, 167, 69, 0.05) !important;
+    cursor: pointer;
+}
+
+/* Căn giữa nội dung cho các cột số lượng/ngày */
+.table td, .table th {
+    vertical-align: middle;
+    padding: 12px 15px;
+}
+
+/* Định dạng giá tiền cho nổi bật */
+.text-danger.font-weight-bold {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

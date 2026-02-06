@@ -1,76 +1,99 @@
-﻿/* ============ cart-chontap.css ============ */
-
-/* Thẻ bao quanh chính */
+﻿/* Container chính */
 .selection-card {
     background: #fff;
     border-radius: 12px;
-    overflow: hidden;
     border: 1px solid #eee;
     margin-bottom: 50px;
 }
 
-/* Container ảnh bên trái */
 .selection-img-container {
     background-color: #f8f9fa;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border-right: 1px solid #f0f0f0;
+    padding: 30px;
 }
 
 .selection-img {
     width: 100%;
-    max-height: 350px;
+    max-height: 450px;
     object-fit: contain;
-    /* Giữ ảnh đứng yên giống danh mục */
-    transition: none;
 }
 
-/* Custom các ô nhập liệu */
-.custom-select, .custom-input {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 10px 12px;
-    transition: all 0.2s;
-}
-
-    .custom-select:focus, .custom-input:focus {
-        border-color: #198754;
-        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
-    }
-
-/* Nút bấm đồng bộ màu xanh lá */
-.btn-success {
-    background-color: #198754;
-    border-color: #198754;
-    transition: background-color 0.2s, transform 0.1s;
-}
-
-    .btn-success:hover {
-        background-color: #157347;
-        border-color: #146c43;
-        transform: translateY(-1px);
-    }
-
-    .btn-success:active {
-        transform: translateY(0);
-    }
-
-/* Hiệu ứng Alert nhẹ nhàng hơn */
-.alert {
+/* Danh sách tập - KHÔNG dùng overflow-hidden ở đây */
+.tap-list-container {
+    max-height: 450px; /* Tăng lên để dễ nhìn */
+    overflow-y: auto;
+    border: 1px solid #f0f0f0;
     border-radius: 8px;
-    font-size: 14px;
+    background: #fff;
+    padding-right: 5px; /* Tạo không gian cho thanh cuộn */
 }
 
-/* Responsive cho Mobile */
-@media (max-width: 767.98px) {
-    .selection-img-container {
-        border-right: none;
-        border-bottom: 1px solid #f0f0f0;
+    /* Tùy chỉnh thanh cuộn đẹp hơn */
+    .tap-list-container::-webkit-scrollbar {
+        width: 6px;
     }
 
-    .selection-img {
-        max-height: 250px;
+    .tap-list-container::-webkit-scrollbar-thumb {
+        background: #198754;
+        border-radius: 10px;
     }
+
+    .tap-list-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+.tap-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #f8f9fa;
+    transition: 0.2s;
+}
+
+    .tap-item:hover {
+        background: #f0fdf4;
+    }
+
+/* Ô nhập số lượng rút gọn */
+.quantity-control {
+    width: 110px;
+    height: 32px;
+    overflow: hidden;
+}
+
+.btn-qty {
+    background: none;
+    border: none;
+    width: 30px;
+    color: #666;
+    font-size: 12px;
+}
+
+    .btn-qty:hover {
+        color: #198754;
+    }
+
+.input-qty {
+    width: 40px !important;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    background: none;
+}
+/* Ẩn mũi tên input number */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.select-all-box {
+    background: #e8f5e9;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #c8e6c9;
+}
+
+.price-summary {
+    background: #f8f9fa;
+    border-radius: 6px;
 }

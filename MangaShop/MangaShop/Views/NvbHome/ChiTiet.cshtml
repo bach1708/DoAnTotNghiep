@@ -28,12 +28,39 @@
 
     <div class="row g-4">
         <div class="col-md-4">
-            <div class="sticky-top" style="top: 20px;">
-                <img src="~/images/@Model.AnhBia" class="img-fluid rounded shadow-sm border" alt="@Model.TenTruyen" />
+            <div class="sticky-top sticky-wrapper" style="top: 120px; z-index: 10;">
+                <div class="main-image-container mb-3">
+                    <img id="mainImg" src="~/images/@Model.AnhBia"
+                         class="img-fluid rounded shadow-sm border w-100"
+                         alt="@Model.TenTruyen"
+                         style="aspect-ratio: 3/4; object-fit: cover; transition: opacity 0.3s ease;" />
+                </div>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-3">
+                        <img src="~/images/@Model.AnhBia"
+                             class="img-thumbnail thumb-img border-success border-2"
+                             onclick="changeImage(this)"
+                             style="height: 65px; width: 100%; object-fit: cover; cursor: pointer;">
+                    </div>
+
+                    @if (Model.TruyenImages != null)
+                    {
+                        @foreach (var img in Model.TruyenImages.OrderBy(x => x.DisplayOrder))
+                        {
+                            <div class="col-3">
+                                <img src="~/images/@img.Path"
+                                     class="img-thumbnail thumb-img"
+                                     onclick="changeImage(this)"
+                                     style="height: 65px; width: 100%; object-fit: cover; cursor: pointer;">
+                            </div>
+                        }
+                    }
+                </div>
 
                 @if (coTap && !hetHang)
                 {
-                    <div class="d-grid mt-3">
+                    <div class="d-grid shadow-sm">
                         <a asp-controller="Cart" asp-action="ChonTap" asp-route-id="@Model.MaTruyen"
                            asp-route-returnUrl="@Context.Request.Path" class="btn btn-success btn-lg fw-bold">
                             🛒 CHỌN TẬP
@@ -184,3 +211,31 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        function changeImage(element) {
+            // 1. Lấy đường dẫn ảnh từ thẻ thumbnail vừa click
+            var newSrc = element.src;
+
+            // 2. Cập nhật ảnh chính
+            var mainImg = document.getElementById('mainImg');
+
+            // Thêm hiệu ứng mờ dần khi đổi ảnh (tùy chọn)
+            mainImg.style.opacity = '0.5';
+
+            setTimeout(function() {
+                mainImg.src = newSrc;
+                mainImg.style.opacity = '1';
+            }, 100);
+
+            // 3. Thay đổi style border để người dùng biết ảnh nào đang được chọn
+            // Xóa hết border xanh của các ảnh phụ khác
+            document.querySelectorAll('.thumb-img').forEach(img => {
+                img.classList.remove('border-success', 'border-2');
+            });
+
+            // Thêm border xanh cho ảnh vừa click
+            element.classList.add('border-success', 'border-2');
+        }
+    </script>
+}

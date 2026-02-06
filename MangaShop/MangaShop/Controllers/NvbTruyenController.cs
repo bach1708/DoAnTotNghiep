@@ -55,7 +55,11 @@ namespace MangaShop.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var truyen = _context.Truyens.Find(id);
+            // Thêm Include để nạp danh sách ảnh phụ từ Database lên View
+            var truyen = _context.Truyens
+                .Include(t => t.TruyenImages)
+                .FirstOrDefault(t => t.MaTruyen == id);
+
             if (truyen == null) return NotFound();
 
             ViewBag.TheLoai = new SelectList(_context.TheLoais, "MaTheLoai", "TenTheLoai", truyen.MaTheLoai);
@@ -64,15 +68,72 @@ namespace MangaShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("MaTruyen,TenTruyen,TacGia,Gia,MaTheLoai,MoTa,AnhBia,LoaiTruyen")] Truyen truyen)
+        public async Task<IActionResult> Edit(int id, [Bind("MaTruyen,TenTruyen,TacGia,Gia,MaTheLoai,MoTa,LoaiTruyen")] Truyen truyen, IFormFile coverImage, List<IFormFile> newImages)
         {
+            if (id != truyen.MaTruyen) return NotFound();
+
             if (ModelState.IsValid)
             {
-                _context.Truyens.Update(truyen);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
+                try
+                {
+                    var existingTruyen = await _context.Truyens.FirstOrDefaultAsync(t => t.MaTruyen == id);
+                    if (existingTruyen == null) return NotFound();
 
+                    // Cập nhật thông tin cơ bản
+                    existingTruyen.TenTruyen = truyen.TenTruyen;
+                    existingTruyen.TacGia = truyen.TacGia;
+                    existingTruyen.Gia = truyen.Gia;
+                    existingTruyen.MaTheLoai = truyen.MaTheLoai;
+                    existingTruyen.MoTa = truyen.MoTa;
+                    existingTruyen.LoaiTruyen = truyen.LoaiTruyen;
+
+                    // --- XỬ LÝ UPLOAD ẢNH BÌA MỚI ---
+                    if (coverImage != null && coverImage.Length > 0)
+                    {
+                        // Tạo tên file duy nhất
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(coverImage.FileName);
+                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await coverImage.CopyToAsync(stream);
+                        }
+
+                        // Cập nhật tên file vào database
+                        existingTruyen.AnhBia = fileName;
+                    }
+
+                    // --- XỬ LÝ NHIỀU ẢNH PHỤ (Giữ nguyên logic cũ của bạn) ---
+                    if (newImages != null && newImages.Count > 0)
+                    {
+                        foreach (var file in newImages)
+                        {
+                            string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await file.CopyToAsync(stream);
+                            }
+
+                            _context.TruyenImages.Add(new TruyenImages
+                            {
+                                MaTruyen = truyen.MaTruyen,
+                                Path = fileName,
+                                DisplayOrder = 0
+                            });
+                        }
+                    }
+
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.Truyens.Any(e => e.MaTruyen == truyen.MaTruyen)) return NotFound();
+                    else throw;
+                }
+            }
             ViewBag.TheLoai = new SelectList(_context.TheLoais, "MaTheLoai", "TenTheLoai", truyen.MaTheLoai);
             return View(truyen);
         }
@@ -124,48 +185,12 @@ namespace MangaShop.Controllers
 
             return RedirectToAction(nameof(Trash)); // hoặc Index tùy bạn
         }
-
-
-        // ================== NHAPKHO ==================
-        public IActionResult NhapKho()
-        {
-            var data = _context.Truyens.Select(t => new NhapKhoVM
-            {
-                MaTruyen = t.MaTruyen,
-                TenTruyen = t.TenTruyen,
-                AnhBia = t.AnhBia,
-                SoLuongTon = t.SoLuongTon,
-                SoLuongNhap = 0
-            }).ToList();
-
-            return View(data);
-        }
-
-        [HttpPost]
-        public IActionResult NhapKho(List<NhapKhoVM> model)
-        {
-            foreach (var item in model)
-            {
-                if (item.SoLuongNhap > 0)
-                {
-                    var truyen = _context.Truyens
-                        .FirstOrDefault(t => t.MaTruyen == item.MaTruyen);
-
-                    if (truyen != null)
-                    {
-                        truyen.SoLuongTon += item.SoLuongNhap;
-                    }
-                }
-            }
-
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
         // ================== NHAPKHO THEO TẬP ==================
         [HttpGet]
         public IActionResult NhapKhoTap()
         {
             var data = _context.Truyens
+                .Where(t => !t.IsDeleted)
                 .Include(t => t.TruyenTaps)
                 .Select(t => new NhapKhoTapTruyenVM
                 {
@@ -189,31 +214,39 @@ namespace MangaShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult NhapKhoTap(List<NhapKhoTapTruyenVM> model)
+        public async Task<IActionResult> NhapKhoTap(List<NhapKhoTapTruyenVM> model)
         {
-            if (model == null || model.Count == 0)
-                return RedirectToAction("NhapKhoTap");
+            if (model == null) return RedirectToAction("NhapKhoTap");
 
             foreach (var tr in model)
             {
-                // ✅ Truyện không có tập => bỏ qua, không lỗi
-                if (tr.Taps == null || tr.Taps.Count == 0)
-                    continue;
+                if (tr.Taps == null) continue;
 
+                int tongNhapCuaTruyenNay = 0;
                 foreach (var tapVm in tr.Taps)
                 {
-                    if (tapVm.SoLuongNhap <= 0)
-                        continue;
+                    if (tapVm.SoLuongNhap <= 0) continue;
 
-                    var tap = _context.TruyenTaps.FirstOrDefault(x => x.MaTap == tapVm.MaTap);
+                    var tap = await _context.TruyenTaps.FirstOrDefaultAsync(x => x.MaTap == tapVm.MaTap);
                     if (tap != null)
                     {
                         tap.SoLuongTon += tapVm.SoLuongNhap;
+                        tongNhapCuaTruyenNay += tapVm.SoLuongNhap; // Cộng dồn để update vào bảng Truyens
+                    }
+                }
+
+                // Cập nhật tổng tồn vào bảng Truyens để hiển thị ở trang chủ không bị mất dữ liệu
+                if (tongNhapCuaTruyenNay > 0)
+                {
+                    var truyen = await _context.Truyens.FindAsync(tr.MaTruyen);
+                    if (truyen != null)
+                    {
+                        truyen.SoLuongTon += tongNhapCuaTruyenNay;
                     }
                 }
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
         // Thêm số lượng tập
@@ -237,8 +270,10 @@ namespace MangaShop.Controllers
 
         // 2. Xử lý lưu tập mới
         [HttpPost]
+        [ValidateAntiForgeryToken] // Nên thêm cái này để bảo mật
         public IActionResult ThemTap(ThemTapVM model)
         {
+            // Kiểm tra ModelState xem các trường bắt buộc như MaTruyen, SoTap đã có chưa
             if (ModelState.IsValid)
             {
                 // 1. Thêm vào bảng TruyenTap
@@ -247,6 +282,7 @@ namespace MangaShop.Controllers
                     MaTruyen = model.MaTruyen,
                     SoTap = model.SoTapTiepTheo,
                     Gia = model.Gia,
+                    // Nếu model.SoLuongThem null hoặc không nhập, mặc định là 0
                     SoLuongTon = model.SoLuongThem
                 };
                 _context.TruyenTaps.Add(moi);
@@ -255,15 +291,46 @@ namespace MangaShop.Controllers
                 var truyen = _context.Truyens.Find(model.MaTruyen);
                 if (truyen != null)
                 {
+                    // Cộng thêm số lượng mới vào tổng (nếu là 0 thì tổng không đổi)
+                    // Điều này giúp truyện vẫn tồn tại nhưng tập mới nhất sẽ có tồn = 0 -> Hiện ở "Sắp phát hành"
                     truyen.SoLuongTon += model.SoLuongThem;
                 }
 
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            // Nếu có lỗi (ví dụ chưa nhập Số tập), trả lại View cùng với thông báo
             return View(model);
         }
 
+        // Action xóa ảnh phụ
+        [HttpGet]
+        public async Task<IActionResult> DeleteImage(int id)
+        {
+            // Tìm ảnh theo Id (đúng với Model bạn vừa gửi)
+            var image = await _context.TruyenImages.FindAsync(id);
 
+            if (image != null)
+            {
+                int maTruyen = image.MaTruyen; // Lưu lại mã truyện để quay về trang Edit
+
+                // 1. Xóa file vật lý trong thư mục wwwroot/images
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", image.Path);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+
+                // 2. Xóa dữ liệu trong database
+                _context.TruyenImages.Remove(image);
+                await _context.SaveChangesAsync();
+
+                // Quay lại trang Edit của truyện vừa rồi
+                return RedirectToAction("Edit", new { id = maTruyen });
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MangaShop.Models.LichPhatHanh>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Danh sách lịch phát hành";
+}
+
+<link rel="stylesheet" href="~/css/LichPhatHanhAdmin-Index.css" />
+
+<div class="container-admin-1600">
+    @* Header: Tiêu đề và Nút quay lại *@
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+        <div>
+            <h2 class="page-title">📅 QUẢN LÝ LỊCH PHÁT HÀNH</h2>
+            <p class="text-muted small">Cập nhật và theo dõi thời gian phát hành các tập truyện mới nhất</p>
+        </div>
+        <a asp-controller="NvbAdmin" asp-action="Index" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+    </div>
+
+    @* Filter/Action Bar *@
+    <div class="filter-card shadow-sm mb-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="text-muted italic small">
+                <i class="fas fa-info-circle me-1"></i> Danh sách được sắp xếp theo thời gian đăng mới nhất.
+            </div>
+            <a class="btn-save-status px-4 decoration-none" asp-action="Create">
+                <i class="fas fa-plus fa-sm me-1"></i> Thêm lịch mới
+            </a>
+        </div>
+    </div>
+
+    @* Table Card *@
+    <div class="table-card shadow-sm">
+        <table class="table custom-table-order">
+            <thead>
+                <tr>
+                    @* Cột 1: Ngày đăng (NgayTao) *@
+                    <th class="text-start ps-4">Ngày đăng</th>
+                    <th class="text-start">Truyện</th>
+                    <th>Tập</th>
+                    @* Cột mới: Ngày phát hành (NgayPhatHanh) *@
+                    <th>Ngày phát hành</th>
+                    <th>Giá dự kiến</th>
+                    <th style="width: 20%">Ghi chú</th>
+                    <th>Trạng thái</th>
+                    <th style="width: 120px">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @* Hiển thị Ngày tạo hệ thống *@
+                        <td class="text-start ps-4 text-muted small">
+                            @item.NgayTao.ToString("dd/MM/yyyy HH:mm")
+                        </td>
+                        <td class="text-start">
+                            <span class="customer-link fw-bold">@(item.MaTruyenNavigation?.TenTruyen ?? "N/A")</span>
+                        </td>
+                        <td>
+                            <span class="badge-chapter">Tập @item.MaTap</span>
+                        </td>
+                        @* Hiển thị Ngày ra truyện dự kiến *@
+                        <td class="fw-bold text-success">
+                            @item.NgayPhatHanh.ToString("dd/MM/yyyy")
+                        </td>
+                        <td class="fw-bold">
+                            @(item.GiaDuKien?.ToString("N0") ?? "0")đ
+                        </td>
+                        <td>
+                            <div class="text-truncate-2 small text-muted italic" title="@item.GhiChu">
+                                @(string.IsNullOrEmpty(item.GhiChu) ? "---" : item.GhiChu)
+                            </div>
+                        </td>
+                        <td>
+                            @if (item.TrangThai)
+                            {
+                                <span class="badge-status-active">Hiện</span>
+                            }
+                            else
+                            {
+                                <span class="badge-status-hidden">Ẩn</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a asp-action="Edit" asp-route-id="@item.MaLich" class="action-link text-dark decoration-none" title="Sửa">
+                                    <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                </a>
+                                <form asp-action="Delete" asp-route-id="@item.MaLich" method="post" onsubmit="return confirm('Xác nhận xóa lịch phát hành này?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="action-link border-0 bg-transparent text-danger p-0" title="Xóa">
+                                        <i class="fa-solid fa-trash-can"></i> Xóa
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

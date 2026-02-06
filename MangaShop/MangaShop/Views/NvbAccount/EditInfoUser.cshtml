@@ -4,43 +4,125 @@
     ViewData["Title"] = "Sửa thông tin cá nhân";
 }
 
-<h2 class="mb-4">✏️ Sửa thông tin cá nhân</h2>
-
-@if (ViewBag.Success != null)
-{
-    <div class="alert alert-success">@ViewBag.Success</div>
+@section Styles {
+    @* Dùng asp-append-version để đảm bảo CSS luôn mới nhất, không bị dính cache *@
+    <link rel="stylesheet" href="~/css/NvbAcount-Edit-InforUser.css" asp-append-version="true" />
 }
 
-<form asp-action="EditInfoUser" method="post">
-    @Html.AntiForgeryToken()
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="edit-profile-card shadow-sm">
+                <h2 class="text-center mb-4 fw-bold">CHỈNH SỬA HỒ SƠ</h2>
 
-    <div class="mb-3">
-        <label>Họ tên</label>
-        <input asp-for="HoTen" class="form-control" />
+                @if (ViewBag.Success != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fa-solid fa-circle-check me-2"></i> @ViewBag.Success
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @* Quan trọng: enctype="multipart/form-data" để gửi được file ảnh *@
+                <form asp-action="EditInfoUser" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    @* Các trường ẩn để Model Mapping đúng đối tượng và không mất dữ liệu quan trọng *@
+                    <input type="hidden" asp-for="MaKhachHang" />
+                    <input type="hidden" asp-for="MatKhau" />
+                    <input type="hidden" asp-for="NgayTao" />
+
+                    <div class="avatar-upload">
+                        <div class="avatar-edit">
+                            @* Name="fAvatar" phải khớp với tham số trong Controller *@
+                            <input type='file' id="imageUpload" name="fAvatar" accept=".png, .jpg, .jpeg" />
+                            <label for="imageUpload"><i class="fa-solid fa-camera"></i></label>
+                        </div>
+                        <div class="avatar-preview">
+                            @if (!string.IsNullOrEmpty(Model.AnhDaiDien))
+                            {
+                                <img id="imagePreview" src="~/images/avatars/@Model.AnhDaiDien" alt="Avatar" />
+                            }
+                            else
+                            {
+                                <img id="imagePreview" src="/images/default-avatar.png" alt="Default Avatar" />
+                            }
+                        </div>
+                        <p class="text-center text-muted small mt-2">Thay đổi ảnh đại diện</p>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Họ và tên <span class="text-danger">*</span></label>
+                            <input asp-for="HoTen" class="form-control rounded-pill" placeholder="Nhập họ tên..." required />
+                            <span asp-validation-for="HoTen" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Số điện thoại</label>
+                            <input asp-for="SoDienThoai" class="form-control rounded-pill" placeholder="09xxxxxxxx" />
+                            <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Địa chỉ Email</label>
+                        @* Email thường để readonly vì là tài khoản đăng nhập *@
+                        <input asp-for="Email" class="form-control rounded-pill" readonly style="background-color: #f8f9fa;" />
+                        <div class="form-text text-muted">Email là định danh tài khoản và không thể thay đổi.</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Địa chỉ giao hàng</label>
+                        <textarea asp-for="DiaChi" class="form-control" rows="3"
+                                  style="border-radius: 15px;" placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success flex-grow-1 rounded-pill fw-bold py-2">
+                            <i class="fa-solid fa-floppy-disk me-2"></i> LƯU THAY ĐỔI
+                        </button>
+                        <a asp-controller="NvbHome" asp-action="ThanhVienCuaToi"
+                           class="btn btn-outline-secondary rounded-pill px-4 py-2">
+                            Hủy bỏ
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label>Email</label>
-        <input asp-for="Email" class="form-control" />
-    </div>
+@section Scripts {
+    <script>
+        // JS thuần xử lý xem trước ảnh ngay lập tức
+        document.getElementById("imageUpload").onchange = function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                // Hiệu ứng mờ nhẹ khi đổi ảnh
+                const preview = document.getElementById("imagePreview");
+                preview.style.opacity = '0.5';
+                preview.src = e.target.result;
+                setTimeout(() => { preview.style.opacity = '1'; }, 100);
+            };
+            if(this.files[0]) {
+                reader.readAsDataURL(this.files[0]);
+            }
+        };
 
-    <div class="mb-3">
-        <label>Số điện thoại</label>
-        <input asp-for="SoDienThoai" class="form-control" />
-    </div>
+        // Tự động đóng thông báo thành công sau 4 giây
+        setTimeout(function() {
+            let alert = document.querySelector(".alert");
+            if(alert) {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }
+        }, 4000);
+    </script>
 
-    <div class="mb-3">
-        <label>Địa chỉ</label>
-        <input asp-for="DiaChi" class="form-control" />
-    </div>
+    @* Load các script validation của Microsoft để kiểm tra dữ liệu phía Client *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
-    <button type="submit" class="btn btn-primary">
-        💾 Lưu thay đổi
-    </button>
+    }
 
-    <a asp-controller="NvbHome"
-       asp-action="ThanhVienCuaToi"
-       class="btn btn-secondary">
-        ⬅ Quay lại
-    </a>
-</form>
+}

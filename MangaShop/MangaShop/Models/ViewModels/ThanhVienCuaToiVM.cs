@@ -6,6 +6,7 @@
         public string Email { get; set; } = "";
         public string? SoDienThoai { get; set; }
         public string? DiaChi { get; set; }
+        public string? AnhDaiDien { get; set; }
 
         public double TongChiTieu { get; set; }
         public int SoDonHang { get; set; }

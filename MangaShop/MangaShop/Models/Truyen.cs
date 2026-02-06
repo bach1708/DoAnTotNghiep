@@ -44,6 +44,9 @@ public partial class Truyen
     public virtual TacGia? MaTacGiaNavigation { get; set; }
 
     public virtual TheLoai? MaTheLoaiNavigation { get; set; }
+    public virtual ICollection<LichPhatHanh> LichPhatHanhs { get; set; } = new List<LichPhatHanh>();
+    public virtual ICollection<TruyenImages> TruyenImages { get; set; } = new List<TruyenImages>();
+
     public bool IsDeleted { get; set; }
 
 }

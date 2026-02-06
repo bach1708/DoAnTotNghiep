@@ -9,71 +9,109 @@
 
 <div class="main-wrapper">
     <div class="admin-container">
+        @* Header *@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h2 class="page-title">Chỉnh sửa thông tin</h2>
-                <p class="text-muted small mb-0">Thay đổi thông tin chi tiết</p>
+                <h2 class="page-title">Chỉnh sửa thông tin bộ truyện</h2>
+                <p class="text-muted small mb-0">Cập nhật nội dung, ảnh bìa và bộ sưu tập hình ảnh</p>
             </div>
             <div class="action-group d-flex gap-2">
-                <a asp-action="NhapKhoTap" asp-route-maTruyen="@Model.MaTruyen" class="btn btn-success">Quản lý tập</a>
-                <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i></a>
+                <a asp-action="ThemTap" asp-route-id="@Model.MaTruyen" class="btn btn-success">
+                    <i class="fa-solid fa-plus me-1"></i>Thêm tập mới
+                </a>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fa-solid fa-arrow-left me-1"></i>
+                </a>
             </div>
         </div>
 
         <div class="edit-card shadow-sm">
-            <form asp-action="Edit" method="post">
+            <form asp-action="Edit" method="post" enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 <input type="hidden" asp-for="MaTruyen" />
+                @* Lưu lại tên ảnh cũ để nếu không chọn ảnh mới thì không bị mất *@
+                <input type="hidden" asp-for="AnhBia" />
 
                 <div class="row">
-                    <div class="col-md-3 border-end">
-                        <div class="form-group-custom text-center">
-                            <label class="form-label text-center">Ảnh bìa hiện tại</label>
-                            <div class="preview-box mb-3">
+                    @* CỘT TRÁI: QUẢN LÝ HÌNH ẢNH *@
+                    <div class="col-md-4 border-end">
+                        @* 1. Ảnh bìa chính *@
+                        <div class="form-group-custom text-center mb-4">
+                            <label class="form-label fw-bold text-primary">
+                                <i class="fa-solid fa-image me-2"></i>ẢNH BÌA ĐẠI DIỆN
+                            </label>
+                            <div class="preview-box my-3 p-2 border rounded bg-light">
                                 @if (!string.IsNullOrEmpty(Model.AnhBia))
                                 {
-                                    <img src="~/images/@Model.AnhBia" class="img-preview shadow-sm" id="cover-preview" />
+                                    <img src="~/images/@Model.AnhBia" class="img-fluid shadow-sm" id="cover-preview" style="max-height: 350px; border-radius: 5px;" />
                                 }
                                 else
                                 {
-                                    <div class="no-image">Chưa có ảnh</div>
+                                    <img src="~/images/no-image.png" class="img-fluid shadow-sm" id="cover-preview" style="max-height: 350px;" />
                                 }
                             </div>
-                            <input asp-for="AnhBia" class="form-input-dark" placeholder="Ten-file-anh.jpg" />
-                            <span asp-validation-for="AnhBia" class="text-danger small"></span>
+                            <div class="px-3">
+                                <input type="file" name="coverImage" id="coverImageInput" class="form-control" accept="image/*" />
+                                <p class="text-muted small mt-2 italic">* Chọn file ảnh mới để thay thế ảnh bìa hiện tại</p>
+                            </div>
                         </div>
 
-                        <div class="form-group-custom">
-                            <label class="form-label">Loại hình</label>
-                            <select asp-for="LoaiTruyen" class="form-select-dark">
-                                <option value="0">📖 Truyện Tranh</option>
-                                <option value="1">📝 Truyện Chữ</option>
-                            </select>
-                        </div>
+                        <hr />
 
-                        <div class="form-group-custom">
-                            <label class="form-label">Thể loại</label>
-                            <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select-dark"></select>
+                        @* 2. Quản lý ảnh phụ (Gallery) *@
+                        <div class="form-group-custom mt-4 px-2">
+                            <label class="form-label fw-bold text-success">
+                                <i class="fa-solid fa-images me-2"></i>ẢNH PHỤ (GALLERY)
+                            </label>
+
+                            <div class="row g-2 mb-3 p-2 border rounded bg-light" style="max-height: 300px; overflow-y: auto;">
+                                @if (Model.TruyenImages != null && Model.TruyenImages.Any())
+                                {
+                                    @foreach (var img in Model.TruyenImages.OrderBy(x => x.DisplayOrder))
+                                    {
+                                        <div class="col-4 text-center position-relative mb-2">
+                                            <div class="gallery-item-wrapper border rounded p-1 bg-white shadow-sm">
+                                                <img src="~/images/@img.Path" class="img-thumbnail border-0" style="height: 80px; width: 100%; object-fit: cover;" />
+                                                <a asp-action="DeleteImage" asp-route-id="@img.Id"
+                                                   onclick="return confirm('Xóa ảnh phụ này khỏi bộ sưu tập?')"
+                                                   class="btn btn-sm btn-danger w-100 mt-1 py-0">
+                                                    <i class="fa-solid fa-trash-can" style="font-size: 10px;"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <div class="col-12 text-center py-3 text-muted small italic">Chưa có ảnh phụ.</div>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label class="small fw-bold">Thêm nhiều ảnh phụ mới:</label>
+                                <input name="newImages" type="file" multiple class="form-control form-control-sm" accept="image/*" />
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col-md-9 ps-md-4">
-                        <div class="form-group-custom">
+                    @* CỘT PHẢI: THÔNG TIN CHI TIẾT *@
+                    <div class="col-md-8 ps-md-4">
+                        <div class="form-group-custom mb-3">
                             <label class="form-label">Tên bộ truyện</label>
-                            <input asp-for="TenTruyen" class="form-input-dark form-control-lg" style="font-weight: 600;" />
+                            <input asp-for="TenTruyen" class="form-input-dark form-control-lg fw-bold" placeholder="Nhập tên truyện..." />
                             <span asp-validation-for="TenTruyen" class="text-danger small"></span>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group-custom">
+                                <div class="form-group-custom mb-3">
                                     <label class="form-label">Tác giả</label>
-                                    <input asp-for="TacGia" class="form-input-dark" />
+                                    <input asp-for="TacGia" class="form-input-dark" placeholder="Tên tác giả..." />
                                     <span asp-validation-for="TacGia" class="text-danger small"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group-custom">
+                                <div class="form-group-custom mb-3">
                                     <label class="form-label">Giá niêm yết (VNĐ)</label>
                                     <input asp-for="Gia" class="form-input-dark" type="number" />
                                     <span asp-validation-for="Gia" class="text-danger small"></span>
@@ -81,14 +119,34 @@
                             </div>
                         </div>
 
-                        <div class="form-group-custom">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group-custom mb-3">
+                                    <label class="form-label">Loại hình</label>
+                                    <select asp-for="LoaiTruyen" class="form-select-dark">
+                                        <option value="0">📖 Truyện Tranh (Manga/Comic)</option>
+                                        <option value="1">📝 Truyện Chữ (Light Novel)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group-custom mb-3">
+                                    <label class="form-label">Thể loại chính</label>
+                                    <select asp-for="MaTheLoai" asp-items="ViewBag.TheLoai" class="form-select-dark"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-custom mb-4">
                             <label class="form-label">Mô tả nội dung</label>
-                            <textarea asp-for="MoTa" class="form-input-dark" rows="10" placeholder="Nhập tóm tắt nội dung..."></textarea>
+                            <textarea asp-for="MoTa" class="form-input-dark" rows="12" placeholder="Nhập tóm tắt nội dung cốt truyện..."></textarea>
                             <span asp-validation-for="MoTa" class="text-danger small"></span>
                         </div>
 
-                        <div class="form-footer mt-2">
-                            <button type="submit" class="btn btn-primary btn-lg px-5">Cập nhật</button>
+                        <div class="form-footer border-top pt-4 text-end">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 shadow">
+                                <i class="fa-solid fa-floppy-disk me-2"></i>Lưu tất cả thay đổi
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -101,4 +159,14 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // JS để Preview ảnh bìa ngay lập tức khi Admin chọn file từ máy tính
+        document.getElementById('coverImageInput').onchange = evt => {
+            const [file] = document.getElementById('coverImageInput').files;
+            if (file) {
+                // Tạo đường dẫn tạm thời và gán vào thẻ img
+                document.getElementById('cover-preview').src = URL.createObjectURL(file);
+            }
+        }
+    </script>
 }

@@ -41,16 +41,28 @@
                         <td class="text-price">@item.TongTien.ToString("N0") ₫</td>
                         <td class="small">@item.PhuongThucThanhToan</td>
                         <td>
-                            <form asp-action="UpdateStatus" method="post" class="status-box">
+                            @{
+                                // Kiểm tra xem đơn hàng đã đóng chưa
+                                bool isClosed = item.TrangThai == "Huỷ" || item.TrangThai == "Hoàn thành";
+                                // Xác định class màu sắc dựa trên trạng thái
+                                string statusClass = "";
+                                if (item.TrangThai == "Hoàn thành") statusClass = "status-finished";
+                                if (item.TrangThai == "Huỷ") statusClass = "status-cancelled";
+                            }
+
+                            <form asp-action="UpdateStatus" method="post" class="status-box @statusClass">
+                                @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@item.MaDonHang" />
                                 <div class="input-group input-group-sm">
-                                    <select name="trangThai" class="form-select status-select">
+                                    <select name="trangThai" class="form-select status-select" @(isClosed ? "disabled" : "")>
                                         <option value="Chờ xử lý" selected="@(item.TrangThai == "Chờ xử lý")">Chờ xử lý</option>
                                         <option value="Đang giao" selected="@(item.TrangThai == "Đang giao")">Đang giao</option>
                                         <option value="Hoàn thành" selected="@(item.TrangThai == "Hoàn thành")">Hoàn thành</option>
                                         <option value="Huỷ" selected="@(item.TrangThai == "Huỷ")">Huỷ</option>
                                     </select>
-                                    <button class="btn btn-save-status">✔</button>
+                                    <button type="submit" class="btn btn-save-status" @(isClosed ? "disabled" : "")>
+                                        @(isClosed ? "🔒" : "✔")
+                                    </button>
                                 </div>
                             </form>
                         </td>
@@ -64,4 +76,38 @@
             </tbody>
         </table>
     </div>
+    @* ... Code bảng giữ nguyên ... *@
+</div>
+
+@* Phân trang *@
+@if (ViewBag.TotalPages > 1)
+{
+    <div class="pagination-container d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination custom-pagination">
+                @* Nút Quay lại *@
+                <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="BillAdmin" asp-route-page="@(ViewBag.CurrentPage - 1)">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                </li>
+
+                @* Danh sách số trang *@
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                        <a class="page-link" asp-action="BillAdmin" asp-route-page="@i">@i</a>
+                    </li>
+                }
+
+                @* Nút Tiếp *@
+                <li class="page-item @(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                    <a class="page-link" asp-action="BillAdmin" asp-route-page="@(ViewBag.CurrentPage + 1)">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}
 </div>

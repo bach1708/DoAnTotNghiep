@@ -5,39 +5,53 @@
     Layout = "_AdminLayout";
 }
 
-<h2 class="mb-3">📚 Quản lý thể loại</h2>
+<link rel="stylesheet" href="~/css/NvbTheLoai-Index.css" />
 
-<a asp-action="Create" class="btn btn-success mb-3">
-    ➕ Thêm thể loại
-</a>
-<a asp-controller="NvbAdmin"
-   asp-action="Index"
-   class="btn btn-secondary">
-    ⬅️ Quay lại
-</a>
+<div class="container-admin-1600">
+    @* Header *@
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+        <div>
+            <h2 class="page-title">DANH MỤC THỂ LOẠI</h2>
+            <p class="text-muted small">Quản lý các nhóm thể loại truyện trên hệ thống</p>
+        </div>
+        <div class="header-actions">
+            <a asp-action="Create" class="btn-add-new">
+                <i class="fa-solid fa-plus me-2"></i> THÊM THỂ LOẠI
+            </a>
+            <a asp-controller="NvbAdmin" asp-action="Index" class="btn-back-square ms-2">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
 
-<table class="table table-bordered text-center align-middle">
-    <thead class="table-dark">
-        <tr>
-            <th>Mã</th>
-            <th>Tên thể loại</th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaTheLoai</td>
-                <td>@item.TenTheLoai</td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@item.MaTheLoai"
-                       class="btn btn-warning btn-sm">
-                        ✏️ Sửa
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    @* Table Card *@
+    <div class="table-card shadow-sm">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th style="width: 100px;">MÃ SỐ</th>
+                    <th class="text-start">TÊN THỂ LOẠI</th>
+                    <th style="width: 150px;">HÀNH ĐỘNG</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold text-muted">#@item.MaTheLoai</td>
+                        <td class="text-start">
+                            <span class="category-name">@item.TenTheLoai</span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-id="@item.MaTheLoai" class="btn-edit-inline" title="Chỉnh sửa">
+                                    <i class="fa-solid fa-pen-to-square"></i> SỬA
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

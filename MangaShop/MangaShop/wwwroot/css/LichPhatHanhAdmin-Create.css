@@ -1,0 +1,143 @@
+﻿/* Container & Title */
+.container-admin-1600 {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page-title {
+    font-weight: 800;
+    color: #333;
+    letter-spacing: -0.5px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Card Style */
+.form-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+/* Form Controls */
+.form-label-custom {
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-select-custom {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #444;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    transition: border-color 0.2s;
+}
+
+    .form-select-custom:focus {
+        border-color: #000;
+        outline: 0;
+    }
+
+/* Buttons (Đồng bộ trang Index) */
+.btn-save-status {
+    background-color: #333;
+    border: 1px solid #333;
+    color: #ffffff;
+    font-weight: 600;
+    height: 45px;
+    padding: 0 25px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .btn-save-status:hover {
+        background-color: #000;
+        border-color: #000;
+    }
+
+.btn-back {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 8px 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    font-size: 14px;
+}
+
+    .btn-back:hover {
+        color: #333;
+        border-color: #333;
+        background-color: #fafafa;
+    }
+
+/* Image Preview Area */
+.img-preview-box {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 2/3;
+    border: 1px solid #eee;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+}
+
+    .img-preview-box img {
+        max-height: 100%;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+
+/* Badge & Extras */
+.badge-chapter {
+    background-color: #f8f9fa;
+    color: #666;
+    border: 1px solid #eee;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.form-footer {
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Custom Checkbox */
+.form-check-input:checked {
+    background-color: #333;
+    border-color: #333;
+}

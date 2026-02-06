@@ -142,6 +142,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiSG9tZVxWZUNodW5nVG9pLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbLichPhatHanhAdmin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiTGljaFBoYXRIYW5oQWRtaW5cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbLichPhatHanhAdmin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiTGljaFBoYXRIYW5oQWRtaW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbLichPhatHanhAdmin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiTGljaFBoYXRIYW5oQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbTheLoai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiVGhlTG9haVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -192,10 +204,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbTruyen/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiVHJ1eWVuXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbTruyen/NhapKho.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTnZiVHJ1eWVuXE5oYXBLaG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/admin/Desktop/DATN/MangaShop/MangaShop/Views/NvbTruyen/NhapKhoTap.cshtml]

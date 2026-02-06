@@ -1,0 +1,140 @@
+﻿/* Tổng thể Card chỉnh sửa */
+.edit-profile-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: none;
+}
+
+    .edit-profile-card h2 {
+        color: #333;
+        font-size: 24px;
+        letter-spacing: 1px;
+        margin-bottom: 30px;
+    }
+
+/* --- PHẦN AVATAR (TRÒN) --- */
+.avatar-upload {
+    position: relative;
+    max-width: 150px;
+    margin: 0 auto 30px auto;
+}
+
+/* Nút icon Camera */
+.avatar-edit {
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+    bottom: 10px;
+}
+
+    .avatar-edit input {
+        display: none; /* Ẩn input file mặc định */
+    }
+
+    .avatar-edit label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        margin-bottom: 0;
+        border-radius: 50%;
+        background: #198754; /* Màu xanh đồng bộ nút Save */
+        border: 3px solid #ffffff;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+        cursor: pointer;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+        .avatar-edit label:hover {
+            background: #146c43;
+            transform: scale(1.1);
+        }
+
+/* Khung hiển thị ảnh */
+.avatar-preview {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border-radius: 50%;
+    border: 5px solid #f8f9fa;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Cắt ảnh thừa để luôn tròn */
+}
+
+    .avatar-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover !important; /* QUAN TRỌNG: Giữ tỉ lệ ảnh không bị móp */
+        display: block;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+/* --- PHẦN FORM NHẬP LIỆU --- */
+.form-label {
+    margin-left: 10px;
+    color: #495057;
+    font-size: 14px;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    padding: 12px 20px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+    .form-control:focus {
+        border-color: #198754;
+        box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.1);
+    }
+
+    .form-control.rounded-pill {
+        border-radius: 50px !important;
+    }
+
+textarea.form-control {
+    padding: 15px 20px;
+}
+
+/* --- NÚT BẤM --- */
+.btn-success {
+    background-color: #198754;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+    .btn-success:hover {
+        background-color: #146c43;
+        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+        transform: translateY(-1px);
+    }
+
+.btn-outline-secondary {
+    border-color: #ced4da;
+    color: #6c757d;
+}
+
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+        color: #333;
+        border-color: #adb5bd;
+    }
+
+/* Thông báo thành công */
+.alert {
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 576px) {
+    .edit-profile-card {
+        padding: 20px;
+    }
+}

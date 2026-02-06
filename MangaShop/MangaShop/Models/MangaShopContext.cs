@@ -41,6 +41,9 @@ public partial class MangaShopContext : DbContext
 
     public virtual DbSet<BaiViet> BaiViets { get; set; }
 
+    public virtual DbSet<LichPhatHanh> LichPhatHanhs { get; set; }
+
+    public virtual DbSet<TruyenImages> TruyenImages { get; set; }
     public virtual DbSet<PhieuNhap> PhieuNhaps { get; set; } = null!;
     public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; } = null!;
 
@@ -278,6 +281,43 @@ public partial class MangaShopContext : DbContext
                   .HasForeignKey(d => d.MaTap)
                   .HasConstraintName("FK_DanhGia_TruyenTap");
         });
+        modelBuilder.Entity<LichPhatHanh>(entity =>
+        {
+            entity.HasKey(e => e.MaLich);
+
+            entity.ToTable("LichPhatHanh");
+
+            entity.Property(e => e.NgayPhatHanh)
+                .HasColumnType("date");
+
+            entity.Property(e => e.GiaDuKien)
+                .HasColumnType("decimal(18,2)");
+
+            entity.Property(e => e.GhiChu)
+                .HasMaxLength(255);
+
+            entity.Property(e => e.TrangThai)
+                .HasDefaultValue(true);
+
+            entity.Property(e => e.NgayTao)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("(getdate())");
+
+            entity.Property(e => e.NgayCapNhat)
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.MaTruyenNavigation)
+                .WithMany(p => p.LichPhatHanhs) // nếu bạn đã thêm ICollection ở Truyen
+                .HasForeignKey(d => d.MaTruyen)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LichPhatHanh_Truyen");
+
+            entity.HasOne(d => d.MaTapNavigation)
+                .WithMany(p => p.LichPhatHanhs) // nếu bạn đã thêm ICollection ở TruyenTap
+                .HasForeignKey(d => d.MaTap)
+                .HasConstraintName("FK_LichPhatHanh_TruyenTap");
+        });
+
         modelBuilder.Entity<PhieuNhap>(entity =>
         {
             entity.HasKey(e => e.MaPhieuNhap);
@@ -363,6 +403,23 @@ public partial class MangaShopContext : DbContext
             entity.HasOne(d => d.MaTruyenNavigation).WithMany(p => p.ChiTietGioHangs)
                 .HasForeignKey(d => d.MaTruyen)
                 .HasConstraintName("FK__ChiTietGi__MaTru__5AEE82B9");
+        });
+        modelBuilder.Entity<TruyenImages>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+
+            entity.ToTable("TruyenImages");
+
+            entity.Property(e => e.Path).HasMaxLength(250);
+
+            entity.Property(e => e.DisplayOrder).HasDefaultValue(0);
+
+            // Cấu hình mối quan hệ 1-N với bảng Truyen
+            entity.HasOne(d => d.Truyen)
+                .WithMany(p => p.TruyenImages) // Đảm bảo trong Model Truyen.cs đã có ICollection<TruyenImages>
+                .HasForeignKey(d => d.MaTruyen)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_TruyenImages_Truyen");
         });
 
     }

@@ -2,6 +2,10 @@
 using MangaShop.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace MangaShop.Controllers
 {
@@ -16,7 +20,7 @@ namespace MangaShop.Controllers
             _env = env;
         }
 
-        // ===== INDEX =====
+        // ===== DANH SÁCH BÀI VIẾT =====
         public IActionResult Index(string? keyword, string? loai)
         {
             var q = _context.BaiViets.AsQueryable();
@@ -39,12 +43,9 @@ namespace MangaShop.Controllers
             return View(data);
         }
 
-        // ===== CREATE =====
+        // ===== THÊM MỚI =====
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View(new BaiVietFormVM());
-        }
+        public IActionResult Create() => View(new BaiVietFormVM());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -61,7 +62,7 @@ namespace MangaShop.Controllers
                 NoiDung = vm.NoiDung,
                 Loai = vm.Loai,
                 TrangThai = vm.TrangThai,
-                AnhDaiDien = fileName,
+                AnhDaiDien = fileName, // Lưu tên file thuần túy
                 NgayDang = DateTime.Now
             };
 
@@ -70,15 +71,7 @@ namespace MangaShop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ===== DETAILS =====
-        public IActionResult Details(int id)
-        {
-            var bai = _context.BaiViets.FirstOrDefault(x => x.MaBaiViet == id);
-            if (bai == null) return NotFound();
-            return View(bai);
-        }
-
-        // ===== EDIT =====
+        // ===== CẬP NHẬT =====
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -114,10 +107,19 @@ namespace MangaShop.Controllers
             bai.Loai = vm.Loai;
             bai.TrangThai = vm.TrangThai;
 
-            // nếu có upload ảnh mới -> thay ảnh
+            // Xử lý upload ảnh mới
             if (vm.AnhUpload != null && vm.AnhUpload.Length > 0)
             {
+                // 1. Lưu ảnh mới
                 var newFile = SaveImage(vm.AnhUpload);
+
+                // 2. Xóa ảnh cũ trên server (nếu có)
+                if (!string.IsNullOrEmpty(bai.AnhDaiDien))
+                {
+                    var oldPath = Path.Combine(_env.WebRootPath, "images", "baiviet", bai.AnhDaiDien);
+                    if (System.IO.File.Exists(oldPath)) System.IO.File.Delete(oldPath);
+                }
+
                 bai.AnhDaiDien = newFile;
             }
 
@@ -125,7 +127,14 @@ namespace MangaShop.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ===== DELETE =====
+        // ===== CHI TIẾT & XÓA =====
+        public IActionResult Details(int id)
+        {
+            var bai = _context.BaiViets.FirstOrDefault(x => x.MaBaiViet == id);
+            if (bai == null) return NotFound();
+            return View(bai);
+        }
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -139,30 +148,38 @@ namespace MangaShop.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var bai = _context.BaiViets.FirstOrDefault(x => x.MaBaiViet == id);
-            if (bai == null) return NotFound();
-
-            _context.BaiViets.Remove(bai);
-            _context.SaveChanges();
+            if (bai != null)
+            {
+                // Xóa ảnh trước khi xóa bản ghi
+                if (!string.IsNullOrEmpty(bai.AnhDaiDien))
+                {
+                    var path = Path.Combine(_env.WebRootPath, "images", "baiviet", bai.AnhDaiDien);
+                    if (System.IO.File.Exists(path)) System.IO.File.Delete(path);
+                }
+                _context.BaiViets.Remove(bai);
+                _context.SaveChanges();
+            }
             return RedirectToAction(nameof(Index));
         }
 
-        // ===== helper save image =====
+        // ===== HELPER: LƯU ẢNH =====
         private string? SaveImage(IFormFile? file)
         {
             if (file == null || file.Length == 0) return null;
 
             var folder = Path.Combine(_env.WebRootPath, "images", "baiviet");
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
 
             var ext = Path.GetExtension(file.FileName);
             var fileName = $"{Guid.NewGuid():N}{ext}";
             var path = Path.Combine(folder, fileName);
 
-            using var stream = new FileStream(path, FileMode.Create);
-            file.CopyTo(stream);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
 
-            return Path.Combine("baiviet", fileName).Replace("\\", "/"); // lưu dạng "baiviet/xxx.jpg"
+            return fileName; // Trả về mỗi tên file để DB gọn nhẹ
         }
     }
 }

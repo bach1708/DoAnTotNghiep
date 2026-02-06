@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MangaShop.Models;
 
@@ -16,6 +17,9 @@ public partial class KhachHang
     public string? SoDienThoai { get; set; }
 
     public string? DiaChi { get; set; }
+
+    [StringLength(255)]
+    public string? AnhDaiDien { get; set; }
 
     public DateTime? NgayTao { get; set; }
 

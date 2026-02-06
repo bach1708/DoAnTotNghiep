@@ -1,107 +1,131 @@
 ﻿@model List<MangaShop.Models.CartItem>
-
 @{
     ViewData["Title"] = "Giỏ hàng";
+    var groupedCart = Model.GroupBy(x => x.TenTruyen).ToList();
 }
-
 @section Styles {
-    <link rel="stylesheet" href="~/css/GioHang.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/cart-giohang.css" asp-append-version="true" />
 }
+@* Container chính bọc toàn bộ trang để quản lý sticky footer *@
+<div class="cart-page-container">
+    <div class="container mt-4 pb-5">
 
-<div class="container cart-page-container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="m-0">🛒 Giỏ hàng của bạn</h2>
-        <a asp-controller="Bill" asp-action="BillUser" class="btn btn-outline-dark">
-            <i class="fa-solid fa-box-open me-2"></i>Đơn hàng đã mua
-        </a>
+        @* Phần tiêu đề và nút tùy chỉnh nằm ngang hàng *@
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold m-0">🛒 Giỏ hàng của bạn</h2>
+
+            @if (Model.Any())
+            {
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle shadow-sm" type="button" id="dropdownCart" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-gear me-1"></i> Tùy chỉnh
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="dropdownCart">
+                        <li>
+                            <a class="dropdown-item text-danger py-2" asp-action="Clear" onclick="return confirm('Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng?')">
+                                <i class="fa-solid fa-trash-can me-2"></i> Xóa tất cả sản phẩm
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="empty-cart-wrapper shadow-sm">
+                <h3 class="text-muted">Giỏ hàng trống</h3>
+                <a href="/" class="btn btn-success mt-3 px-4">Quay lại cửa hàng</a>
+            </div>
+        }
+        else
+        {
+            <div class="accordion shadow-sm" id="cartAccordion">
+                @for (int i = 0; i < groupedCart.Count; i++)
+                {
+                    var group = groupedCart[i];
+                    var firstItem = group.First();
+                    var collapseId = "collapse" + i;
+
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button bg-white text-dark d-flex align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId">
+                                <img src="~/images/@firstItem.AnhBia" class="cart-img-preview me-3 shadow-sm" />
+                                <div class="flex-grow-1">
+                                    <span class="fw-bold fs-5 text-success">@group.Key</span>
+                                    <div class="small text-muted">Tổng cộng: @group.Count() tập</div>
+                                </div>
+                            </button>
+                        </h2>
+
+                        <div id="@collapseId" class="accordion-collapse collapse show" data-bs-parent="#cartAccordion">
+                            <div class="accordion-body p-0">
+                                <table class="table table-hover align-middle m-0 text-center">
+                                    <thead class="table-light small">
+                                        <tr>
+                                            <th class="text-start ps-4">SỐ TẬP</th>
+                                            <th>ĐƠN GIÁ</th>
+                                            <th>SỐ LƯỢNG</th>
+                                            <th>THÀNH TIỀN</th>
+                                            <th>XÓA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in group.OrderBy(x => x.SoTap))
+                                        {
+                                            <tr class="tap-row">
+                                                <td class="text-start ps-4 fw-bold">
+                                                    Tập @(item.SoTap > 0 ? item.SoTap.ToString() : "Mới")
+                                                </td>
+                                                <td class="text-muted">@item.Gia.ToString("N0") đ</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                                        <a asp-action="Decrease" asp-route-id="@item.MaTap" class="btn btn-sm btn-outline-secondary qty-btn">−</a>
+                                                        <span class="fw-bold px-1">@item.SoLuong</span>
+                                                        <a asp-action="Increase" asp-route-id="@item.MaTap" class="btn btn-sm btn-outline-secondary qty-btn">+</a>
+                                                    </div>
+                                                </td>
+                                                <td class="fw-bold text-danger">@item.ThanhTien.ToString("N0") đ</td>
+                                                <td>
+                                                    <a asp-action="Remove" asp-route-id="@item.MaTap" class="text-danger" onclick="return confirm('Xóa tập này?')">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
     </div>
 
-    @if (Model == null || !Model.Any())
+    @* Khối Tổng kết dính (Sticky) - Nằm ngoài container nội dung để dính sát đáy màn hình *@
+    @if (Model.Any())
     {
-        <div class="empty-cart-wrapper text-center animate__animated animate__fadeIn">
-            <div class="mb-4">
-                <i class="fa-solid fa-cart-shopping text-muted" style="font-size: 5rem; opacity: 0.3;"></i>
-            </div>
-            <h3 class="fw-bold">Giỏ hàng của bạn đang trống</h3>
-            <p class="text-muted mb-4">Hãy chọn cho mình những bộ truyện yêu thích nhất nhé!</p>
-            <a asp-controller="NvbHome" asp-action="DanhMuc" class="btn btn-success btn-lg px-5 shadow">
-                🛍️ MUA SẮM NGAY
-            </a>
-        </div>
-    }
-    else
-    {
-        <div class="table-responsive shadow-sm rounded">
-            <table class="table table-hover align-middle cart-table m-0">
-                <thead>
-                    <tr class="text-center">
-                        <th>Ảnh</th>
-                        <th class="text-start">Tên truyện</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr class="text-center">
-                            <td>
-                                <img src="~/images/@item.AnhBia" class="cart-img-preview" />
-                            </td>
-                            <td class="text-start fw-bold">@item.TenTruyen</td>
-                            <td>@item.Gia.ToString("N0") ₫</td>
-                            <td>
-                                <div class="d-flex align-items-center justify-content-center gap-2">
-                                    <a asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.MaTap"
-                                       class="btn btn-sm btn-light qty-btn border">➖</a>
+        <div class="cart-sticky-footer mt-auto">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <a href="/" class="btn btn-outline-dark px-4 py-2 fw-semibold">
+                            <i class="fa-solid fa-arrow-left me-2"></i>Tiếp tục mua sắm
+                        </a>
+                    </div>
 
-                                    <form asp-controller="Cart" asp-action="UpdateQuantity" method="post" class="m-0">
-                                        <input type="hidden" name="id" value="@item.MaTap" />
-                                        <input type="number" name="quantity" value="@item.SoLuong" min="1"
-                                               class="form-control form-control-sm text-center qty-input"
-                                               style="width:50px;" onchange="this.form.submit()" />
-                                    </form>
-
-                                    <a asp-controller="Cart" asp-action="Increase" asp-route-id="@item.MaTap"
-                                       class="btn btn-sm btn-light qty-btn border">➕</a>
-                                </div>
-                            </td>
-                            <td class="text-danger fw-bold">@((item.Gia * item.SoLuong).ToString("N0")) ₫</td>
-                            <td>
-                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.MaTap"
-                                   class="btn btn-sm btn-outline-danger" onclick="return confirm('Xóa sản phẩm này?')">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
-        <div class="d-flex justify-content-between mt-4">
-            <a asp-controller="NvbHome" asp-action="DanhMuc" class="btn btn-sm btn-outline-secondary px-3 align-self-start">
-                <i class="fa-solid fa-arrow-left me-1"></i> Tiếp tục mua
-            </a>
-            <div class="text-end">
-                <p class="mb-2">Tổng cộng: <span class="fs-4 fw-bold text-danger">@Model.Sum(x => x.Gia * x.SoLuong).ToString("N0") ₫</span></p>
-                <a asp-controller="Checkout" asp-action="ThanhToan" class="btn btn-success btn-lg px-5 shadow">
-                    <i class="fa-solid fa-credit-card me-2"></i>THANH TOÁN
-                </a>
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="text-end d-none d-sm-block">
+                            <p class="mb-0 text-muted small">Tổng thanh toán (@Model.Sum(x => x.SoLuong) sản phẩm):</p>
+                            <h3 class="text-danger fw-bold mb-0">@Model.Sum(x => x.ThanhTien).ToString("N0") đ</h3>
+                        </div>
+                        <a asp-controller="Checkout" asp-action="ThanhToan" class="btn btn-success btn-lg px-5 fw-bold shadow">
+                            THANH TOÁN NGAY
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     }
 </div>
-
-@section Scripts {
-    <script>
-        // Tự động submit sau khi người dùng ngừng nhập số lượng
-        let qtyTimer;
-        function queueQtySubmit(form) {
-            clearTimeout(qtyTimer);
-            qtyTimer = setTimeout(() => form.submit(), 500);
-        }
-    </script>
-}
